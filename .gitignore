@@ -1,0 +1,23 @@
+# Never commit data, weights or cached outputs
+outputs/
+third_party/
+data_raw/
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+*.npz
+*.tar
+*.zip
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets
+kaggle.json
+.env
