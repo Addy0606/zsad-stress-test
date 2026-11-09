@@ -83,3 +83,49 @@ Running log: what was done in each phase, decisions, deviations from the spec, a
   Possible shortcut cue; note for Phase 5.
 - `configs/paths/kaggle.yaml` roots are unverified until the setup notebook runs on Kaggle.
 - The pinned `requirements.txt` hasn't been tested inside the Kaggle image yet (it may conflict with preinstalled packages).
+
+## Phase 2: Evaluation harness and reproduction (2026-11-09, in progress)
+
+### Done
+- `eval/metrics.py`: image AUROC, image F1-max, pixel AUROC, exact AUPRO (FPR ≤ 0.3, normalised by 0.3).
+  Per-category values, then the mean over categories. 18 tests, including brute-force AUPRO checks.
+- `eval/cache.py` + `eval/run_benchmark.py`: per-image resumable cache (`scores.csv` + float16 256×256 maps).
+  Each run also writes `config.yaml` (resolved config, git commit, package versions, GPU) and `run_info.json` (s/img, peak GPU MB).
+  `eval/evaluate.py` turns a cache into `metrics.json`.
+- Method wrappers behind one interface (`methods/base.py`): AnomalyCLIP, VisualAD, AnomalyVFM (DINOv2 and RADIO),
+  B1 CLIP prompt, B2 DINOv2 mutual nearest neighbour (transductive).
+- Kaggle pipeline: `scripts/kaggle_submit.py` (fills the notebook parameters, attaches only the needed datasets),
+  `kaggle_wait.py`, `kaggle_fetch.py` (downloads everything except maps).
+
+### Reproduction (image AUROC / pixel AUROC / AUPRO, mean over categories; ours from `outputs/kaggle/zsad-repro-*/…/metrics.json`)
+| Method | Dataset | Ours | Published | Image AUROC Δ |
+|---|---|---|---|---|
+| AnomalyCLIP | MVTec | 91.6 / 88.2 / 81.9 | 91.5 / 91.1 / 81.4 | +0.1 ✅ |
+| AnomalyCLIP | VisA | 82.0 / 93.9 / 83.5 | 82.1 / 95.5 / 87.0 | −0.1 ✅ |
+| AnomalyVFM (DINOv2) | MVTec | 87.4 / 91.4 / 85.3 | 87.4 / 91.6 / 84.5 | 0.0 ✅ |
+| AnomalyVFM (DINOv2) | VisA | 89.3 / 94.2 / 82.8 | 89.3 / 94.5 / 84.5 | 0.0 ✅ |
+| AnomalyVFM (RADIO) | MVTec | 96.4 / 91.3 / 87.2 | 96.4 / 92.0 / 87.6 | 0.0 ✅ |
+| AnomalyVFM (RADIO) | VisA | 92.9 / 94.9 / 88.3 | 92.9 / 95.8 / 90.5 | 0.0 ✅ |
+| VisualAD | MVTec | pending | 92.2 / 90.8 / 87.5 | |
+| VisualAD (our MVTec-trained ckpt) | VisA | pending | 84.7 / 95.8 / 91.0 | |
+| B1 CLIP prompt, B2 DINOv2 MNN | MVTec, VisA | pending (no published target; sanity only) | | |
+
+- AnomalyCLIP checkpoint pairing confirmed: VisA-trained prompts for MVTec, MVTec-trained prompts for VisA (as in the official `test.sh`).
+- Pixel AUROC / AUPRO run 0.2–3.5 points below published. Image AUROC matches, so scoring and preprocessing are right.
+  Hypothesis (unverified): we score pixel metrics on 256×256 maps; papers score at their input resolution (518 or similar).
+  To check by re-scoring at native size before closing the phase.
+- Cost on Kaggle T4 (from `run_info.json`): AnomalyCLIP 0.64–0.66 s/img, 2.05 GB peak;
+  AnomalyVFM DINOv2 0.21–0.23 s/img, 1.88 GB; RADIO 0.23–0.24 s/img, 1.94 GB.
+
+### Deviations
+- **D2: VisualAD MVTec checkpoint trained with batch size 4, not 8.** Batch 8 at 518 px ran out of memory on the 16 GB T4
+  (14.5 GB in use at the first step; the authors' `train.py` has AMP hard-coded off and defaults to `cuda:1`).
+  Everything else follows their `CLIP.sh` (2 epochs, lr 1e-3, seed 111). The check is the MVTec→VisA image AUROC vs the published 84.7.
+- VisualAD training runs with **Pillow 11.3** (training subprocess only, via `PYTHONPATH`): the authors' `dataset.py` calls
+  `Image.fromarray(float64, mode="L")`, which Pillow 13 rejects. Verified locally: 11.3 gives the intended all-zero mask, 13 raises. Evaluation is unaffected.
+
+### Problems hit and fixed
+- Kaggle mounted datasets at `/kaggle/input/datasets/<owner>/<slug>` in some sessions and `/kaggle/input/<slug>` in others.
+  The notebook now runs `check_paths.py --fix` first, which finds each dataset by marker file and rewrites `configs/paths/kaggle.yaml`.
+- Kaggle allows only 2 concurrent GPU batch sessions; a third push is refused (`kaggle_submit.py` now exits on that error).
+- `kaggle_fetch.py`: logs read as UTF-8; retries on HTTP 429.
