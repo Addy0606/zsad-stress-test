@@ -84,7 +84,7 @@ Running log: what was done in each phase, decisions, deviations from the spec, a
 - `configs/paths/kaggle.yaml` roots are unverified until the setup notebook runs on Kaggle.
 - The pinned `requirements.txt` hasn't been tested inside the Kaggle image yet (it may conflict with preinstalled packages).
 
-## Phase 2: Evaluation harness and reproduction (2026-11-09, in progress)
+## Phase 2: Evaluation harness and reproduction (2026-11-09 – 2026-11-10)
 
 ### Done
 - `eval/metrics.py`: image AUROC, image F1-max, pixel AUROC, exact AUPRO (FPR ≤ 0.3, normalised by 0.3).
@@ -100,8 +100,8 @@ Running log: what was done in each phase, decisions, deviations from the spec, a
 ### Reproduction (image AUROC / pixel AUROC / AUPRO, mean over categories; ours from `outputs/kaggle/zsad-repro-*/…/metrics.json`)
 | Method | Dataset | Ours | Published | Image AUROC Δ |
 |---|---|---|---|---|
-| AnomalyCLIP | MVTec | 91.6 / 88.2 / 81.9 | 91.5 / 91.1 / 81.4 | +0.1 ✅ |
-| AnomalyCLIP | VisA | 82.0 / 93.9 / 83.5 | 82.1 / 95.5 / 87.0 | −0.1 ✅ |
+| AnomalyCLIP (layer 24, official setting) | MVTec | 91.6 / 91.1 / 85.1 | 91.5 / 91.1 / 81.4 | +0.1 ✅ |
+| AnomalyCLIP (layer 24, official setting) | VisA | 82.0 / 95.5 / 86.9 | 82.1 / 95.5 / 87.0 | −0.1 ✅ |
 | AnomalyVFM (DINOv2) | MVTec | 87.4 / 91.4 / 85.3 | 87.4 / 91.6 / 84.5 | 0.0 ✅ |
 | AnomalyVFM (DINOv2) | VisA | 89.3 / 94.2 / 82.8 | 89.3 / 94.5 / 84.5 | 0.0 ✅ |
 | AnomalyVFM (RADIO) | MVTec | 96.4 / 91.3 / 87.2 | 96.4 / 92.0 / 87.6 | 0.0 ✅ |
@@ -120,13 +120,20 @@ Baselines (no published target; sanity checks). Image AUROC / F1-max / pixel AUR
 - B2 is strong at pixel level but uses the other unlabelled test images of the category, so it is not comparable to single-image methods.
 
 - AnomalyCLIP checkpoint pairing confirmed: VisA-trained prompts for MVTec, MVTec-trained prompts for VisA (as in the official `test.sh`).
-- Pixel AUROC / AUPRO run 0.2–3.5 points below published. Image AUROC matches, so scoring and preprocessing are right.
-  - Hypothesis 1, **rejected**: evaluation resolution. Re-running AnomalyCLIP with `--eval-size 518` (its input size, as in the official
-    `test.py`) gives MVTec 88.2 / 82.1 and VisA 93.9 / 82.9 (pixel AUROC / AUPRO), the same as at 256 (`outputs/kaggle/zsad-repro-evalsize`).
-    256 stays the common evaluation size.
-  - Hypothesis 2, testing: AnomalyCLIP layers. Our config uses `features_list [6, 12, 18, 24]` (the `test.py` default);
-    the official `test.sh` that produced the paper's numbers passes `--features_list 24`. Image scores don't use these layers,
-    which fits image AUROC matching while pixel metrics don't. Run: `zsad-repro-anomalyclip-l24`.
+- Pixel-metric gaps, investigated one hypothesis at a time (first AnomalyCLIP run used layers [6, 12, 18, 24]: 88.2 / 81.9 MVTec, 93.9 / 83.5 VisA):
+  - H1, **rejected**: evaluation resolution. `--eval-size 518` (AnomalyCLIP's input size, as in its `test.py`) gives the same numbers
+    (MVTec 88.2 / 82.1, VisA 93.9 / 82.9; `outputs/kaggle/zsad-repro-evalsize`). 256 stays the common evaluation size.
+  - H2, **confirmed**: AnomalyCLIP layers. The official `test.sh` passes `--features_list 24`; the `test.py` default is [6, 12, 18, 24].
+    With layer 24, pixel AUROC matches exactly (91.1, 95.5) and VisA AUPRO is within 0.1 (`zsad-repro-anomalyclip-l24`).
+    `configs/methods/anomalyclip.yaml` now uses [24].
+  - H3, **confirmed**: AUPRO implementation. AnomalyCLIP's `cal_pro_score` (200 linear thresholds, keeps FPR < 0.3, then min-max
+    rescales the FPR axis) applied to *our* layer-24 maps gives MVTec 81.2 (published 81.4) and VisA 86.0 (published 87.0); our exact
+    AUPRO gives 85.1 / 86.9. Their function scores lower on 15/15 MVTec categories (up to 14 points: grid 89.6 vs 75.6)
+    (`scripts/compare_aupro.py`, `outputs/kaggle/zsad-aupro-compare`).
+    We keep the exact, standard AUPRO (tested against brute force); **published AUPRO values from different papers aren't directly comparable**.
+  - AnomalyVFM VisA AUPRO is 1.7 (DINOv2) / 2.2 (RADIO) below published. Likely the same kind of cause: AnomalyVFM scores with the
+    `adeval` library (binned accumulation; masks resized by nearest-neighbour to the model's map size). **Not verified**:
+    we haven't run `adeval` on our maps. Image AUROC and pixel AUROC are within 0.9.
 - Cost on Kaggle T4 (from `run_info.json`): AnomalyCLIP 0.64–0.66 s/img, 2.05 GB peak;
   AnomalyVFM DINOv2 0.21–0.23 s/img, 1.88 GB; RADIO 0.23–0.24 s/img, 1.94 GB.
   (VisualAD and baselines: see their `run_info.json`; full cost table comes in Phase 4.)
@@ -139,8 +146,17 @@ Baselines (no published target; sanity checks). Image AUROC / F1-max / pixel AUR
 - VisualAD training runs with **Pillow 11.3** (training subprocess only, via `PYTHONPATH`): the authors' `dataset.py` calls
   `Image.fromarray(float64, mode="L")`, which Pillow 13 rejects. Verified locally: 11.3 gives the intended all-zero mask, 13 raises. Evaluation is unaffected.
 
+### Phase 2 acceptance
+- Image AUROC within 2 points of published for every method/dataset: **yes** (largest gap: VisualAD on VisA, −1.6, explained by D2 at most).
+- Every gap > 2 points explained: AnomalyCLIP pixel metrics (layers; AUPRO implementation), both verified;
+  AnomalyVFM RADIO VisA AUPRO (−2.2), likely implementation, unverified.
+- Tests: 51 pass (loaders, metrics, end-to-end evaluation incl. `--eval-size`).
+
 ### Problems hit and fixed
 - Kaggle mounted datasets at `/kaggle/input/datasets/<owner>/<slug>` in some sessions and `/kaggle/input/<slug>` in others.
   The notebook now runs `check_paths.py --fix` first, which finds each dataset by marker file and rewrites `configs/paths/kaggle.yaml`.
 - Kaggle allows only 2 concurrent GPU batch sessions; a third push is refused (`kaggle_submit.py` now exits on that error).
 - `kaggle_fetch.py`: logs read as UTF-8; retries on HTTP 429.
+- A Kaggle submission sat in "QUEUED" for 4 h with nothing in the queue; re-pushing started it immediately.
+  Rule: if a job is queued > 30 min, check the site and re-push.
+- `kaggle_submit.py` gained `--cpu`, `--datasets` and `--kernel-sources` (attach an earlier job's outputs) for post-processing jobs.
