@@ -4,6 +4,9 @@ phone-verified account for GPU + internet).
 Usage:
     python scripts/kaggle_submit.py --name zsad-anomalyclip --jobs anomalyclip:mvtec anomalyclip:visa
     python scripts/kaggle_submit.py --name zsad-repro --jobs visualad:mvtec --branch phase-2 --wait
+    # CPU-only post-processing of an earlier job's outputs (no GPU queue):
+    python scripts/kaggle_submit.py --name zsad-cmp --cpu --datasets mvtec \
+        --kernel-sources zsad-repro-anomalyclip-l24 --pre "python scripts/compare_aupro.py ..."
 
 The notebook (notebooks/kaggle_benchmark.ipynb) gets its parameters cell filled in, only the
 datasets the jobs need are attached, and the kernel is pushed. Re-pushing the same --name creates
@@ -50,7 +53,10 @@ def wait_for(api, ref: str, poll_s: int = 60) -> str:
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--name", required=True, help="kernel slug, e.g. zsad-anomalyclip")
-    p.add_argument("--jobs", nargs="+", required=True, help="method:dataset pairs")
+    p.add_argument("--jobs", nargs="*", default=[], help="method:dataset pairs")
+    p.add_argument("--datasets", nargs="*", default=[], help="extra datasets to attach (beyond the jobs')")
+    p.add_argument("--kernel-sources", nargs="*", default=[], help="earlier kernels whose outputs to attach")
+    p.add_argument("--cpu", action="store_true", help="no GPU (post-processing only)")
     p.add_argument("--branch", default="main")
     p.add_argument("--extra-args", default="", help="appended to every run_benchmark.py call")
     p.add_argument("--pre", nargs="*", default=[], help="shell commands to run before the jobs")
@@ -58,7 +64,8 @@ def main() -> None:
     a = p.parse_args()
 
     jobs = [tuple(j.split(":")) for j in a.jobs]
-    for _method, d in jobs:
+    needed = {d for _, d in jobs} | set(a.datasets)
+    for d in needed:
         if d not in KAGGLE_DATASETS:
             sys.exit(f"unknown dataset {d}")
     api = get_api()
@@ -80,11 +87,11 @@ def main() -> None:
         "language": "python",
         "kernel_type": "notebook",
         "is_private": True,
-        "enable_gpu": True,
+        "enable_gpu": not a.cpu,
         "enable_internet": True,
-        "dataset_sources": sorted({KAGGLE_DATASETS[d] for _, d in jobs}),
+        "dataset_sources": sorted({KAGGLE_DATASETS[d] for d in needed}),
         "competition_sources": [],
-        "kernel_sources": [],
+        "kernel_sources": [k if "/" in k else f"{user}/{k}" for k in a.kernel_sources],
     }
     (kdir / "kernel-metadata.json").write_text(json.dumps(meta, indent=1))
     resp = api.kernels_push(str(kdir))
