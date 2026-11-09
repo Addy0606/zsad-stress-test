@@ -1,6 +1,6 @@
 # Project brief: Zero-Shot Anomaly Detection Stress Test
 
-*Phase 0 deliverable. Status: draft for approval (2026-11-09).*
+*Phase 0 deliverable. Status: **approved by Addy, 2026-11-09**. Decisions on §8: (1) run RADIO as an extra row: yes; (2) VisualAD on VisA: try training on Kaggle first, N/A as fallback; (3) runtime download of weights from the no-licence repos: accepted.*
 
 ## 1. Research questions
 
