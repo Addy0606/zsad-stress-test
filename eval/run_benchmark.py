@@ -102,6 +102,7 @@ def main() -> None:
     p.add_argument("--limit", type=int, default=None, help="only the first N images (smoke tests)")
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--no-eval", action="store_true")
+    p.add_argument("--eval-size", type=int, default=EVAL_SIZE, help="side of the saved maps / pixel metrics")
     a = p.parse_args()
 
     set_seeds(a.seed)
@@ -119,7 +120,7 @@ def main() -> None:
                 "dataset": OmegaConf.to_container(ds_cfg),
                 "seed": a.seed,
                 "limit": a.limit,
-                "eval_size": EVAL_SIZE,
+                "eval_size": a.eval_size,
                 "git_commit": git_commit(),
                 "torch": str(torch.__version__),
                 "python": platform.python_version(),
@@ -158,7 +159,7 @@ def main() -> None:
                     torch.cuda.synchronize()
                 dt = time.perf_counter() - t0
                 times.append(dt)
-                save_map(rdir, item["path"], resize_map(amap, (EVAL_SIZE, EVAL_SIZE)))
+                save_map(rdir, item["path"], resize_map(amap, (a.eval_size, a.eval_size)))
                 append_score(rdir, {**item, "score": score, "seconds": round(dt, 4)})
                 if n % 50 == 0:
                     print(f"  {category}: {n + 1}/{len(cat_todo)}  {dt:.2f}s/img", flush=True)
@@ -180,7 +181,7 @@ def main() -> None:
     if not a.no_eval:
         from eval.evaluate import evaluate_run
 
-        evaluate_run(rdir, a.dataset, a.paths, a.dataset_override, a.limit)
+        evaluate_run(rdir, a.dataset, a.paths, a.dataset_override, a.limit, a.eval_size)
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@ Usage:
     python eval/evaluate.py --run outputs/anomalyclip/mvtec --dataset mvtec --paths kaggle
 
 Writes metrics.json: per-category metrics and their mean (the dataset number, as in the papers).
-Pixel metrics are computed at EVAL_SIZE x EVAL_SIZE for every method.
+Pixel metrics are computed at EVAL_SIZE x EVAL_SIZE for every method (override: --eval-size).
 """
 
 from __future__ import annotations
@@ -32,6 +32,7 @@ def evaluate_run(
     paths: str = "local",
     dataset_overrides: list[str] | None = None,
     limit: int | None = None,
+    eval_size: int = EVAL_SIZE,
 ) -> dict:
     rdir = Path(rdir)
     dataset = build_dataset(dataset_name, paths, dataset_overrides)
@@ -48,7 +49,7 @@ def evaluate_run(
             continue
         masks = maps = None
         if dataset.has_pixel_labels:
-            masks = np.stack([dataset.load_mask(index_of[r["path"]], EVAL_SIZE) for r in cat_rows])
+            masks = np.stack([dataset.load_mask(index_of[r["path"]], eval_size) for r in cat_rows])
             maps = np.stack([load_map(rdir, r["path"]) for r in cat_rows])
         m = category_metrics(labels, scores, masks, maps)
         m["n_images"], m["n_anomalous"] = len(cat_rows), int(labels.sum())
@@ -59,7 +60,7 @@ def evaluate_run(
         "dataset": dataset_name,
         "n_images": len(rows),
         "n_categories": len(per_category),
-        "eval_size": EVAL_SIZE,
+        "eval_size": eval_size,
         "complete": len(rows) == len(dataset) and limit is None,
         "mean": mean,
         "per_category": per_category,
@@ -79,8 +80,9 @@ def main() -> None:
     p.add_argument("--run", required=True)
     p.add_argument("--dataset", required=True)
     p.add_argument("--paths", default="local")
+    p.add_argument("--eval-size", type=int, default=EVAL_SIZE, help="must match the size the maps were saved at")
     a = p.parse_args()
-    evaluate_run(Path(a.run), a.dataset, a.paths)
+    evaluate_run(Path(a.run), a.dataset, a.paths, eval_size=a.eval_size)
 
 
 if __name__ == "__main__":
