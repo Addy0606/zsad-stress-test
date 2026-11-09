@@ -13,7 +13,15 @@ Running log: what was done in each phase, decisions, deviations from the spec, a
 - Checked every candidate repo: exists, weights downloadable, licence, protocol, published numbers. See `docs/brief.md` §3.
 - Smoke-tested on the RTX 3050 with `scripts/phase0_smoke_test.py`:
   - AnomalyVFM-DINOv2: ✅ runs, peak 1,894 MB GPU, 96×96 output map.
-  - AnomalyVFM-RADIO, AnomalyCLIP, VisualAD: not yet run (the auto-mode permission check blocked running third-party code; waiting for Addy's approval).
+  - AnomalyVFM-RADIO: ✅ peak 1,955 MB, 96×96 map.
+  - AnomalyCLIP (VisA-trained checkpoint): ✅ peak 2,073 MB, 518×518 map.
+  - VisualAD (VisA-trained checkpoint): ✅ peak 1,995 MB, 518×518 map.
+  - All four fit easily on the 6 GB laptop GPU at batch size 1. Extra pip packages the repos need but don't list
+    properly: `thop`, `tabulate`, `seaborn`, `pandas`, `scikit-image`.
+  - Score scales differ a lot (AnomalyCLIP gives a probability in [0, 1]; VisualAD a raw map with values in roughly
+    [-4, 3]), so the fusion head must normalise each map per image, as the spec already says.
+- Disk: env 7.6 GB, weight cache 4.6 GB, third_party 1 GB (all on D:). pip's 5.2 GB download cache on C: was purged;
+  installs now use `--no-cache-dir`. Datasets stay on Kaggle; only a small dev subset will be stored locally.
 - Wrote `docs/brief.md`.
 
 ### Decisions
