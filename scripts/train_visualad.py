@@ -43,12 +43,22 @@ MVTEC_CATEGORIES = [
 
 def main() -> None:
     p = argparse.ArgumentParser()
-    p.add_argument("--mvtec-root", required=True)
+    p.add_argument("--mvtec-root", default=None, help="MVTec root (default: from --paths profile)")
+    p.add_argument("--paths", default="kaggle", help="paths profile used when --mvtec-root is not given")
     p.add_argument("--work", default="/tmp/visualad_train")
     p.add_argument("--epochs", type=int, default=2)
     p.add_argument("--batch-size", type=int, default=8)
     p.add_argument("--copy-to", default=None, help="also copy the checkpoint here (e.g. /kaggle/working)")
     a = p.parse_args()
+
+    if a.mvtec_root is None:
+        sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+        from data.registry import load_dataset_config  # noqa: E402
+
+        a.mvtec_root = str(load_dataset_config("mvtec", a.paths).root)
+    if not (Path(a.mvtec_root) / "bottle" / "train").is_dir():
+        sys.exit(f"MVTec root looks wrong (no bottle/train): {a.mvtec_root}")
+    print("MVTec root:", a.mvtec_root, flush=True)
 
     work = Path(a.work)
     link_root = work / "mvtec"
