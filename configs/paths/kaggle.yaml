@@ -1,0 +1,7 @@
+# Dataset roots inside a Kaggle notebook (datasets attached as notebook inputs).
+# notebooks/kaggle_setup.ipynb checks each path and prints the right one if Kaggle mounts it elsewhere.
+mvtec: /kaggle/input/mvtec-ad
+visa: /kaggle/input/amazon-visa-anomaly
+mpdd: /kaggle/input/mpdd-ad
+bmad_brain: /kaggle/input/bmad-aaclip/Brain_AD/BraTS2021_slice
+headct: /kaggle/input/head-ct-hemorrhage

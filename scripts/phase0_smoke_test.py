@@ -43,7 +43,9 @@ def run_anomalyclip(image: Image.Image, checkpoint: str) -> tuple[float, np.ndar
     # Hyperparameters from the official test.sh
     params = {"Prompt_length": 12, "learnabel_text_embedding_depth": 9, "learnabel_text_embedding_length": 4}
     args = argparse.Namespace(image_size=518)
-    model, _ = AnomalyCLIP_lib.load("ViT-L/14@336px", device="cuda", design_details=params, download_root=CLIP_CACHE)
+    model, _ = AnomalyCLIP_lib.load(
+        "ViT-L/14@336px", device="cuda", design_details=params, download_root=CLIP_CACHE
+    )
     model.eval()
     preprocess, _ = get_transform(args)
 
@@ -89,7 +91,9 @@ def run_visualad(image: Image.Image, checkpoint: str) -> tuple[float, np.ndarray
     layers = ckpt.get("features_list", [6, 12, 18, 24])
     preprocess, _ = get_transform(argparse.Namespace(image_size=size))
 
-    model, _ = VisualAD_lib.load(ckpt.get("backbone", "ViT-L/14@336px"), device="cuda", download_root=CLIP_CACHE)
+    model, _ = VisualAD_lib.load(
+        ckpt.get("backbone", "ViT-L/14@336px"), device="cuda", download_root=CLIP_CACHE
+    )
     model.eval().to("cuda")
     dim = model.visual.embed_dim
     model.visual.anomaly_token.data = ckpt["anomaly_token"].cuda()
@@ -103,8 +107,11 @@ def run_visualad(image: Image.Image, checkpoint: str) -> tuple[float, np.ndarray
         transforms[name] = t.eval()
     cfg = ckpt.get("cross_attn_config", {})
     cross = build_layer_adaptive_cross_attention(
-        layers=layers, embed_dim=dim, num_anchors=cfg.get("num_anchors", 4),
-        dropout=cfg.get("dropout", 0.1), res_scale_init=cfg.get("res_scale_init", 0.01),
+        layers=layers,
+        embed_dim=dim,
+        num_anchors=cfg.get("num_anchors", 4),
+        dropout=cfg.get("dropout", 0.1),
+        res_scale_init=cfg.get("res_scale_init", 0.01),
     ).cuda()
     cross.load_state_dict(ckpt["cross_attn"])
     cross.eval()
@@ -121,11 +128,14 @@ def run_visualad(image: Image.Image, checkpoint: str) -> tuple[float, np.ndarray
             if key in transforms:
                 b, n, d = pf.shape
                 pf = transforms[key](pf.view(-1, d)).view(b, n, d)
-            maps.append(generate_anomaly_map_from_tokens(
-                F.normalize(adapted[i]["anomaly"], dim=1, eps=1e-8),
-                F.normalize(adapted[i]["normal"], dim=1, eps=1e-8),
-                pf[:, start:, :], size,
-            ))
+            maps.append(
+                generate_anomaly_map_from_tokens(
+                    F.normalize(adapted[i]["anomaly"], dim=1, eps=1e-8),
+                    F.normalize(adapted[i]["normal"], dim=1, eps=1e-8),
+                    pf[:, start:, :],
+                    size,
+                )
+            )
         amap = torch.stack(maps).sum(0)[0].cpu().numpy()
     k = max(1, round(0.01 * amap.size))  # paper: image score = mean of top 1% pixels (industrial)
     score = float(np.sort(amap.ravel())[-k:].mean())
@@ -144,8 +154,11 @@ def run_anomalyvfm(image: Image.Image, variant: str) -> tuple[float, np.ndarray]
 
 def main() -> None:
     p = argparse.ArgumentParser()
-    p.add_argument("--method", required=True,
-                   choices=["anomalyclip", "visualad", "anomalyvfm_radio", "anomalyvfm_dinov2"])
+    p.add_argument(
+        "--method",
+        required=True,
+        choices=["anomalyclip", "visualad", "anomalyvfm_radio", "anomalyvfm_dinov2"],
+    )
     p.add_argument("--image", required=True)
     p.add_argument("--checkpoint", default=None)
     p.add_argument("--out", default=str(REPO_ROOT / "outputs" / "phase0_smoke"))
@@ -168,10 +181,15 @@ def main() -> None:
     total = time.time() - t0  # includes model load; per-image timing is measured properly in Phase 4
 
     result = {
-        "method": a.method, "image": a.image, "image_score": score,
-        "map_shape": list(amap.shape), "map_min": float(amap.min()), "map_max": float(amap.max()),
+        "method": a.method,
+        "image": a.image,
+        "image_score": score,
+        "map_shape": list(amap.shape),
+        "map_min": float(amap.min()),
+        "map_max": float(amap.max()),
         "peak_gpu_mb": round(torch.cuda.max_memory_allocated() / 2**20),
-        "load_plus_infer_s": round(total, 1), "gpu": torch.cuda.get_device_name(0),
+        "load_plus_infer_s": round(total, 1),
+        "gpu": torch.cuda.get_device_name(0),
         "torch": torch.__version__,
     }
     print(json.dumps(result, indent=2))

@@ -1,0 +1,5 @@
+# Head CT hemorrhage, 200 images, image-level labels only
+name: headct
+loader: headct
+categories: null   # null = all categories; or a list, e.g. [bottle, screw]
+image_size: null   # null = native resolution; methods resize themselves (fixed per method in Phase 2)
