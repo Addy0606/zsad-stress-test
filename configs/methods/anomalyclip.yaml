@@ -5,7 +5,9 @@ protocol: "cross-dataset: prompts trained on VisA for target MVTec AD, trained o
 params:
   image_size: 518
   sigma: 4.0
-  features_list: [6, 12, 18, 24]
+  # Official test.sh (which produced the paper's numbers) uses layer 24 only; the test.py default [6, 12, 18, 24]
+  # under-reproduces pixel metrics (PROGRESS.md, Phase 2). Image scores don't depend on this.
+  features_list: [24]
   clip_cache: ${oc.env:CLIP_CACHE,null}
 # Which prompt checkpoint to use for each target dataset ("default" = any other target).
 # Pairing taken from the official test.sh: the folder WITHOUT "_visa" is used to test MVTec (so it was
