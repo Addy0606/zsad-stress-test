@@ -42,7 +42,7 @@ def wait_for(api, ref: str, poll_s: int = 60) -> str:
     while True:
         status = str(api.kernels_status(ref).status)
         print(time.strftime("%H:%M:%S"), status, flush=True)
-        if any(s in status.upper() for s in ("COMPLETE", "ERROR", "CANCEL")):
+        if status.split(".")[-1] in ("COMPLETE", "ERROR", "CANCEL"):
             return status
         time.sleep(poll_s)
 
