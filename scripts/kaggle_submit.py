@@ -53,6 +53,7 @@ def main() -> None:
     p.add_argument("--jobs", nargs="+", required=True, help="method:dataset pairs")
     p.add_argument("--branch", default="main")
     p.add_argument("--extra-args", default="", help="appended to every run_benchmark.py call")
+    p.add_argument("--pre", nargs="*", default=[], help="shell commands to run before the jobs")
     p.add_argument("--wait", action="store_true", help="poll until the run finishes")
     a = p.parse_args()
 
