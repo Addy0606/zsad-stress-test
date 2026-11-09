@@ -40,9 +40,7 @@ class BMADBrain(AnomalyDataset):
         if mask_dir is None:
             raise FileNotFoundError(f"no mask folder ({' or '.join(MASK_DIR_NAMES)}) inside {bad}")
 
-        records = [
-            Record(image_path=str(p), label=0, category="brain") for p in list_images(_image_dir(good))
-        ]
+        records = [Record(image_path=str(p), label=0, category="brain") for p in list_images(_image_dir(good))]
         for p in list_images(_image_dir(bad)):
             mask = mask_dir / p.name
             if not mask.exists():

@@ -51,11 +51,7 @@ def main() -> None:
             continue
         ok = False
         found = find_root(name, Path(a.search)) if a.search else None
-        hint = (
-            f"found at {found} -> set `{name}: {found}` in configs/paths/{a.paths}.yaml"
-            if found
-            else "not found"
-        )
+        hint = f"found at {found} -> set `{name}: {found}` in configs/paths/{a.paths}.yaml" if found else "not found"
         print(f"[missing] {name:11s} {root}: {hint}")
     sys.exit(0 if ok else 1)
 

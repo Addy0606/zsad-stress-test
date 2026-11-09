@@ -80,11 +80,7 @@ def main() -> None:
 
     fig.suptitle(f"{ds.name}: {len(ds)} test images ({sum(labels)} anomalous), seed {a.seed}", fontsize=10)
     fig.tight_layout()
-    out = (
-        Path(a.out)
-        if a.out
-        else Path(__file__).resolve().parents[1] / "outputs" / "samples" / f"{ds.name}.png"
-    )
+    out = Path(a.out) if a.out else Path(__file__).resolve().parents[1] / "outputs" / "samples" / f"{ds.name}.png"
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out, dpi=110)
     print(f"saved {out}")

@@ -1,0 +1,7 @@
+# AnomalyVFM (Fučka et al., CVPR 2026), DINOv2 ViT-L/14 backbone: vision-foundation-model family (main row)
+name: anomalyvfm_dinov2
+class: AnomalyVFM
+protocol: "pure zero-shot: trained only on synthetic images; one checkpoint for every target"
+params:
+  backbone: dinov2   # runs at 672 px (from the HF config)
+  mean_kernel: 5

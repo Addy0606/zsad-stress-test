@@ -1,0 +1,7 @@
+# AnomalyVFM, RADIO v2.5-L backbone: extra row (RADIO is partly distilled from CLIP)
+name: anomalyvfm_radio
+class: AnomalyVFM
+protocol: "pure zero-shot: trained only on synthetic images; one checkpoint for every target"
+params:
+  backbone: radio    # runs at 768 px (from the HF config)
+  mean_kernel: 5

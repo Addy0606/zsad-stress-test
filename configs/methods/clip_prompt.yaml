@@ -1,0 +1,6 @@
+# Baseline B1: plain CLIP prompt score, no training, single image
+name: clip_prompt
+class: CLIPPrompt
+protocol: "pure zero-shot, single image, no training"
+params:
+  clip_weights: ${oc.env:CLIP_CACHE,D:/Projects/cache/clip}/ViT-L-14-336px.pt
