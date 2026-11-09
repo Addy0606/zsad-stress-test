@@ -1,0 +1,5 @@
+# VisA, 12 industrial categories, 2,162 test images
+name: visa
+loader: visa
+categories: null   # null = all categories; or a list, e.g. [bottle, screw]
+image_size: null   # null = native resolution; methods resize themselves (fixed per method in Phase 2)

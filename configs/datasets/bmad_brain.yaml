@@ -1,0 +1,5 @@
+# BMAD Brain MRI (BraTS 2021 axial slices), pixel masks
+name: bmad_brain
+loader: bmad_brain
+categories: null   # null = all categories; or a list, e.g. [bottle, screw]
+image_size: null   # null = native resolution; methods resize themselves (fixed per method in Phase 2)

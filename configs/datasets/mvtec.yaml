@@ -1,0 +1,5 @@
+# MVTec AD, 15 industrial categories, 1,725 test images
+name: mvtec
+loader: mvtec
+categories: null   # null = all categories; or a list, e.g. [bottle, screw]
+image_size: null   # null = native resolution; methods resize themselves (fixed per method in Phase 2)

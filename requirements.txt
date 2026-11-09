@@ -1,0 +1,43 @@
+# Pinned versions that were tested together (Python 3.12, Windows + RTX 3050, 2026-11-09).
+#
+# PyTorch is NOT listed here on purpose: pip would silently replace a CUDA build with a
+# CPU-only one. Install it first:
+#   local:  pip install --no-cache-dir torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cu128
+#   Kaggle: use the preinstalled torch
+# Then: pip install --no-cache-dir -r requirements.txt
+
+# core
+numpy==2.5.4
+scipy==1.18.1
+pillow==13.0.0
+omegaconf==2.4.0
+tqdm==4.70.1
+pandas==3.1.1
+
+# models
+timm==1.0.31
+open_clip_torch==4.2.1
+# AnomalyVFM's from_pretrained breaks with huggingface_hub 2.x / transformers 5.x (config is dropped)
+huggingface_hub==0.36.2
+transformers==4.56.1
+safetensors==0.8.0
+einops==0.8.2
+ftfy==6.3.1
+regex==2026.11.7
+
+# metrics and plots
+scikit-learn==1.9.1
+scikit-image==0.26.0
+opencv-python-headless==5.0.0.93
+matplotlib==3.11.2
+seaborn==0.13.2
+
+# needed by third-party repos (imported but not listed in their requirements)
+thop==0.1.1.post2209072238
+tabulate==0.10.0
+
+# data download, tests, formatting
+kaggle==2.2.5
+six==1.17.0
+pytest==9.2.0
+ruff==0.17.4
