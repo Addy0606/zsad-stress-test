@@ -24,6 +24,9 @@ Running log: what was done in each phase, decisions, deviations from the spec, a
   AnomalyVFM needs `huggingface_hub==0.36.2` and `transformers==4.56.1`. With huggingface_hub 2.x its
   `from_pretrained` drops the config and fails with a shape mismatch.
 
+- **2026-11-09: brief approved.** AnomalyVFM-RADIO added as an extra row; VisualAD on VisA will be trained on Kaggle
+  (fallback N/A); weights from the no-licence repos are downloaded at runtime and never redistributed.
+
 ### Deviations from spec
 - **D1. No custom photo dataset** (Addy's decision, 2026-11-09). It is replaced by **MPDD**, a public metal-parts
   dataset with varied lighting, pose and background and pixel masks. MPDD takes the custom set's role: test-only,
