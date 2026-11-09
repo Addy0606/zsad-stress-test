@@ -7,7 +7,7 @@ read-only and train.py expects <root>/meta.json, we build a writable folder of s
 MVTec categories and generate meta.json there with the repo's own generator.
 
 Usage (on Kaggle, after setup_third_party.py):
-    python scripts/train_visualad.py --mvtec-root /kaggle/input/datasets/ipythonx/mvtec-ad
+    python scripts/train_visualad.py --paths kaggle      # MVTec root from configs/paths/kaggle.yaml
 """
 
 from __future__ import annotations
@@ -22,6 +22,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 VISUALAD = REPO / "third_party" / "VisualAD"
 TARGET = VISUALAD / "weight" / "train_on_mvtec" / "CLIP.pth"
+PILLOW_FOR_TRAINING = "pillow==11.3.0"  # last release line that accepts the authors' fromarray call
 MVTEC_CATEGORIES = [
     "bottle",
     "cable",
@@ -74,8 +75,19 @@ def main() -> None:
 
     MVTecSolver(root=str(link_root)).run()
 
+    # The authors' dataset.py calls Image.fromarray(float64 array, mode="L"), which Pillow 13 rejects
+    # ("Invalid mode for data type"). Give only the training process an older Pillow, so evaluation
+    # keeps using the same environment as every other method.
+    old_pil = work / "pillow11"
+    if not (old_pil / "PIL").is_dir():
+        pip = [sys.executable, "-m", "pip", "install", "-q", "--no-deps", "--target", str(old_pil), PILLOW_FOR_TRAINING]
+        subprocess.run(pip, check=True)
     save = work / "checkpoints"
-    env = {**os.environ, "CUBLAS_WORKSPACE_CONFIG": ":4096:8"}  # train.py enables deterministic algorithms
+    env = {
+        **os.environ,
+        "CUBLAS_WORKSPACE_CONFIG": ":4096:8",  # train.py enables deterministic algorithms
+        "PYTHONPATH": os.pathsep.join([str(old_pil), os.environ.get("PYTHONPATH", "")]),
+    }
     cmd = [
         sys.executable,
         "train.py",
