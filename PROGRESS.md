@@ -106,16 +106,31 @@ Running log: what was done in each phase, decisions, deviations from the spec, a
 | AnomalyVFM (DINOv2) | VisA | 89.3 / 94.2 / 82.8 | 89.3 / 94.5 / 84.5 | 0.0 ✅ |
 | AnomalyVFM (RADIO) | MVTec | 96.4 / 91.3 / 87.2 | 96.4 / 92.0 / 87.6 | 0.0 ✅ |
 | AnomalyVFM (RADIO) | VisA | 92.9 / 94.9 / 88.3 | 92.9 / 95.8 / 90.5 | 0.0 ✅ |
-| VisualAD | MVTec | pending | 92.2 / 90.8 / 87.5 | |
-| VisualAD (our MVTec-trained ckpt) | VisA | pending | 84.7 / 95.8 / 91.0 | |
-| B1 CLIP prompt, B2 DINOv2 MNN | MVTec, VisA | pending (no published target; sanity only) | | |
+| VisualAD (authors' VisA-trained ckpt) | MVTec | 92.2 / 90.8 / 87.7 | 92.2 / 90.8 / 87.5 | 0.0 ✅ |
+| VisualAD (our MVTec-trained ckpt, batch 4) | VisA | 83.1 / 95.3 / 89.8 | 84.7 / 95.8 / 91.0 | −1.6 ✅ |
+
+Baselines (no published target; sanity checks). Image AUROC / F1-max / pixel AUROC / AUPRO:
+| Baseline | MVTec | VisA |
+|---|---|---|
+| B1 CLIP prompt (single image) | 86.6 / 89.2 / 40.8 / 8.0 | 77.1 / 78.8 / 52.1 / 15.5 |
+| B2 DINOv2 mutual NN (**transductive**, reported separately) | 92.5 / 93.4 / 94.9 / 90.6 | 82.7 / 81.3 / 95.6 / 83.0 |
+
+- B1's pixel AUROC is at or below chance: raw CLIP patch tokens don't align with text (the known failure that AnomalyCLIP/VisualAD address).
+  Image-level is reasonable because the score uses the pooled embedding and a prompt ensemble.
+- B2 is strong at pixel level but uses the other unlabelled test images of the category, so it is not comparable to single-image methods.
 
 - AnomalyCLIP checkpoint pairing confirmed: VisA-trained prompts for MVTec, MVTec-trained prompts for VisA (as in the official `test.sh`).
 - Pixel AUROC / AUPRO run 0.2–3.5 points below published. Image AUROC matches, so scoring and preprocessing are right.
-  Hypothesis (unverified): we score pixel metrics on 256×256 maps; papers score at their input resolution (518 or similar).
-  To check by re-scoring at native size before closing the phase.
+  - Hypothesis 1, **rejected**: evaluation resolution. Re-running AnomalyCLIP with `--eval-size 518` (its input size, as in the official
+    `test.py`) gives MVTec 88.2 / 82.1 and VisA 93.9 / 82.9 (pixel AUROC / AUPRO), the same as at 256 (`outputs/kaggle/zsad-repro-evalsize`).
+    256 stays the common evaluation size.
+  - Hypothesis 2, testing: AnomalyCLIP layers. Our config uses `features_list [6, 12, 18, 24]` (the `test.py` default);
+    the official `test.sh` that produced the paper's numbers passes `--features_list 24`. Image scores don't use these layers,
+    which fits image AUROC matching while pixel metrics don't. Run: `zsad-repro-anomalyclip-l24`.
 - Cost on Kaggle T4 (from `run_info.json`): AnomalyCLIP 0.64–0.66 s/img, 2.05 GB peak;
   AnomalyVFM DINOv2 0.21–0.23 s/img, 1.88 GB; RADIO 0.23–0.24 s/img, 1.94 GB.
+  (VisualAD and baselines: see their `run_info.json`; full cost table comes in Phase 4.)
+- Local RTX 3050 runs hit intermittent CUDA OOM under Windows with >3 GB reported free; all GPU work now runs on Kaggle.
 
 ### Deviations
 - **D2: VisualAD MVTec checkpoint trained with batch size 4, not 8.** Batch 8 at 518 px ran out of memory on the 16 GB T4
