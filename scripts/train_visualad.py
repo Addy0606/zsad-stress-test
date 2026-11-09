@@ -86,6 +86,7 @@ def main() -> None:
     env = {
         **os.environ,
         "CUBLAS_WORKSPACE_CONFIG": ":4096:8",  # train.py enables deterministic algorithms
+        "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",  # less fragmentation on a 16 GB T4
         "PYTHONPATH": os.pathsep.join([str(old_pil), os.environ.get("PYTHONPATH", "")]),
     }
     cmd = [
