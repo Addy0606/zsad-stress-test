@@ -66,7 +66,9 @@ def main() -> None:
 
     nb = json.loads((REPO / "notebooks" / "kaggle_benchmark.ipynb").read_text())
     params = next(c for c in nb["cells"] if "parameters" in c["metadata"].get("tags", []))
-    params["source"] = f"BRANCH = {a.branch!r}\nJOBS = {jobs!r}\nEXTRA_ARGS = {a.extra_args!r}"
+    params["source"] = (
+        f"BRANCH = {a.branch!r}\nJOBS = {jobs!r}\nEXTRA_ARGS = {a.extra_args!r}\nPRE_COMMANDS = {a.pre!r}"
+    )
 
     kdir = REPO / "outputs" / "kaggle_kernels" / a.name
     kdir.mkdir(parents=True, exist_ok=True)
