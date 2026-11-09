@@ -5,9 +5,9 @@ description = "Benchmark of zero-shot anomaly detector families across industria
 requires-python = ">=3.10"
 
 [tool.ruff]
-line-length = 110
+line-length = 120
 target-version = "py310"
-extend-exclude = ["third_party", "outputs"]
+extend-exclude = ["third_party", "outputs", "notebooks"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]

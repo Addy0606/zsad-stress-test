@@ -54,9 +54,7 @@ class AnomalyDataset(Dataset):
     domain: str = "industrial"
     has_pixel_labels: bool = True  # False for datasets with image-level labels only (e.g. Head CT)
 
-    def __init__(
-        self, root: str | Path, categories: list[str] | None = None, image_size: int | None = None
-    ) -> None:
+    def __init__(self, root: str | Path, categories: list[str] | None = None, image_size: int | None = None) -> None:
         self.root = Path(root)
         if not self.root.exists():
             raise FileNotFoundError(f"{self.name}: dataset root not found: {self.root}")
@@ -78,6 +76,15 @@ class AnomalyDataset(Dataset):
 
     def __len__(self) -> int:
         return len(self.records)
+
+    def load_mask(self, idx: int, size: int) -> np.ndarray:
+        """Ground-truth mask resized (nearest) to size x size, without loading the image.
+        Used by evaluation, which compares every method at the same resolution."""
+        rec = self.records[idx]
+        if rec.mask_path is None:
+            return np.zeros((size, size), dtype=np.uint8)
+        mask = (np.array(Image.open(rec.mask_path).convert("L")) > 0).astype(np.uint8)
+        return np.array(Image.fromarray(mask).resize((size, size), Image.NEAREST))
 
     def __getitem__(self, idx: int) -> dict:
         rec = self.records[idx]
@@ -111,9 +118,7 @@ class AnomalyDataset(Dataset):
 
     def summary(self) -> str:
         """One line per category: number of normal and anomalous test images."""
-        lines = [
-            f"{self.name} ({self.domain}), {len(self)} test images, pixel labels: {self.has_pixel_labels}"
-        ]
+        lines = [f"{self.name} ({self.domain}), {len(self)} test images, pixel labels: {self.has_pixel_labels}"]
         for c in self.categories:
             recs = [r for r in self.records if r.category == c]
             n_anom = sum(r.label for r in recs)

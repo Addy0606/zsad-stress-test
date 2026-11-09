@@ -43,9 +43,7 @@ def run_anomalyclip(image: Image.Image, checkpoint: str) -> tuple[float, np.ndar
     # Hyperparameters from the official test.sh
     params = {"Prompt_length": 12, "learnabel_text_embedding_depth": 9, "learnabel_text_embedding_length": 4}
     args = argparse.Namespace(image_size=518)
-    model, _ = AnomalyCLIP_lib.load(
-        "ViT-L/14@336px", device="cuda", design_details=params, download_root=CLIP_CACHE
-    )
+    model, _ = AnomalyCLIP_lib.load("ViT-L/14@336px", device="cuda", design_details=params, download_root=CLIP_CACHE)
     model.eval()
     preprocess, _ = get_transform(args)
 
@@ -91,9 +89,7 @@ def run_visualad(image: Image.Image, checkpoint: str) -> tuple[float, np.ndarray
     layers = ckpt.get("features_list", [6, 12, 18, 24])
     preprocess, _ = get_transform(argparse.Namespace(image_size=size))
 
-    model, _ = VisualAD_lib.load(
-        ckpt.get("backbone", "ViT-L/14@336px"), device="cuda", download_root=CLIP_CACHE
-    )
+    model, _ = VisualAD_lib.load(ckpt.get("backbone", "ViT-L/14@336px"), device="cuda", download_root=CLIP_CACHE)
     model.eval().to("cuda")
     dim = model.visual.embed_dim
     model.visual.anomaly_token.data = ckpt["anomaly_token"].cuda()
