@@ -1,0 +1,5 @@
+# MPDD, 6 metal-part categories, 458 test images; test-only stress set
+name: mpdd
+loader: mpdd
+categories: null   # null = all categories; or a list, e.g. [bottle, screw]
+image_size: null   # null = native resolution; methods resize themselves (fixed per method in Phase 2)

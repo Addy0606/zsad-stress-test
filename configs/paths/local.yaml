@@ -1,0 +1,7 @@
+# Dataset roots on Addy's laptop: a small dev subset only (scripts/download_dev_subset.py).
+# Full datasets live on Kaggle; see configs/paths/kaggle.yaml.
+mvtec: D:/Projects/data_dev/mvtec
+visa: D:/Projects/data_dev/visa
+mpdd: D:/Projects/data_dev/mpdd
+bmad_brain: D:/Projects/data_dev/bmad/Brain_AD/BraTS2021_slice
+headct: D:/Projects/data_dev/headct
