@@ -87,7 +87,9 @@ def main() -> None:
         "kernel_sources": [],
     }
     (kdir / "kernel-metadata.json").write_text(json.dumps(meta, indent=1))
-    api.kernels_push(str(kdir))
+    resp = api.kernels_push(str(kdir))
+    if getattr(resp, "error", ""):  # e.g. "Maximum batch GPU session count of 2 reached."
+        sys.exit(f"Kaggle refused the push: {resp.error}")
     print(f"pushed {user}/{a.name}: https://www.kaggle.com/code/{user}/{a.name}")
     if a.wait:
         print("final status:", wait_for(api, f"{user}/{a.name}"))
