@@ -1,0 +1,81 @@
+dataset,method,bin,n_regions,found,ci_low,ci_high
+mvtec,anomalyclip,tiny (<100 px),376,0.7766,0.69286,0.85802
+mvtec,anomalyclip,small (100-1k),879,0.8157,0.78638,0.84321
+mvtec,anomalyclip,medium (1k-5k),485,0.66598,0.62424,0.70902
+mvtec,anomalyclip,large (>5k),146,0.43836,0.36054,0.52414
+mvtec,visualad,tiny (<100 px),376,0.72872,0.64248,0.81531
+mvtec,visualad,small (100-1k),879,0.86234,0.83713,0.888
+mvtec,visualad,medium (1k-5k),485,0.6866,0.64344,0.7297
+mvtec,visualad,large (>5k),146,0.36301,0.29252,0.44521
+mvtec,anomalyvfm_dinov2,tiny (<100 px),376,0.55319,0.46798,0.6392
+mvtec,anomalyvfm_dinov2,small (100-1k),879,0.83845,0.80689,0.86848
+mvtec,anomalyvfm_dinov2,medium (1k-5k),485,0.74021,0.69833,0.78334
+mvtec,anomalyvfm_dinov2,large (>5k),146,0.50685,0.43151,0.59187
+mvtec,anomalyvfm_radio,tiny (<100 px),376,0.6383,0.56068,0.71924
+mvtec,anomalyvfm_radio,small (100-1k),879,0.8157,0.78644,0.84821
+mvtec,anomalyvfm_radio,medium (1k-5k),485,0.70722,0.66734,0.75154
+mvtec,anomalyvfm_radio,large (>5k),146,0.49315,0.41497,0.57931
+mvtec,clip_prompt,tiny (<100 px),376,0.01064,0.0,0.024
+mvtec,clip_prompt,small (100-1k),879,0.0,0.0,0.0
+mvtec,clip_prompt,medium (1k-5k),485,0.0,0.0,0.0
+mvtec,clip_prompt,large (>5k),146,0.0,0.0,0.0
+visa,anomalyclip,tiny (<100 px),3014,0.59954,0.5561,0.64229
+visa,anomalyclip,small (100-1k),625,0.6736,0.63197,0.71522
+visa,anomalyclip,medium (1k-5k),96,0.52083,0.41837,0.63043
+visa,anomalyclip,large (>5k),36,0.33333,0.19444,0.5
+visa,visualad,tiny (<100 px),3014,0.63968,0.60127,0.67691
+visa,visualad,small (100-1k),625,0.7552,0.71429,0.79283
+visa,visualad,medium (1k-5k),96,0.60417,0.5,0.7033
+visa,visualad,large (>5k),36,0.16667,0.05556,0.30556
+visa,anomalyvfm_dinov2,tiny (<100 px),3014,0.48374,0.43734,0.52707
+visa,anomalyvfm_dinov2,small (100-1k),625,0.744,0.7044,0.78341
+visa,anomalyvfm_dinov2,medium (1k-5k),96,0.60417,0.50464,0.70529
+visa,anomalyvfm_dinov2,large (>5k),36,0.08333,0.0,0.16667
+visa,anomalyvfm_radio,tiny (<100 px),3014,0.60916,0.57072,0.64924
+visa,anomalyvfm_radio,small (100-1k),625,0.792,0.75398,0.82952
+visa,anomalyvfm_radio,medium (1k-5k),96,0.71875,0.61224,0.81322
+visa,anomalyvfm_radio,large (>5k),36,0.08333,0.0,0.16667
+visa,clip_prompt,tiny (<100 px),3014,0.01526,0.00819,0.02404
+visa,clip_prompt,small (100-1k),625,0.0,0.0,0.0
+visa,clip_prompt,medium (1k-5k),96,0.0,0.0,0.0
+visa,clip_prompt,large (>5k),36,0.0,0.0,0.0
+mpdd,anomalyclip,tiny (<100 px),266,0.60902,0.50422,0.69494
+mpdd,anomalyclip,small (100-1k),152,0.71053,0.62306,0.7895
+mpdd,anomalyclip,medium (1k-5k),39,0.74359,0.59459,0.87812
+mpdd,anomalyclip,large (>5k),58,0.36207,0.24138,0.48319
+mpdd,visualad,tiny (<100 px),266,0.66165,0.57678,0.73686
+mpdd,visualad,small (100-1k),152,0.73026,0.65514,0.8
+mpdd,visualad,medium (1k-5k),39,0.23077,0.10526,0.3685
+mpdd,visualad,large (>5k),58,0.03448,0.0,0.08621
+mpdd,anomalyvfm_dinov2,tiny (<100 px),266,0.19173,0.12177,0.26228
+mpdd,anomalyvfm_dinov2,small (100-1k),152,0.59868,0.52467,0.67333
+mpdd,anomalyvfm_dinov2,medium (1k-5k),39,0.33333,0.18919,0.48917
+mpdd,anomalyvfm_dinov2,large (>5k),58,0.18966,0.10345,0.2931
+mpdd,anomalyvfm_radio,tiny (<100 px),266,0.40602,0.30616,0.49825
+mpdd,anomalyvfm_radio,small (100-1k),152,0.68421,0.59626,0.76596
+mpdd,anomalyvfm_radio,medium (1k-5k),39,0.46154,0.29268,0.625
+mpdd,anomalyvfm_radio,large (>5k),58,0.17241,0.08621,0.27586
+mpdd,clip_prompt,tiny (<100 px),266,0.01128,0.0,0.02756
+mpdd,clip_prompt,small (100-1k),152,0.0,0.0,0.0
+mpdd,clip_prompt,medium (1k-5k),39,0.0,0.0,0.0
+mpdd,clip_prompt,large (>5k),58,0.0,0.0,0.0
+bmad_brain,anomalyclip,tiny (<100 px),3031,0.14748,0.13205,0.16306
+bmad_brain,anomalyclip,small (100-1k),929,0.31109,0.27919,0.34545
+bmad_brain,anomalyclip,medium (1k-5k),2442,0.58681,0.56733,0.60606
+bmad_brain,anomalyclip,large (>5k),114,0.33333,0.24561,0.42105
+bmad_brain,visualad,tiny (<100 px),3031,0.16331,0.14811,0.17927
+bmad_brain,visualad,small (100-1k),929,0.31324,0.28496,0.34473
+bmad_brain,visualad,medium (1k-5k),2442,0.39394,0.37443,0.41336
+bmad_brain,visualad,large (>5k),114,0.05263,0.01754,0.09671
+bmad_brain,anomalyvfm_dinov2,tiny (<100 px),3031,0.1069,0.09316,0.12112
+bmad_brain,anomalyvfm_dinov2,small (100-1k),929,0.169,0.145,0.19756
+bmad_brain,anomalyvfm_dinov2,medium (1k-5k),2442,0.49631,0.47564,0.51697
+bmad_brain,anomalyvfm_dinov2,large (>5k),114,0.32456,0.24561,0.40351
+bmad_brain,anomalyvfm_radio,tiny (<100 px),3031,0.16199,0.14594,0.17884
+bmad_brain,anomalyvfm_radio,small (100-1k),929,0.27772,0.24891,0.30819
+bmad_brain,anomalyvfm_radio,medium (1k-5k),2442,0.65192,0.63298,0.67063
+bmad_brain,anomalyvfm_radio,large (>5k),114,0.35965,0.27193,0.4386
+bmad_brain,clip_prompt,tiny (<100 px),3031,0.00462,0.00226,0.0072
+bmad_brain,clip_prompt,small (100-1k),929,0.0,0.0,0.0
+bmad_brain,clip_prompt,medium (1k-5k),2442,0.0,0.0,0.0
+bmad_brain,clip_prompt,large (>5k),114,0.0,0.0,0.0

@@ -1,0 +1,11 @@
+method,target,standard,target_auroc,drop,ci_low,ci_high
+anomalyclip,MPDD,0.86762,0.7749,0.09272,0.04866,0.13755
+anomalyclip,"Medical (Brain, Head CT)",0.86762,0.76913,0.09849,0.07217,0.1269
+visualad,MPDD,0.87687,0.71548,0.16139,0.11375,0.20992
+visualad,"Medical (Brain, Head CT)",0.87687,0.85722,0.01965,-0.00705,0.04689
+anomalyvfm_dinov2,MPDD,0.88323,0.83404,0.04918,0.00887,0.08952
+anomalyvfm_dinov2,"Medical (Brain, Head CT)",0.88323,0.81889,0.06433,0.03501,0.09306
+anomalyvfm_radio,MPDD,0.94658,0.85728,0.0893,0.05791,0.11998
+anomalyvfm_radio,"Medical (Brain, Head CT)",0.94658,0.90651,0.04007,0.02217,0.06057
+clip_prompt,MPDD,0.8185,0.70785,0.11065,0.06212,0.16301
+clip_prompt,"Medical (Brain, Head CT)",0.8185,0.75182,0.06668,0.03533,0.09987
