@@ -22,7 +22,7 @@ import numpy as np
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 from data.registry import build_dataset  # noqa: E402
-from eval.cache import EVAL_SIZE, load_map, read_scores  # noqa: E402
+from eval.cache import EVAL_SIZE, load_map, match_records, read_scores  # noqa: E402
 from eval.metrics import aupro  # noqa: E402
 
 
@@ -53,8 +53,8 @@ def main() -> None:
     print("run:", rdir, flush=True)
     cal_pro_score = official_pro()
     dataset = build_dataset(a.dataset, a.paths)
-    index_of = {r.image_path: i for i, r in enumerate(dataset.records)}
     rows = read_scores(rdir)
+    index_of = match_records(dataset, rdir, rows)
 
     result = {}
     for cat in sorted({r["category"] for r in rows}):

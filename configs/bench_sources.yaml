@@ -1,0 +1,57 @@
+# Where each (method, dataset) result of the main benchmark comes from: the Kaggle job ("kernel")
+# and the run folder inside its outputs/. eval/make_tables.py builds every table from this list,
+# so each number can be traced to one run (its config.yaml records the git commit and settings).
+#
+# Notes
+# - anomalyclip on mvtec/visa: run with features_list [24] as an override (Phase 2), which is now the default config.
+# - visualad on visa: our MVTec-trained checkpoint (batch size 4, deviation D2); everything else uses the authors' VisA checkpoint.
+# - dino_mutual_nn is transductive and reported in a separate table.
+stats_kernel: zsad-bench-stats   # CPU job that turns maps into per-image pixel histograms (eval/pixel_stats.py)
+
+methods:
+  anomalyclip:       {label: "AnomalyCLIP", family: "CLIP-based"}
+  visualad:          {label: "VisualAD", family: "Language-free"}
+  anomalyvfm_dinov2: {label: "AnomalyVFM (DINOv2)", family: "Vision foundation model"}
+  anomalyvfm_radio:  {label: "AnomalyVFM (RADIO)", family: "Vision foundation model (extra)"}
+  clip_prompt:       {label: "B1 CLIP prompt", family: "Baseline"}
+  dino_mutual_nn:    {label: "B2 DINOv2 mutual NN", family: "Baseline (transductive)", transductive: true}
+
+datasets: [mvtec, visa, mpdd, bmad_brain, headct]
+
+runs:
+  anomalyclip:
+    mvtec:      {kernel: zsad-repro-anomalyclip-l24, run: anomalyclip_layer24/mvtec}
+    visa:       {kernel: zsad-repro-anomalyclip-l24, run: anomalyclip_layer24/visa}
+    mpdd:       {kernel: zsad-bench-clipfam, run: anomalyclip/mpdd}
+    bmad_brain: {kernel: zsad-bench-clipfam, run: anomalyclip/bmad_brain}
+    headct:     {kernel: zsad-bench-clipfam, run: anomalyclip/headct}
+  visualad:
+    mvtec:      {kernel: zsad-repro-visualad, run: visualad/mvtec}
+    visa:       {kernel: zsad-repro-visualad, run: visualad/visa}
+    mpdd:       {kernel: zsad-bench-clipfam, run: visualad/mpdd}
+    bmad_brain: {kernel: zsad-bench-clipfam, run: visualad/bmad_brain}
+    headct:     {kernel: zsad-bench-clipfam, run: visualad/headct}
+  clip_prompt:
+    mvtec:      {kernel: zsad-repro-baselines, run: clip_prompt/mvtec}
+    visa:       {kernel: zsad-repro-baselines, run: clip_prompt/visa}
+    mpdd:       {kernel: zsad-bench-clipfam, run: clip_prompt/mpdd}
+    bmad_brain: {kernel: zsad-bench-clipfam, run: clip_prompt/bmad_brain}
+    headct:     {kernel: zsad-bench-clipfam, run: clip_prompt/headct}
+  anomalyvfm_dinov2:
+    mvtec:      {kernel: zsad-repro-anomalyvfm, run: anomalyvfm_dinov2/mvtec}
+    visa:       {kernel: zsad-repro-anomalyvfm, run: anomalyvfm_dinov2/visa}
+    mpdd:       {kernel: zsad-bench-vfmfam, run: anomalyvfm_dinov2/mpdd}
+    bmad_brain: {kernel: zsad-bench-vfmfam, run: anomalyvfm_dinov2/bmad_brain}
+    headct:     {kernel: zsad-bench-vfmfam, run: anomalyvfm_dinov2/headct}
+  anomalyvfm_radio:
+    mvtec:      {kernel: zsad-repro-anomalyvfm, run: anomalyvfm_radio/mvtec}
+    visa:       {kernel: zsad-repro-anomalyvfm, run: anomalyvfm_radio/visa}
+    mpdd:       {kernel: zsad-bench-vfmfam, run: anomalyvfm_radio/mpdd}
+    bmad_brain: {kernel: zsad-bench-vfmfam, run: anomalyvfm_radio/bmad_brain}
+    headct:     {kernel: zsad-bench-vfmfam, run: anomalyvfm_radio/headct}
+  dino_mutual_nn:
+    mvtec:      {kernel: zsad-repro-baselines, run: dino_mutual_nn/mvtec}
+    visa:       {kernel: zsad-repro-baselines, run: dino_mutual_nn/visa}
+    mpdd:       {kernel: zsad-bench-vfmfam, run: dino_mutual_nn/mpdd}
+    bmad_brain: {kernel: zsad-bench-vfmfam, run: dino_mutual_nn/bmad_brain}
+    headct:     {kernel: zsad-bench-vfmfam, run: dino_mutual_nn/headct}
