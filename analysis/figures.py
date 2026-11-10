@@ -173,10 +173,23 @@ def fig_complementarity() -> None:
     plt.close(fig)
 
 
+def fig_map_vs_own() -> None:
+    rows = {(r["dataset"], r["method"]): r for r in read("map_vs_native.csv") if r["variant"] == "map_top1"}
+    fig, ax = plt.subplots(figsize=(9, 3.8))
+    grouped(ax, ["mvtec", "visa", "mpdd", "bmad_brain", "headct"], rows, "diff_vs_own", "diff_ci_low", "diff_ci_high")
+    ax.axhline(0, color=MUTED, lw=0.8)
+    ax.set_ylabel("Image AUROC: map top-1% score\nminus the method's own score (points)")
+    ax.set_title("Does the map know more than the image score?", loc="left", pad=28)
+    legend(fig)
+    fig.tight_layout(rect=(0, 0, 1, 0.9))
+    fig.savefig(FIG / "map_vs_own_score.png", dpi=180)
+    plt.close(fig)
+
+
 def main() -> None:
     style()
     FIG.mkdir(parents=True, exist_ok=True)
-    for f in (fig_wrong_place, fig_size, fig_domain, fig_complementarity):
+    for f in (fig_wrong_place, fig_size, fig_domain, fig_complementarity, fig_map_vs_own):
         try:
             f()
             print("ok  ", f.__name__)

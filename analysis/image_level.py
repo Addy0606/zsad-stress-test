@@ -261,3 +261,59 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+MAP_SCORES = REPO / "outputs" / "kaggle" / "zsad-p5-mapscores" / "map_scores"
+VARIANTS = ("score", "map_max", "map_top1", "map_top5")
+
+
+def map_vs_native(path: Path, seed: int = 0) -> list[dict]:
+    """Image AUROC (mean over categories) of the method's own score and of three map-derived scores, plus the
+    paired difference of each map score vs the own score (same resampled images for both)."""
+    with open(path, newline="", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+    cats = sorted({r["category"] for r in rows})
+    data = {}
+    for c in cats:
+        cr = [r for r in rows if r["category"] == c]
+        data[c] = (np.array([int(r["label"]) for r in cr]), {v: np.array([float(r[v]) for r in cr]) for v in VARIANTS})
+
+    def aurocs(counts_by_cat: dict | None) -> dict[str, float]:
+        out = {}
+        for v in VARIANTS:
+            vals = []
+            for c in cats:
+                labels, scores = data[c]
+                idx = (
+                    np.arange(len(labels))
+                    if counts_by_cat is None
+                    else np.repeat(np.arange(len(labels)), counts_by_cat[c])
+                )
+                vals.append(image_auroc(labels[idx], scores[v][idx]))
+            out[v] = float(np.mean(vals))
+        return out
+
+    point = aurocs(None)
+    rng = np.random.default_rng(seed)
+    reps = [aurocs({c: resample_counts(data[c][0], rng) for c in cats}) for _ in range(N_RESAMPLES)]
+    result = []
+    for v in VARIANTS:
+        lo, hi = percentile_ci(np.array([r[v] for r in reps]))
+        row = {"variant": v, "auroc": point[v], "ci_low": lo, "ci_high": hi}
+        if v != "score":
+            dlo, dhi = percentile_ci(np.array([r[v] - r["score"] for r in reps]))
+            row.update({"diff_vs_own": point[v] - point["score"], "diff_ci_low": dlo, "diff_ci_high": dhi})
+        else:
+            row.update({"diff_vs_own": 0.0, "diff_ci_low": 0.0, "diff_ci_high": 0.0})
+        result.append(row)
+    return result
+
+
+def run_map_vs_native() -> None:
+    manifest = OmegaConf.load(REPO / "configs" / "bench_sources.yaml")
+    rows = []
+    for m in manifest.methods:
+        for d in manifest.datasets:
+            rows += [{"method": m, "dataset": d, **r} for r in map_vs_native(MAP_SCORES / m / f"{d}.csv")]
+            print(m, d, flush=True)
+    write_csv(OUT / "map_vs_native.csv", rows)
