@@ -1,0 +1,10 @@
+# Baseline B2: DINOv2 mutual nearest neighbour against other unlabelled test images (simplified MuSc)
+name: dino_mutual_nn
+class: DINOMutualNN
+protocol: "TRANSDUCTIVE zero-shot: uses other unlabelled test images of the same category; reported separately"
+params:
+  image_size: 448
+  n_refs: 200
+  low_fraction: 0.3
+  topk_ratio: 0.01
+  seed: 0

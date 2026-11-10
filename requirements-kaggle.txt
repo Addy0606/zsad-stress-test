@@ -1,0 +1,12 @@
+# Kaggle already ships torch, numpy, scipy, pandas, scikit-learn, matplotlib, timm, pillow, opencv, tqdm.
+# Installing the full pinned requirements.txt there downgrades/upgrades preinstalled packages
+# (pip reports conflicts), so on Kaggle we only add what's missing plus the pins that matter.
+# Exact versions used by every run are written to outputs/<method>/<dataset>/config.yaml.
+huggingface_hub==0.36.2   # AnomalyVFM's from_pretrained breaks with huggingface_hub 2.x
+transformers==4.56.1      # pinned together with huggingface_hub
+open_clip_torch==4.2.1
+omegaconf==2.4.0
+ftfy==6.3.1
+thop==0.1.1.post2209072238
+tabulate==0.10.0
+einops==0.8.2

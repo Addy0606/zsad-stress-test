@@ -1,0 +1,15 @@
+# VisualAD (Hou et al., CVPR 2026): language-free family
+name: visualad
+class: VisualAD
+protocol: "cross-dataset: tokens trained on VisA for every target except VisA; trained on MVTec AD (ours, not released) for VisA"
+params:
+  sigma: 4.0
+  topk_ratio: 0.01   # image score = mean of top 1% of the map (authors: industrial)
+  clip_cache: ${oc.env:CLIP_CACHE,null}
+# Authors' setting (GitHub issue #9): top 5% for medical images. Applied by domain, chosen before seeing any result.
+params_by_domain:
+  medical:
+    topk_ratio: 0.05
+checkpoint_by_target:
+  visa: third_party/VisualAD/weight/train_on_mvtec/CLIP.pth   # trained by us in Phase 2 (see PROGRESS.md)
+  default: third_party/VisualAD/weight/train_on_visa/CLIP.pth
