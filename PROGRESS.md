@@ -160,3 +160,68 @@ Baselines (no published target; sanity checks). Image AUROC / F1-max / pixel AUR
 - A Kaggle submission sat in "QUEUED" for 4 h with nothing in the queue; re-pushing started it immediately.
   Rule: if a job is queued > 30 min, check the site and re-push.
 - `kaggle_submit.py` gained `--cpu`, `--datasets` and `--kernel-sources` (attach an earlier job's outputs) for post-processing jobs.
+
+## Phase 4: Full benchmark (2026-11-10)
+
+### Done
+- All 30 runs: 6 methods × 5 datasets (MVTec AD, VisA, MPDD, BMAD Brain, Head CT), on Kaggle T4s.
+  `configs/bench_sources.yaml` records the Kaggle job and run folder behind every table cell.
+- `eval/pixel_stats.py`: per-image histograms (normal pixels, defect pixels, each defect region) on shared quantile bins,
+  so pixel AUROC and AUPRO can be bootstrapped without the 3–5 GB of maps. Computed on Kaggle by `scripts/bench_stats.py`
+  (CPU job). **Binned vs exact, worst case over all 24 pixel-labelled runs: 0.025 points.**
+- `eval/bootstrap.py`: 95% percentile bootstrap, 1,000 resamples, images resampled within each category and label;
+  all four metrics from the same replicates. Headline numbers are the exact metrics; bins are only used for CIs.
+- `eval/make_tables.py`: **one command** (`python eval/make_tables.py`, ~13 min) writes `results/benchmark.md` and `.csv`
+  with every metric, its CI, image count and source run, plus the cost table.
+- Tests: 60 pass (adds bootstrap, binned metrics, cross-root matching, F1 floor).
+
+### Published numbers on the new datasets (image AUROC / pixel AUROC / AUPRO)
+| Method | Dataset | Ours | Published |
+|---|---|---|---|
+| VisualAD | BMAD Brain | 80.8 / 95.2 / 79.9 | 80.8 / 95.2 / 79.5 ✅ |
+| AnomalyVFM DINOv2 | MPDD | 83.4 / 96.1 / 88.1 | 83.4 / 96.2 / 87.4 ✅ |
+| AnomalyVFM RADIO | MPDD | 85.7 / 95.9 / 88.4 | 85.7 / 96.8 / 90.2 ✅ |
+| AnomalyVFM DINOv2 / RADIO | Head CT | 88.2 / 94.0 (image only) | 88.2 / 94.0 ✅ |
+| AnomalyCLIP | Head CT | 93.1 (image only) | 93.4 ✅ |
+| AnomalyCLIP | BMAD Brain | 60.7 / 96.5 / 79.7 | 69.0 / 95.1 / 71.5 ⚠ |
+
+- AnomalyCLIP on BMAD Brain is 8.3 points below the 69.0 we compared against. That number is from **VisualAD's** paper
+  (its own run of AnomalyCLIP, settings not stated), not from AnomalyCLIP's authors, and the brief already marked the
+  dataset match as an assumption. Our pixel AUROC and AUPRO are *higher* than theirs, so it isn't a broken run.
+  **Unexplained; carried to Phase 5.**
+
+### Observations to test in Phase 5 (not yet findings)
+- AnomalyVFM RADIO has the highest image AUROC of the single-image methods on all five datasets
+  (CIs overlap on Head CT).
+- Every method loses image AUROC from MVTec to MPDD (e.g. VisualAD 92.2 → 71.5).
+- AnomalyCLIP and VisualAD share the same frozen CLIP backbone but differ by 20 image-AUROC points on BMAD Brain (60.7 vs 80.8).
+- AnomalyVFM DINOv2 has low AUPRO on Brain (60.8) despite 93.3 pixel AUROC: small tumour regions are missed.
+- B2 (transductive) is strong on MVTec (92.5) but drops to 64.8 on MPDD and 61.1 on Head CT, where test images vary
+  more in pose and appearance, so "no close match in other images" stops meaning "defect".
+- B1 pixel AUROC is at or below 50 on every dataset (CLIP patch tokens don't align with text).
+
+### Metric caveats (written into results/benchmark.md)
+- **F1-max floor.** Flagging every image anomalous scores F1 = 2p/(1+p). On BMAD Brain (83% anomalous) that is 90.6,
+  which is why every method, B1 included, scores ~90.6–92.3 there. The table shows the floor per dataset.
+- **F1-max CIs lean upward.** F1-max maximises over thresholds; resamples with repeated images fit thresholds more
+  easily, so the percentile bootstrap overestimates. Image AUROC is the comparison metric.
+- Head CT has image labels only (no pixel metrics).
+
+### Cost (T4, inference only, image-weighted over all 8,260 test images)
+AnomalyCLIP 0.554 s/img, 2.0 GB · VisualAD 0.386 s, 1.9 GB · AnomalyVFM DINOv2 0.202 s, 1.9 GB ·
+RADIO 0.216 s, 1.9 GB · B1 0.147 s, 1.7 GB · B2 0.107 s (+ per-category reference prep, not timed), 2.6 GB.
+
+### Problems hit and fixed
+- Scores stored absolute image paths, but Kaggle mounted the same dataset at different folders in different sessions.
+  Images are now matched by path relative to the dataset root recorded in each run's `config.yaml` (test added).
+- `kaggle_fetch.py` listed outputs 20 files per page, so jobs with ~13k maps hit HTTP 429 and fetches were silently cut
+  short (B2 looked as if it had crashed; it hadn't). Now 500 per page.
+- GPU jobs waited ~80 min in Kaggle's queue; `kaggle_wait.py --max-queue-min` now flags long waits.
+  (Re-pushing was refused while queued: the queue was real this time.)
+- Git history rewritten so every commit is authored by Aadhitya Ayyappan with no co-author trailers (user request).
+
+### Phase 4 acceptance
+- Complete method × dataset × metric table with 95% CIs: **yes** (30 runs; Head CT image-only; B2 separate).
+- Runtime and peak memory per method on one GPU type: **yes**.
+- Regenerated from cache with one command: **yes** (`python eval/make_tables.py`).
+- Open: the cached inputs live in `outputs/` (gitignored); publishing them for a fresh clone is a Phase 8 task.

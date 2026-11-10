@@ -45,6 +45,28 @@ DATASET_NAMES = {
 }
 
 
+def f1_floor(score_rows: list[dict]) -> float:
+    """F1 of the trivial rule "every image is anomalous", averaged over categories like F1-max.
+    With a fraction p of anomalous images, precision = p and recall = 1, so F1 = 2p / (1 + p).
+    Any detector's F1-max is at least this, so it is the floor to read F1-max against."""
+    floors = []
+    for cat in sorted({r["category"] for r in score_rows}):
+        p = sum(r["label"] for r in score_rows if r["category"] == cat) / sum(r["category"] == cat for r in score_rows)
+        floors.append(2 * p / (1 + p))
+    return float(sum(floors) / len(floors))
+
+
+def dataset_floors(manifest, kaggle_dir: Path) -> dict[str, float]:
+    """F1 floor per dataset, from the labels of the first available run of that dataset."""
+    floors = {}
+    for by_dataset in manifest.runs.values():
+        for dataset, src in by_dataset.items():
+            rdir = kaggle_dir / src.kernel / "outputs" / src.run
+            if dataset not in floors and (rdir / "scores.csv").exists():
+                floors[dataset] = f1_floor(read_scores(rdir))
+    return floors
+
+
 def collect(manifest, kaggle_dir: Path, n_resamples: int, seed: int) -> list[dict]:
     rows = []
     stats_root = kaggle_dir / manifest.stats_kernel / "stats"
@@ -115,7 +137,9 @@ def fmt(r: dict | None) -> str:
     return f"{100 * r['value']:.1f}{ci}" + ("" if r["complete"] else " ⚠ incomplete")
 
 
-def write_markdown(path: Path, manifest, rows: list[dict], costs: list[dict], n_resamples: int) -> None:
+def write_markdown(
+    path: Path, manifest, rows: list[dict], costs: list[dict], n_resamples: int, floors: dict[str, float]
+) -> None:
     index = {(r["method"], r["dataset"], r["metric"]): r for r in rows}
     datasets = list(manifest.datasets)
     single = [m for m in manifest.methods if not manifest.methods[m].get("transductive", False)]
@@ -136,6 +160,17 @@ def write_markdown(path: Path, manifest, rows: list[dict], costs: list[dict], n_
             for meth in group:
                 cells = [fmt(index.get((meth, d, m))) for d in datasets]
                 lines.append(f"| {manifest.methods[meth].label} | " + " | ".join(cells) + " |")
+        if m == "image_f1_max":
+            cells = [f"{100 * floors[d]:.1f}" if d in floors else "—" for d in datasets]
+            lines.append("| *Floor: call every image anomalous* | " + " | ".join(cells) + " |")
+            lines += [
+                "",
+                "F1-max must be read against the floor: a rule that flags every image already scores 2p/(1+p),",
+                "where p is the fraction of anomalous test images. On BMAD Brain (83% anomalous) that floor is",
+                "90.6, so F1-max there says little. F1-max is also a maximum over thresholds, which the",
+                "bootstrap overestimates (resamples with repeated images fit a threshold more easily), so its",
+                "percentile CIs lean above the point estimate. Prefer image AUROC for comparisons.",
+            ]
         lines.append("")
     lines += [
         "## Cost (inference only)",
@@ -173,7 +208,8 @@ def main() -> None:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()
         w.writerows({k: (round(v, 6) if isinstance(v, float) else v) for k, v in r.items()} for r in rows)
-    write_markdown(out / "benchmark.md", manifest, rows, costs, a.n_resamples)
+    floors = dataset_floors(manifest, Path(a.kaggle_dir))
+    write_markdown(out / "benchmark.md", manifest, rows, costs, a.n_resamples, floors)
     n_runs = len({(r["method"], r["dataset"]) for r in rows})
     print(f"wrote {out / 'benchmark.md'} and benchmark.csv ({n_runs} runs)")
 

@@ -105,3 +105,13 @@ def test_perfect_detector_has_zero_width_ci():
     reps = bootstrap_metrics(_rows({"a": (labels, labels.astype(float))}), None, n_resamples=100)
     assert percentile_ci(reps["image_auroc"]) == (1.0, 1.0)
     assert np.isnan(reps["aupro"]).all()
+
+
+def test_f1_floor_is_score_of_flagging_everything():
+    from eval.make_tables import f1_floor
+    from eval.metrics import image_f1_max
+
+    labels = np.array([1] * 30 + [0] * 10)  # p = 0.75 -> floor = 1.5 / 1.75
+    rows = _rows({"a": (labels, np.ones(len(labels)))})  # constant score = flag everything
+    assert f1_floor(rows) == pytest.approx(2 * 0.75 / 1.75)
+    assert image_f1_max(labels, np.ones(len(labels))) == pytest.approx(f1_floor(rows))
