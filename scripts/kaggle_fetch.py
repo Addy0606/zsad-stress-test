@@ -32,7 +32,9 @@ def main() -> None:
     pattern = ".*" if a.with_maps else r"^(?!.*\.npz$).*"  # everything except .npz maps
     for attempt in range(5):  # the output listing is rate-limited (HTTP 429); back off and retry
         try:
-            api.kernels_output(f"{user}/{a.name}", path=str(dest), file_pattern=pattern, quiet=True)
+            api.kernels_output(
+                f"{user}/{a.name}", path=str(dest), file_pattern=pattern, quiet=True, page_size=500
+            )  # 20 by default; Kaggle rejects 1000
             break
         except Exception as e:
             if "429" not in str(e) or attempt == 4:
