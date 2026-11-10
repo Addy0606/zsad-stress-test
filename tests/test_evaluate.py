@@ -45,3 +45,25 @@ def test_eval_size_mismatch_fails(fake_root, tmp_path):
         append_score(rdir, {**item, "score": float(item["label"]), "seconds": 0.0})
     with pytest.raises(ValueError):
         evaluate_run(rdir, "mvtec", "local", [f"root={root.as_posix()}", "categories=[bottle,screw]"], eval_size=32)
+
+
+def test_run_from_another_dataset_root_still_matches(fake_root, tmp_path):
+    """A run made when the dataset was mounted elsewhere is matched by path relative to the root."""
+    import shutil
+
+    root_then = fake_root("mvtec")
+    root_now = tmp_path / "mounted_elsewhere" / "mvtec-ad"
+    shutil.copytree(root_then, root_now)
+    ds_then = LOADERS["mvtec"](root=root_then)
+    rdir = tmp_path / "run"
+    rdir.mkdir()
+    (rdir / "config.yaml").write_text(f"dataset:\n  root: {root_then.as_posix()}\n")
+    for i in range(len(ds_then)):
+        item = ds_then[i]
+        save_map(rdir, item["path"], ds_then.load_mask(i, 64).astype(np.float32))
+        append_score(rdir, {**item, "score": float(item["label"]), "seconds": 0.0})
+    shutil.rmtree(root_then)  # the old mount is gone
+
+    overrides = [f"root={root_now.as_posix()}", "categories=[bottle,screw]"]
+    result = evaluate_run(rdir, "mvtec", "local", overrides, eval_size=64)
+    assert result["mean"]["aupro"] == pytest.approx(1.0)

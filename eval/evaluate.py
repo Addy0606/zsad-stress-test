@@ -20,7 +20,7 @@ import numpy as np
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
 from data.registry import build_dataset  # noqa: E402
-from eval.cache import EVAL_SIZE, load_map, read_scores  # noqa: E402
+from eval.cache import EVAL_SIZE, load_map, match_records, read_scores  # noqa: E402
 from eval.metrics import category_metrics  # noqa: E402
 
 METRICS = ("image_auroc", "image_f1_max", "pixel_auroc", "aupro")
@@ -36,8 +36,8 @@ def evaluate_run(
 ) -> dict:
     rdir = Path(rdir)
     dataset = build_dataset(dataset_name, paths, dataset_overrides)
-    index_of = {r.image_path: i for i, r in enumerate(dataset.records)}
     rows = read_scores(rdir)
+    index_of = match_records(dataset, rdir, rows)
 
     per_category = {}
     for cat in sorted({r["category"] for r in rows}):

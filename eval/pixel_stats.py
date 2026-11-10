@@ -127,7 +127,7 @@ def load_stats(path: Path) -> dict[str, dict[str, np.ndarray]]:
 def run_pixel_stats(rdir: Path, dataset_name: str, paths: str, out: Path, eval_size: int | None = None) -> float:
     """Write out/pixel_stats.npz and out/pixel_stats_check.json for one run; return max |exact - binned|."""
     from data.registry import build_dataset
-    from eval.cache import EVAL_SIZE, load_map, read_scores
+    from eval.cache import EVAL_SIZE, load_map, match_records, read_scores
 
     eval_size = eval_size or EVAL_SIZE
     rdir, out = Path(rdir), Path(out)
@@ -135,8 +135,8 @@ def run_pixel_stats(rdir: Path, dataset_name: str, paths: str, out: Path, eval_s
     dataset = build_dataset(dataset_name, paths)
     if not dataset.has_pixel_labels:
         raise ValueError(f"{dataset_name} has no pixel labels")
-    index_of = {r.image_path: i for i, r in enumerate(dataset.records)}
     rows = read_scores(rdir)
+    index_of = match_records(dataset, rdir, rows)
 
     per_category, img_paths, check = {}, {}, {}
     for cat in sorted({r["category"] for r in rows}):

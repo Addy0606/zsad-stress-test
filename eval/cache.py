@@ -69,3 +69,28 @@ def read_scores(rdir: Path) -> list[dict]:
         r["label"], r["score"] = int(r["label"]), float(r["score"])
         r["defect_type"] = r["defect_type"] or None
     return rows
+
+
+def relative_path(path: str, root: str | Path) -> str:
+    """`path` relative to `root`, with forward slashes. Image paths in scores.csv are absolute, and the
+    dataset root can differ between sessions (Kaggle has mounted the same dataset at different
+    folders), so images are matched across runs by this relative path."""
+    p, r = str(path).replace("\\", "/"), str(root).replace("\\", "/").rstrip("/")
+    if not p.startswith(r + "/"):
+        raise ValueError(f"{path} is not under {root}")
+    return p[len(r) + 1 :]
+
+
+def run_dataset_root(rdir: Path) -> str | None:
+    """The dataset root a run used, from its config.yaml (None if the run has no config.yaml)."""
+    from omegaconf import OmegaConf
+
+    cfg = Path(rdir) / "config.yaml"
+    return str(OmegaConf.load(cfg).dataset.root) if cfg.exists() else None
+
+
+def match_records(dataset, rdir: Path, rows: list[dict]) -> dict[str, int]:
+    """{scores.csv path -> index in `dataset`}, matching by path relative to each side's dataset root."""
+    index = {relative_path(r.image_path, dataset.root): i for i, r in enumerate(dataset.records)}
+    root = run_dataset_root(rdir) or dataset.root  # no config.yaml: assume the same root
+    return {row["path"]: index[relative_path(row["path"], root)] for row in rows}
