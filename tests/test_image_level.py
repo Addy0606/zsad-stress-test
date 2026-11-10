@@ -48,3 +48,14 @@ def test_or_rule_keeps_total_fpr():
     flagged = or_rule(scores, cats, labels, w, fpr=0.05)
     assert flagged.mean() == pytest.approx(0.05, abs=0.005)
     assert caught(scores, cats, labels, w).any(0).mean() > 0.12  # each at 5% -> union ~14%
+
+
+@pytest.mark.parametrize("n", [20, 30, 47, 60])
+def test_fpr_threshold_never_exceeds_target(n):
+    from analysis.image_level import fpr_threshold
+
+    rng = np.random.default_rng(n)
+    v = rng.normal(size=n)
+    assert (v > fpr_threshold(v, 0.05)).mean() <= 0.05
+    dup = np.repeat(v, rng.integers(0, 3, n))  # bootstrap-style duplicates
+    assert (dup > fpr_threshold(dup, 0.05)).mean() <= 0.05

@@ -1,0 +1,1181 @@
+method,dataset,category,defect_type,n_anomalous,auroc,ci_low,ci_high
+anomalyclip,mvtec,bottle,broken_large,20,0.955,0.8675,1.0
+anomalyclip,mvtec,bottle,broken_small,22,0.99545,0.97955,1.0
+anomalyclip,mvtec,bottle,contamination,21,0.70714,0.54268,0.85958
+anomalyclip,mvtec,cable,bent_wire,13,0.58355,0.36867,0.78515
+anomalyclip,mvtec,cable,cable_swap,12,0.76724,0.62213,0.87647
+anomalyclip,mvtec,cable,combined,11,0.82759,0.63315,0.96869
+anomalyclip,mvtec,cable,cut_inner_insulation,14,0.68842,0.53073,0.82269
+anomalyclip,mvtec,cable,cut_outer_insulation,10,0.77759,0.6172,0.91039
+anomalyclip,mvtec,cable,missing_cable,12,0.66379,0.46117,0.86207
+anomalyclip,mvtec,cable,missing_wire,10,0.65172,0.47233,0.82586
+anomalyclip,mvtec,cable,poke_insulation,10,0.68621,0.47754,0.87759
+anomalyclip,mvtec,capsule,crack,23,0.95841,0.89414,1.0
+anomalyclip,mvtec,capsule,faulty_imprint,22,0.74704,0.5751,0.89931
+anomalyclip,mvtec,capsule,poke,21,0.95859,0.89648,0.99798
+anomalyclip,mvtec,capsule,scratch,23,0.91682,0.83176,0.98303
+anomalyclip,mvtec,capsule,squeeze,20,0.89348,0.76299,0.98913
+anomalyclip,mvtec,carpet,color,19,1.0,1.0,1.0
+anomalyclip,mvtec,carpet,cut,17,1.0,1.0,1.0
+anomalyclip,mvtec,carpet,hole,17,0.9979,0.98739,1.0
+anomalyclip,mvtec,carpet,metal_contamination,17,1.0,1.0,1.0
+anomalyclip,mvtec,carpet,thread,19,1.0,1.0,1.0
+anomalyclip,mvtec,grid,bent,12,0.96825,0.89286,1.0
+anomalyclip,mvtec,grid,broken,12,1.0,1.0,1.0
+anomalyclip,mvtec,grid,glue,11,1.0,1.0,1.0
+anomalyclip,mvtec,grid,metal_contamination,11,1.0,1.0,1.0
+anomalyclip,mvtec,grid,thread,11,0.92208,0.7619,1.0
+anomalyclip,mvtec,hazelnut,crack,18,1.0,1.0,1.0
+anomalyclip,mvtec,hazelnut,cut,17,0.96324,0.90147,0.9971
+anomalyclip,mvtec,hazelnut,hole,18,1.0,1.0,1.0
+anomalyclip,mvtec,hazelnut,print,17,0.92059,0.84118,0.97941
+anomalyclip,mvtec,leather,color,19,1.0,1.0,1.0
+anomalyclip,mvtec,leather,cut,19,1.0,1.0,1.0
+anomalyclip,mvtec,leather,fold,17,0.99265,0.97059,1.0
+anomalyclip,mvtec,leather,glue,19,1.0,1.0,1.0
+anomalyclip,mvtec,leather,poke,18,0.99826,0.98958,1.0
+anomalyclip,mvtec,metal_nut,bent,25,0.98909,0.96182,1.0
+anomalyclip,mvtec,metal_nut,color,22,0.95248,0.86772,1.0
+anomalyclip,mvtec,metal_nut,flip,23,0.82016,0.6917,0.92495
+anomalyclip,mvtec,metal_nut,scratch,23,0.92885,0.83592,0.99209
+anomalyclip,mvtec,pill,color,25,0.88308,0.75535,0.98312
+anomalyclip,mvtec,pill,combined,17,0.77602,0.61759,0.92081
+anomalyclip,mvtec,pill,contamination,21,0.81868,0.69231,0.92857
+anomalyclip,mvtec,pill,crack,26,0.67604,0.52359,0.82101
+anomalyclip,mvtec,pill,faulty_imprint,19,0.87854,0.75703,0.97981
+anomalyclip,mvtec,pill,pill_type,9,0.98291,0.94017,1.0
+anomalyclip,mvtec,pill,scratch,24,0.78205,0.64419,0.90545
+anomalyclip,mvtec,screw,manipulated_front,24,0.73171,0.60666,0.8547
+anomalyclip,mvtec,screw,scratch_head,24,0.82724,0.72048,0.9187
+anomalyclip,mvtec,screw,scratch_neck,25,0.8478,0.73659,0.94149
+anomalyclip,mvtec,screw,thread_side,23,0.79958,0.67762,0.90565
+anomalyclip,mvtec,screw,thread_top,23,0.90032,0.80382,0.96713
+anomalyclip,mvtec,tile,crack,17,1.0,1.0,1.0
+anomalyclip,mvtec,tile,glue_strip,18,1.0,1.0,1.0
+anomalyclip,mvtec,tile,gray_stroke,16,1.0,1.0,1.0
+anomalyclip,mvtec,tile,oil,18,1.0,1.0,1.0
+anomalyclip,mvtec,tile,rough,15,1.0,1.0,1.0
+anomalyclip,mvtec,toothbrush,defective,30,0.85278,0.71389,0.95556
+anomalyclip,mvtec,transistor,bent_lead,10,0.94833,0.86167,1.0
+anomalyclip,mvtec,transistor,cut_lead,10,0.95667,0.9,0.99333
+anomalyclip,mvtec,transistor,damaged_case,10,0.945,0.86329,0.99333
+anomalyclip,mvtec,transistor,misplaced,10,0.905,0.78329,0.985
+anomalyclip,mvtec,wood,color,8,1.0,1.0,1.0
+anomalyclip,mvtec,wood,combined,11,0.87081,0.69366,1.0
+anomalyclip,mvtec,wood,hole,10,1.0,1.0,1.0
+anomalyclip,mvtec,wood,liquid,10,1.0,1.0,1.0
+anomalyclip,mvtec,wood,scratch,21,0.97995,0.93734,1.0
+anomalyclip,mvtec,zipper,broken_teeth,19,0.98355,0.95066,1.0
+anomalyclip,mvtec,zipper,combined,16,0.98828,0.95898,1.0
+anomalyclip,mvtec,zipper,fabric_border,17,1.0,1.0,1.0
+anomalyclip,mvtec,zipper,fabric_interior,16,0.98242,0.94336,1.0
+anomalyclip,mvtec,zipper,rough,17,1.0,1.0,1.0
+anomalyclip,mvtec,zipper,split_teeth,18,0.97917,0.93576,1.0
+anomalyclip,mvtec,zipper,squeezed_teeth,16,0.95312,0.88672,1.0
+anomalyclip,visa,candle,chunk of wax missing,12,0.79833,0.64996,0.92833
+anomalyclip,visa,candle,"chunk of wax missing,damaged corner of packaging,different colour spot",1,0.96,0.92,0.99
+anomalyclip,visa,candle,"chunk of wax missing,different colour spot",1,0.97,0.93,1.0
+anomalyclip,visa,candle,"chunk of wax missing,foreign particals on candle",1,1.0,1.0,1.0
+anomalyclip,visa,candle,damaged corner of packaging,18,0.75722,0.66389,0.85167
+anomalyclip,visa,candle,"damaged corner of packaging,different colour spot",1,0.72,0.63,0.81
+anomalyclip,visa,candle,"damaged corner of packaging,different colour spot,other",1,0.98,0.95,1.0
+anomalyclip,visa,candle,"damaged corner of packaging,extra wax in candle",1,0.97,0.93,1.0
+anomalyclip,visa,candle,"damaged corner of packaging,foreign particals on candle",2,1.0,1.0,1.0
+anomalyclip,visa,candle,"damaged corner of packaging,weird candle wick",1,0.88,0.81,0.94
+anomalyclip,visa,candle,different colour spot,15,0.68867,0.55992,0.802
+anomalyclip,visa,candle,"different colour spot,foreign particals on candle",1,0.78,0.7,0.86
+anomalyclip,visa,candle,"different colour spot,wax melded out of the candle",1,0.3,0.21,0.39
+anomalyclip,visa,candle,extra wax in candle,9,0.87889,0.66997,0.99558
+anomalyclip,visa,candle,foreign particals on candle,12,0.99333,0.97833,1.0
+anomalyclip,visa,candle,"foreign particals on candle,wax melded out of the candle",1,1.0,1.0,1.0
+anomalyclip,visa,candle,wax melded out of the candle,12,0.705,0.57998,0.81669
+anomalyclip,visa,candle,weird candle wick,9,0.91222,0.83444,0.97778
+anomalyclip,visa,candle,"weird candle wick,different colour spot",1,0.34,0.24,0.43
+anomalyclip,visa,capsules,bubble,30,0.76056,0.63831,0.86224
+anomalyclip,visa,capsules,"bubble,discolor",15,0.77444,0.63433,0.89444
+anomalyclip,visa,capsules,"bubble,discolor,scratch",15,0.74111,0.61333,0.85669
+anomalyclip,visa,capsules,"bubble,discolor,scratch,leak",12,0.95417,0.88889,0.99722
+anomalyclip,visa,capsules,"bubble,discolor,scratch,leak,misshape",28,0.92083,0.85951,0.97025
+anomalyclip,visa,cashew,burnt,10,0.818,0.66195,0.9441
+anomalyclip,visa,cashew,"burnt,corner or edge breakage",2,0.63,0.49,0.77
+anomalyclip,visa,cashew,"burnt,different colour spot",1,0.9,0.8,0.98
+anomalyclip,visa,cashew,"burnt,same colour spot",1,0.24,0.14,0.3605
+anomalyclip,visa,cashew,corner or edge breakage,14,0.87714,0.73564,0.98861
+anomalyclip,visa,cashew,"corner or edge breakage,small scratches",1,0.12,0.04,0.22
+anomalyclip,visa,cashew,different colour spot,9,1.0,1.0,1.0
+anomalyclip,visa,cashew,"different colour spot,same colour spot",2,0.82,0.5595,1.0
+anomalyclip,visa,cashew,"different colour spot,small holes",1,0.36,0.22,0.5
+anomalyclip,visa,cashew,middle breakage,6,1.0,1.0,1.0
+anomalyclip,visa,cashew,"middle breakage,same colour spot",1,1.0,1.0,1.0
+anomalyclip,visa,cashew,"middle breakage,small holes",1,1.0,1.0,1.0
+anomalyclip,visa,cashew,same colour spot,10,0.37,0.18995,0.5521
+anomalyclip,visa,cashew,small holes,20,0.981,0.95,0.999
+anomalyclip,visa,cashew,small scratches,15,0.38,0.23597,0.54007
+anomalyclip,visa,cashew,stuck together,6,0.82667,0.61992,0.99333
+anomalyclip,visa,chewinggum,chunk of gum missing,16,1.0,1.0,1.0
+anomalyclip,visa,chewinggum,"chunk of gum missing,corner missing",7,1.0,1.0,1.0
+anomalyclip,visa,chewinggum,"chunk of gum missing,corner missing,small cracks",6,1.0,1.0,1.0
+anomalyclip,visa,chewinggum,"chunk of gum missing,scratches",1,1.0,1.0,1.0
+anomalyclip,visa,chewinggum,"chunk of gum missing,scratches,small cracks",2,1.0,1.0,1.0
+anomalyclip,visa,chewinggum,"chunk of gum missing,small cracks",15,1.0,1.0,1.0
+anomalyclip,visa,chewinggum,corner missing,13,0.82769,0.67538,0.95542
+anomalyclip,visa,chewinggum,"corner missing,scratches",2,0.98,0.94,1.0
+anomalyclip,visa,chewinggum,"corner missing,similar colour spot",3,0.98667,0.94667,1.0
+anomalyclip,visa,chewinggum,"corner missing,similar colour spot,small cracks",1,1.0,1.0,1.0
+anomalyclip,visa,chewinggum,"corner missing,small cracks",4,1.0,1.0,1.0
+anomalyclip,visa,chewinggum,scratches,9,0.95333,0.88444,0.99778
+anomalyclip,visa,chewinggum,"scratches,similar colour spot",1,1.0,1.0,1.0
+anomalyclip,visa,chewinggum,"scratches,similar colour spot,small cracks",1,1.0,1.0,1.0
+anomalyclip,visa,chewinggum,similar colour spot,19,0.99789,0.98947,1.0
+anomalyclip,visa,fryum,burnt,9,0.99778,0.98667,1.0
+anomalyclip,visa,fryum,corner or edge breakage,8,0.9425,0.85,1.0
+anomalyclip,visa,fryum,"corner or edge breakage,small scratches",1,1.0,1.0,1.0
+anomalyclip,visa,fryum,different colour spot,14,0.84857,0.70714,0.96432
+anomalyclip,visa,fryum,"different colour spot,similar colour spot",4,0.925,0.82,0.99512
+anomalyclip,visa,fryum,fryum stuck together,20,0.885,0.78,0.97403
+anomalyclip,visa,fryum,middle breakage,18,0.97889,0.93556,1.0
+anomalyclip,visa,fryum,"middle breakage,similar colour spot",1,1.0,1.0,1.0
+anomalyclip,visa,fryum,"middle breakage,small scratches",2,1.0,1.0,1.0
+anomalyclip,visa,fryum,similar colour spot,12,0.96833,0.91496,0.99833
+anomalyclip,visa,fryum,"similar colour spot,other",1,1.0,1.0,1.0
+anomalyclip,visa,fryum,"similar colour spot,small scratches",4,0.89,0.705,1.0
+anomalyclip,visa,fryum,small scratches,6,0.85,0.67667,0.98
+anomalyclip,visa,macaroni1,chip around edge and corner,17,0.79,0.67647,0.88824
+anomalyclip,visa,macaroni1,"chip around edge and corner,small cracks",2,0.84,0.755,0.92
+anomalyclip,visa,macaroni1,"chip around edge and corner,small scratches",6,0.76,0.59821,0.92
+anomalyclip,visa,macaroni1,different colour spot,15,0.92933,0.85862,0.982
+anomalyclip,visa,macaroni1,"different colour spot,similar colour spot",1,0.88,0.82,0.94
+anomalyclip,visa,macaroni1,"middle breakage,small scratches",10,0.94,0.872,0.989
+anomalyclip,visa,macaroni1,similar colour spot,21,0.95286,0.91189,0.98238
+anomalyclip,visa,macaroni1,small cracks,11,0.87,0.77084,0.94727
+anomalyclip,visa,macaroni1,"small cracks,small scratches",1,0.95,0.9,0.99
+anomalyclip,visa,macaroni1,small scratches,16,0.77,0.67373,0.865
+anomalyclip,visa,macaroni2,breakage down the middle,1,0.62,0.52975,0.72
+anomalyclip,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge",1,0.06,0.02,0.11
+anomalyclip,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge,small cracks",1,0.85,0.78,0.92
+anomalyclip,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge,small cracks,small scratches",2,0.72,0.62,0.81
+anomalyclip,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge,small cracks,small scratches,other",1,0.92,0.87,0.97
+anomalyclip,visa,macaroni2,"breakage down the middle,small scratches",9,0.82222,0.71992,0.91667
+anomalyclip,visa,macaroni2,color spot similar to the object,23,0.77696,0.65476,0.88177
+anomalyclip,visa,macaroni2,different color spot,12,0.88417,0.76165,0.96919
+anomalyclip,visa,macaroni2,small chip around edge,19,0.59053,0.43682,0.74895
+anomalyclip,visa,macaroni2,"small chip around edge,small scratches",6,0.515,0.30329,0.71171
+anomalyclip,visa,macaroni2,small cracks,7,0.7,0.45421,0.91861
+anomalyclip,visa,macaroni2,"small cracks,small scratches",2,0.73,0.57,0.88
+anomalyclip,visa,macaroni2,small scratches,16,0.73563,0.5912,0.85562
+anomalyclip,visa,pcb1,bent,14,0.72643,0.54205,0.88361
+anomalyclip,visa,pcb1,"bent,melt",1,0.82,0.74,0.89
+anomalyclip,visa,pcb1,melt,46,0.89826,0.83956,0.94717
+anomalyclip,visa,pcb1,"melt,missing",1,1.0,1.0,1.0
+anomalyclip,visa,pcb1,"melt,scratch",5,0.85,0.66195,0.996
+anomalyclip,visa,pcb1,"melt,scratch,missing",1,1.0,1.0,1.0
+anomalyclip,visa,pcb1,missing,17,0.82765,0.70466,0.93118
+anomalyclip,visa,pcb1,scratch,14,0.82571,0.69641,0.92357
+anomalyclip,visa,pcb1,"scratch,missing",1,1.0,1.0,1.0
+anomalyclip,visa,pcb2,bent,12,0.65333,0.48073,0.815
+anomalyclip,visa,pcb2,"bent,melt",3,0.62667,0.14,0.92008
+anomalyclip,visa,pcb2,melt,48,0.66667,0.57103,0.75106
+anomalyclip,visa,pcb2,"melt,scratch",4,0.5025,0.1725,0.79512
+anomalyclip,visa,pcb2,missing,17,0.56353,0.42175,0.70766
+anomalyclip,visa,pcb2,scratch,14,0.55429,0.39707,0.69788
+anomalyclip,visa,pcb2,"scratch,missing",2,0.49,0.37,0.62
+anomalyclip,visa,pcb3,bent,19,0.63366,0.46364,0.81087
+anomalyclip,visa,pcb3,"bent,melt",1,0.9703,0.94059,1.0
+anomalyclip,visa,pcb3,melt,38,0.69776,0.5982,0.79444
+anomalyclip,visa,pcb3,"melt,missing",1,0.42574,0.32673,0.52475
+anomalyclip,visa,pcb3,"melt,scratch",2,0.29703,0.14851,0.44579
+anomalyclip,visa,pcb3,"melt,scratch,missing",1,0.9901,0.9703,1.0
+anomalyclip,visa,pcb3,missing,16,0.31064,0.15218,0.48886
+anomalyclip,visa,pcb3,scratch,20,0.71535,0.56175,0.85601
+anomalyclip,visa,pcb3,"scratch,missing",2,0.43564,0.10891,0.77228
+anomalyclip,visa,pcb4,burnt,2,1.0,1.0,1.0
+anomalyclip,visa,pcb4,"burnt,dirt",4,1.0,1.0,1.0
+anomalyclip,visa,pcb4,"burnt,extra",1,0.73267,0.65347,0.82178
+anomalyclip,visa,pcb4,"burnt,scratch,dirt",1,1.0,1.0,1.0
+anomalyclip,visa,pcb4,damage,7,0.91655,0.8245,0.98727
+anomalyclip,visa,pcb4,"damage,dirt",6,0.99505,0.9802,1.0
+anomalyclip,visa,pcb4,"damage,extra",1,0.9901,0.9703,1.0
+anomalyclip,visa,pcb4,extra,12,0.81023,0.67403,0.93152
+anomalyclip,visa,pcb4,"extra,dirt",10,0.96634,0.9277,0.99406
+anomalyclip,visa,pcb4,missing,19,0.93434,0.87436,0.98021
+anomalyclip,visa,pcb4,"missing,damage",3,0.9934,0.9736,1.0
+anomalyclip,visa,pcb4,"missing,damage,extra",1,0.9802,0.9505,1.0
+anomalyclip,visa,pcb4,"missing,dirt",5,1.0,1.0,1.0
+anomalyclip,visa,pcb4,"missing,wrong place",1,1.0,1.0,1.0
+anomalyclip,visa,pcb4,scratch,2,0.97525,0.94059,1.0
+anomalyclip,visa,pcb4,"scratch,damage",1,1.0,1.0,1.0
+anomalyclip,visa,pcb4,"scratch,damage,dirt",1,1.0,1.0,1.0
+anomalyclip,visa,pcb4,"scratch,damage,extra",1,0.9604,0.92079,0.9901
+anomalyclip,visa,pcb4,"scratch,dirt",3,1.0,1.0,1.0
+anomalyclip,visa,pcb4,"scratch,extra",2,0.90099,0.77228,1.0
+anomalyclip,visa,pcb4,"scratch,extra,dirt",1,1.0,1.0,1.0
+anomalyclip,visa,pcb4,"scratch,extra,wrong place",1,0.9604,0.92079,0.9901
+anomalyclip,visa,pcb4,"scratch,missing",2,0.81188,0.57401,1.0
+anomalyclip,visa,pcb4,"scratch,missing,dirt",2,0.97525,0.92079,1.0
+anomalyclip,visa,pcb4,wrong place,2,0.80198,0.70297,0.89109
+anomalyclip,visa,pcb4,"wrong place,dirt",9,0.9813,0.9516,0.9989
+anomalyclip,visa,pipe_fryum,burnt,15,0.92533,0.84263,0.9867
+anomalyclip,visa,pipe_fryum,"burnt,small scratches",1,0.98,0.9395,1.0
+anomalyclip,visa,pipe_fryum,corner and edge breakage,15,0.96533,0.91467,0.99467
+anomalyclip,visa,pipe_fryum,different colour spot,10,0.978,0.938,1.0
+anomalyclip,visa,pipe_fryum,"middle breakage,small cracks",6,1.0,1.0,1.0
+anomalyclip,visa,pipe_fryum,"middle breakage,small scratches,small cracks",4,1.0,1.0,1.0
+anomalyclip,visa,pipe_fryum,similar colour spot,20,0.923,0.85,0.97402
+anomalyclip,visa,pipe_fryum,"similar colour spot,small scratches",1,1.0,1.0,1.0
+anomalyclip,visa,pipe_fryum,small scratches,18,0.85889,0.76,0.93558
+anomalyclip,visa,pipe_fryum,stuck together,10,0.824,0.622,0.964
+anomalyclip,mpdd,bracket_black,hole,12,0.77865,0.62493,0.90625
+anomalyclip,mpdd,bracket_black,scratches,35,0.64286,0.51511,0.77056
+anomalyclip,mpdd,bracket_brown,bend_and_parts_mismatch,17,0.71041,0.53167,0.87783
+anomalyclip,mpdd,bracket_brown,parts_mismatch,34,0.57466,0.42647,0.71609
+anomalyclip,mpdd,bracket_white,defective_painting,13,0.43846,0.24872,0.62571
+anomalyclip,mpdd,bracket_white,scratches,17,0.85882,0.74505,0.95098
+anomalyclip,mpdd,connector,parts_mismatch,14,0.87381,0.76423,0.95714
+anomalyclip,mpdd,metal_plate,major_rust,14,0.48626,0.29114,0.66765
+anomalyclip,mpdd,metal_plate,scratches,34,0.92534,0.85747,0.97738
+anomalyclip,mpdd,metal_plate,total_rust,23,0.95151,0.88792,0.99331
+anomalyclip,mpdd,tubes,anomalous,69,0.95426,0.91349,0.98324
+visualad,mvtec,bottle,broken_large,20,0.9975,0.98744,1.0
+visualad,mvtec,bottle,broken_small,22,1.0,1.0,1.0
+visualad,mvtec,bottle,contamination,21,0.82381,0.7,0.92857
+visualad,mvtec,cable,bent_wire,13,0.99469,0.97878,1.0
+visualad,mvtec,cable,cable_swap,12,0.53448,0.30891,0.763
+visualad,mvtec,cable,combined,11,0.96082,0.89969,1.0
+visualad,mvtec,cable,cut_inner_insulation,14,0.98399,0.95197,1.0
+visualad,mvtec,cable,cut_outer_insulation,10,0.72414,0.52754,0.90862
+visualad,mvtec,cable,missing_cable,12,0.88506,0.79019,0.95546
+visualad,mvtec,cable,missing_wire,10,0.86379,0.73793,0.96207
+visualad,mvtec,cable,poke_insulation,10,0.9069,0.82409,0.97069
+visualad,mvtec,capsule,crack,23,0.96786,0.90543,1.0
+visualad,mvtec,capsule,faulty_imprint,22,0.94466,0.8419,1.0
+visualad,mvtec,capsule,poke,21,0.99172,0.96889,1.0
+visualad,mvtec,capsule,scratch,23,0.93006,0.84121,1.0
+visualad,mvtec,capsule,squeeze,20,0.87826,0.7413,0.99565
+visualad,mvtec,carpet,color,19,1.0,1.0,1.0
+visualad,mvtec,carpet,cut,17,1.0,1.0,1.0
+visualad,mvtec,carpet,hole,17,1.0,1.0,1.0
+visualad,mvtec,carpet,metal_contamination,17,1.0,1.0,1.0
+visualad,mvtec,carpet,thread,19,1.0,1.0,1.0
+visualad,mvtec,grid,bent,12,1.0,1.0,1.0
+visualad,mvtec,grid,broken,12,1.0,1.0,1.0
+visualad,mvtec,grid,glue,11,0.99567,0.97403,1.0
+visualad,mvtec,grid,metal_contamination,11,1.0,1.0,1.0
+visualad,mvtec,grid,thread,11,0.98701,0.94805,1.0
+visualad,mvtec,hazelnut,crack,18,0.99028,0.9625,1.0
+visualad,mvtec,hazelnut,cut,17,1.0,1.0,1.0
+visualad,mvtec,hazelnut,hole,18,1.0,1.0,1.0
+visualad,mvtec,hazelnut,print,17,0.92941,0.82787,1.0
+visualad,mvtec,leather,color,19,1.0,1.0,1.0
+visualad,mvtec,leather,cut,19,1.0,1.0,1.0
+visualad,mvtec,leather,fold,17,1.0,1.0,1.0
+visualad,mvtec,leather,glue,19,1.0,1.0,1.0
+visualad,mvtec,leather,poke,18,1.0,1.0,1.0
+visualad,mvtec,metal_nut,bent,25,0.99818,0.98909,1.0
+visualad,mvtec,metal_nut,color,22,1.0,1.0,1.0
+visualad,mvtec,metal_nut,flip,23,0.33992,0.18972,0.51186
+visualad,mvtec,metal_nut,scratch,23,0.99802,0.98814,1.0
+visualad,mvtec,pill,color,25,0.69846,0.53538,0.83231
+visualad,mvtec,pill,combined,17,0.88914,0.76691,0.97511
+visualad,mvtec,pill,contamination,21,0.86264,0.75092,0.95238
+visualad,mvtec,pill,crack,26,0.72781,0.57544,0.85503
+visualad,mvtec,pill,faulty_imprint,19,0.60324,0.42915,0.77131
+visualad,mvtec,pill,pill_type,9,0.15812,0.0,0.37607
+visualad,mvtec,pill,scratch,24,0.70673,0.55445,0.84295
+visualad,mvtec,screw,manipulated_front,24,0.84959,0.75607,0.93293
+visualad,mvtec,screw,scratch_head,24,0.90142,0.81606,0.9685
+visualad,mvtec,screw,scratch_neck,25,0.90537,0.82144,0.97073
+visualad,mvtec,screw,thread_side,23,0.81548,0.70835,0.91092
+visualad,mvtec,screw,thread_top,23,0.95122,0.88759,0.99364
+visualad,mvtec,tile,crack,17,0.96435,0.90192,1.0
+visualad,mvtec,tile,glue_strip,18,0.98485,0.94444,1.0
+visualad,mvtec,tile,gray_stroke,16,0.95455,0.88068,1.0
+visualad,mvtec,tile,oil,18,0.98316,0.94276,1.0
+visualad,mvtec,tile,rough,15,0.91111,0.81414,0.98586
+visualad,mvtec,toothbrush,defective,30,0.96944,0.91938,1.0
+visualad,mvtec,transistor,bent_lead,10,0.9,0.79333,0.98337
+visualad,mvtec,transistor,cut_lead,10,0.84333,0.70667,0.95667
+visualad,mvtec,transistor,damaged_case,10,0.99167,0.96662,1.0
+visualad,mvtec,transistor,misplaced,10,0.56667,0.33663,0.78842
+visualad,mvtec,wood,color,8,1.0,1.0,1.0
+visualad,mvtec,wood,combined,11,1.0,1.0,1.0
+visualad,mvtec,wood,hole,10,0.98947,0.95776,1.0
+visualad,mvtec,wood,liquid,10,0.99474,0.96842,1.0
+visualad,mvtec,wood,scratch,21,0.98747,0.95739,1.0
+visualad,mvtec,zipper,broken_teeth,19,0.95724,0.88154,1.0
+visualad,mvtec,zipper,combined,16,0.98828,0.96094,1.0
+visualad,mvtec,zipper,fabric_border,17,1.0,1.0,1.0
+visualad,mvtec,zipper,fabric_interior,16,0.94922,0.83594,1.0
+visualad,mvtec,zipper,rough,17,1.0,1.0,1.0
+visualad,mvtec,zipper,split_teeth,18,0.90625,0.81419,0.97743
+visualad,mvtec,zipper,squeezed_teeth,16,0.74609,0.58984,0.89258
+visualad,visa,candle,chunk of wax missing,12,0.92833,0.83162,1.0
+visualad,visa,candle,"chunk of wax missing,damaged corner of packaging,different colour spot",1,0.98,0.95,1.0
+visualad,visa,candle,"chunk of wax missing,different colour spot",1,1.0,1.0,1.0
+visualad,visa,candle,"chunk of wax missing,foreign particals on candle",1,1.0,1.0,1.0
+visualad,visa,candle,damaged corner of packaging,18,0.84222,0.72886,0.94225
+visualad,visa,candle,"damaged corner of packaging,different colour spot",1,0.89,0.82,0.95
+visualad,visa,candle,"damaged corner of packaging,different colour spot,other",1,0.98,0.95,1.0
+visualad,visa,candle,"damaged corner of packaging,extra wax in candle",1,0.98,0.95,1.0
+visualad,visa,candle,"damaged corner of packaging,foreign particals on candle",2,1.0,1.0,1.0
+visualad,visa,candle,"damaged corner of packaging,weird candle wick",1,0.92,0.87,0.97
+visualad,visa,candle,different colour spot,15,0.55533,0.40197,0.7087
+visualad,visa,candle,"different colour spot,foreign particals on candle",1,0.78,0.7,0.86
+visualad,visa,candle,"different colour spot,wax melded out of the candle",1,0.99,0.97,1.0
+visualad,visa,candle,extra wax in candle,9,0.96222,0.87328,1.0
+visualad,visa,candle,foreign particals on candle,12,1.0,1.0,1.0
+visualad,visa,candle,"foreign particals on candle,wax melded out of the candle",1,1.0,1.0,1.0
+visualad,visa,candle,wax melded out of the candle,12,0.96667,0.91167,1.0
+visualad,visa,candle,weird candle wick,9,0.89444,0.77769,0.99003
+visualad,visa,candle,"weird candle wick,different colour spot",1,0.19,0.12,0.27
+visualad,visa,capsules,bubble,30,0.875,0.77051,0.95117
+visualad,visa,capsules,"bubble,discolor",15,0.70889,0.54,0.85336
+visualad,visa,capsules,"bubble,discolor,scratch",15,0.76333,0.58433,0.90561
+visualad,visa,capsules,"bubble,discolor,scratch,leak",12,1.0,1.0,1.0
+visualad,visa,capsules,"bubble,discolor,scratch,leak,misshape",28,0.98155,0.94643,1.0
+visualad,visa,cashew,burnt,10,0.976,0.92995,1.0
+visualad,visa,cashew,"burnt,corner or edge breakage",2,0.98,0.92,1.0
+visualad,visa,cashew,"burnt,different colour spot",1,0.86,0.76,0.94
+visualad,visa,cashew,"burnt,same colour spot",1,0.96,0.9,1.0
+visualad,visa,cashew,corner or edge breakage,14,0.98714,0.95286,1.0
+visualad,visa,cashew,"corner or edge breakage,small scratches",1,0.16,0.06,0.26
+visualad,visa,cashew,different colour spot,9,0.94,0.80667,1.0
+visualad,visa,cashew,"different colour spot,same colour spot",2,1.0,1.0,1.0
+visualad,visa,cashew,"different colour spot,small holes",1,0.46,0.32,0.5805
+visualad,visa,cashew,middle breakage,6,1.0,1.0,1.0
+visualad,visa,cashew,"middle breakage,same colour spot",1,1.0,1.0,1.0
+visualad,visa,cashew,"middle breakage,small holes",1,1.0,1.0,1.0
+visualad,visa,cashew,same colour spot,10,0.71,0.49995,0.908
+visualad,visa,cashew,small holes,20,0.815,0.69598,0.91605
+visualad,visa,cashew,small scratches,15,0.63333,0.4773,0.78533
+visualad,visa,cashew,stuck together,6,0.99667,0.98,1.0
+visualad,visa,chewinggum,chunk of gum missing,16,1.0,1.0,1.0
+visualad,visa,chewinggum,"chunk of gum missing,corner missing",7,1.0,1.0,1.0
+visualad,visa,chewinggum,"chunk of gum missing,corner missing,small cracks",6,1.0,1.0,1.0
+visualad,visa,chewinggum,"chunk of gum missing,scratches",1,1.0,1.0,1.0
+visualad,visa,chewinggum,"chunk of gum missing,scratches,small cracks",2,1.0,1.0,1.0
+visualad,visa,chewinggum,"chunk of gum missing,small cracks",15,1.0,1.0,1.0
+visualad,visa,chewinggum,corner missing,13,0.83846,0.70304,0.94312
+visualad,visa,chewinggum,"corner missing,scratches",2,0.91,0.76,1.0
+visualad,visa,chewinggum,"corner missing,similar colour spot",3,0.98667,0.94,1.0
+visualad,visa,chewinggum,"corner missing,similar colour spot,small cracks",1,1.0,1.0,1.0
+visualad,visa,chewinggum,"corner missing,small cracks",4,1.0,1.0,1.0
+visualad,visa,chewinggum,scratches,9,0.99556,0.98,1.0
+visualad,visa,chewinggum,"scratches,similar colour spot",1,1.0,1.0,1.0
+visualad,visa,chewinggum,"scratches,similar colour spot,small cracks",1,1.0,1.0,1.0
+visualad,visa,chewinggum,similar colour spot,19,0.99368,0.97789,1.0
+visualad,visa,fryum,burnt,9,1.0,1.0,1.0
+visualad,visa,fryum,corner or edge breakage,8,0.82,0.56744,0.9775
+visualad,visa,fryum,"corner or edge breakage,small scratches",1,0.98,0.94,1.0
+visualad,visa,fryum,different colour spot,14,0.64571,0.46996,0.80429
+visualad,visa,fryum,"different colour spot,similar colour spot",4,0.745,0.475,0.97
+visualad,visa,fryum,fryum stuck together,20,0.913,0.82995,0.973
+visualad,visa,fryum,middle breakage,18,0.97556,0.93886,1.0
+visualad,visa,fryum,"middle breakage,similar colour spot",1,1.0,1.0,1.0
+visualad,visa,fryum,"middle breakage,small scratches",2,0.97,0.92,1.0
+visualad,visa,fryum,similar colour spot,12,0.84333,0.72333,0.94171
+visualad,visa,fryum,"similar colour spot,other",1,1.0,1.0,1.0
+visualad,visa,fryum,"similar colour spot,small scratches",4,0.845,0.58,1.0
+visualad,visa,fryum,small scratches,6,0.59333,0.28667,0.9
+visualad,visa,macaroni1,chip around edge and corner,17,0.89471,0.80291,0.96591
+visualad,visa,macaroni1,"chip around edge and corner,small cracks",2,0.99,0.96,1.0
+visualad,visa,macaroni1,"chip around edge and corner,small scratches",6,0.8,0.61162,0.98
+visualad,visa,macaroni1,different colour spot,15,0.75467,0.62462,0.87133
+visualad,visa,macaroni1,"different colour spot,similar colour spot",1,0.89,0.83,0.94
+visualad,visa,macaroni1,"middle breakage,small scratches",10,1.0,1.0,1.0
+visualad,visa,macaroni1,similar colour spot,21,0.75238,0.6457,0.8505
+visualad,visa,macaroni1,small cracks,11,0.72545,0.58091,0.85191
+visualad,visa,macaroni1,"small cracks,small scratches",1,0.98,0.95,1.0
+visualad,visa,macaroni1,small scratches,16,0.6875,0.54058,0.81939
+visualad,visa,macaroni2,breakage down the middle,1,0.52,0.42975,0.62
+visualad,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge",1,0.35,0.26,0.43
+visualad,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge,small cracks",1,0.89,0.82,0.94
+visualad,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge,small cracks,small scratches",2,0.215,0.06,0.4
+visualad,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge,small cracks,small scratches,other",1,0.67,0.57,0.75
+visualad,visa,macaroni2,"breakage down the middle,small scratches",9,0.86333,0.74661,0.95222
+visualad,visa,macaroni2,color spot similar to the object,23,0.55391,0.41824,0.68739
+visualad,visa,macaroni2,different color spot,12,0.63333,0.45579,0.78083
+visualad,visa,macaroni2,small chip around edge,19,0.65947,0.52364,0.78845
+visualad,visa,macaroni2,"small chip around edge,small scratches",6,0.505,0.30992,0.72675
+visualad,visa,macaroni2,small cracks,7,0.55571,0.33857,0.80718
+visualad,visa,macaroni2,"small cracks,small scratches",2,0.505,0.09,0.91
+visualad,visa,macaroni2,small scratches,16,0.5975,0.42436,0.74817
+visualad,visa,pcb1,bent,14,0.78,0.61427,0.9243
+visualad,visa,pcb1,"bent,melt",1,1.0,1.0,1.0
+visualad,visa,pcb1,melt,46,0.84326,0.76172,0.91306
+visualad,visa,pcb1,"melt,missing",1,0.39,0.3,0.48
+visualad,visa,pcb1,"melt,scratch",5,0.97,0.928,0.998
+visualad,visa,pcb1,"melt,scratch,missing",1,0.94,0.89,0.98
+visualad,visa,pcb1,missing,17,0.52588,0.36234,0.69296
+visualad,visa,pcb1,scratch,14,0.80571,0.68429,0.90286
+visualad,visa,pcb1,"scratch,missing",1,1.0,1.0,1.0
+visualad,visa,pcb2,bent,12,0.7975,0.63079,0.92421
+visualad,visa,pcb2,"bent,melt",3,0.66,0.42,0.84675
+visualad,visa,pcb2,melt,48,0.85979,0.79561,0.91438
+visualad,visa,pcb2,"melt,scratch",4,0.8575,0.725,0.95756
+visualad,visa,pcb2,missing,17,0.59706,0.44699,0.73304
+visualad,visa,pcb2,scratch,14,0.71929,0.58855,0.84286
+visualad,visa,pcb2,"scratch,missing",2,0.77,0.68488,0.85
+visualad,visa,pcb3,bent,19,0.86555,0.76131,0.9427
+visualad,visa,pcb3,"bent,melt",1,0.9505,0.90099,0.9901
+visualad,visa,pcb3,melt,38,0.81813,0.73369,0.89135
+visualad,visa,pcb3,"melt,missing",1,0.46535,0.36634,0.57426
+visualad,visa,pcb3,"melt,scratch",2,0.54455,0.43564,0.65347
+visualad,visa,pcb3,"melt,scratch,missing",1,0.87129,0.81188,0.93069
+visualad,visa,pcb3,missing,16,0.42574,0.29144,0.57056
+visualad,visa,pcb3,scratch,20,0.56832,0.43911,0.69608
+visualad,visa,pcb3,"scratch,missing",2,0.5396,0.20792,0.86163
+visualad,visa,pcb4,burnt,2,0.96535,0.91089,1.0
+visualad,visa,pcb4,"burnt,dirt",4,0.99257,0.9703,1.0
+visualad,visa,pcb4,"burnt,extra",1,0.91089,0.85149,0.9604
+visualad,visa,pcb4,"burnt,scratch,dirt",1,1.0,1.0,1.0
+visualad,visa,pcb4,damage,7,0.95191,0.85566,1.0
+visualad,visa,pcb4,"damage,dirt",6,0.9967,0.98515,1.0
+visualad,visa,pcb4,"damage,extra",1,1.0,1.0,1.0
+visualad,visa,pcb4,extra,12,0.91997,0.8349,0.98102
+visualad,visa,pcb4,"extra,dirt",10,0.97228,0.93564,0.99703
+visualad,visa,pcb4,missing,19,0.91819,0.85925,0.96196
+visualad,visa,pcb4,"missing,damage",3,0.88449,0.68317,1.0
+visualad,visa,pcb4,"missing,damage,extra",1,0.94059,0.89109,0.9802
+visualad,visa,pcb4,"missing,dirt",5,0.98614,0.96436,1.0
+visualad,visa,pcb4,"missing,wrong place",1,0.9901,0.9703,1.0
+visualad,visa,pcb4,scratch,2,0.9703,0.92079,1.0
+visualad,visa,pcb4,"scratch,damage",1,1.0,1.0,1.0
+visualad,visa,pcb4,"scratch,damage,dirt",1,1.0,1.0,1.0
+visualad,visa,pcb4,"scratch,damage,extra",1,1.0,1.0,1.0
+visualad,visa,pcb4,"scratch,dirt",3,0.9901,0.9703,1.0
+visualad,visa,pcb4,"scratch,extra",2,0.99505,0.9802,1.0
+visualad,visa,pcb4,"scratch,extra,dirt",1,1.0,1.0,1.0
+visualad,visa,pcb4,"scratch,extra,wrong place",1,0.9901,0.9703,1.0
+visualad,visa,pcb4,"scratch,missing",2,0.90099,0.76213,1.0
+visualad,visa,pcb4,"scratch,missing,dirt",2,0.9505,0.88119,1.0
+visualad,visa,pcb4,wrong place,2,0.94059,0.89109,0.9802
+visualad,visa,pcb4,"wrong place,dirt",9,0.9516,0.89879,0.9868
+visualad,visa,pipe_fryum,burnt,15,0.98933,0.96667,1.0
+visualad,visa,pipe_fryum,"burnt,small scratches",1,1.0,1.0,1.0
+visualad,visa,pipe_fryum,corner and edge breakage,15,0.97333,0.92793,1.0
+visualad,visa,pipe_fryum,different colour spot,10,0.876,0.77995,0.958
+visualad,visa,pipe_fryum,"middle breakage,small cracks",6,1.0,1.0,1.0
+visualad,visa,pipe_fryum,"middle breakage,small scratches,small cracks",4,1.0,1.0,1.0
+visualad,visa,pipe_fryum,similar colour spot,20,0.751,0.61698,0.867
+visualad,visa,pipe_fryum,"similar colour spot,small scratches",1,1.0,1.0,1.0
+visualad,visa,pipe_fryum,small scratches,18,0.97222,0.92997,0.99667
+visualad,visa,pipe_fryum,stuck together,10,0.99,0.964,1.0
+visualad,mpdd,bracket_black,hole,12,0.8125,0.67448,0.92454
+visualad,mpdd,bracket_black,scratches,35,0.66607,0.54105,0.79112
+visualad,mpdd,bracket_brown,bend_and_parts_mismatch,17,0.22851,0.09729,0.3802
+visualad,mpdd,bracket_brown,parts_mismatch,34,0.48077,0.33136,0.62113
+visualad,mpdd,bracket_white,defective_painting,13,0.86923,0.75897,0.9641
+visualad,mpdd,bracket_white,scratches,17,0.94902,0.87843,0.99417
+visualad,mpdd,connector,parts_mismatch,14,0.65714,0.45952,0.82857
+visualad,mpdd,metal_plate,major_rust,14,0.26648,0.12363,0.43139
+visualad,mpdd,metal_plate,scratches,34,0.88801,0.79864,0.95588
+visualad,mpdd,metal_plate,total_rust,23,0.45652,0.30096,0.61873
+visualad,mpdd,tubes,anomalous,69,0.99547,0.98732,1.0
+anomalyvfm_dinov2,mvtec,bottle,broken_large,20,0.9975,0.985,1.0
+anomalyvfm_dinov2,mvtec,bottle,broken_small,22,1.0,1.0,1.0
+anomalyvfm_dinov2,mvtec,bottle,contamination,21,0.90238,0.78095,0.98577
+anomalyvfm_dinov2,mvtec,cable,bent_wire,13,0.80305,0.68629,0.89721
+anomalyvfm_dinov2,mvtec,cable,cable_swap,12,0.5704,0.39077,0.75144
+anomalyvfm_dinov2,mvtec,cable,combined,11,0.71787,0.56973,0.84639
+anomalyvfm_dinov2,mvtec,cable,cut_inner_insulation,14,0.84606,0.74751,0.93473
+anomalyvfm_dinov2,mvtec,cable,cut_outer_insulation,10,0.66552,0.45328,0.85177
+anomalyvfm_dinov2,mvtec,cable,missing_cable,12,0.65948,0.46972,0.84772
+anomalyvfm_dinov2,mvtec,cable,missing_wire,10,0.70948,0.52241,0.8664
+anomalyvfm_dinov2,mvtec,cable,poke_insulation,10,0.6931,0.52584,0.83541
+anomalyvfm_dinov2,mvtec,capsule,crack,23,0.95652,0.89783,0.99622
+anomalyvfm_dinov2,mvtec,capsule,faulty_imprint,22,0.83794,0.69363,0.95652
+anomalyvfm_dinov2,mvtec,capsule,poke,21,0.98758,0.95859,1.0
+anomalyvfm_dinov2,mvtec,capsule,scratch,23,0.9414,0.87136,0.99244
+anomalyvfm_dinov2,mvtec,capsule,squeeze,20,0.90435,0.7913,0.9913
+anomalyvfm_dinov2,mvtec,carpet,color,19,0.96429,0.90226,1.0
+anomalyvfm_dinov2,mvtec,carpet,cut,17,0.95168,0.87395,1.0
+anomalyvfm_dinov2,mvtec,carpet,hole,17,0.95588,0.8844,1.0
+anomalyvfm_dinov2,mvtec,carpet,metal_contamination,17,0.92437,0.82353,1.0
+anomalyvfm_dinov2,mvtec,carpet,thread,19,0.96241,0.90602,1.0
+anomalyvfm_dinov2,mvtec,grid,bent,12,0.99206,0.96825,1.0
+anomalyvfm_dinov2,mvtec,grid,broken,12,0.99603,0.97619,1.0
+anomalyvfm_dinov2,mvtec,grid,glue,11,1.0,1.0,1.0
+anomalyvfm_dinov2,mvtec,grid,metal_contamination,11,0.99134,0.96537,1.0
+anomalyvfm_dinov2,mvtec,grid,thread,11,0.98268,0.93506,1.0
+anomalyvfm_dinov2,mvtec,hazelnut,crack,18,1.0,1.0,1.0
+anomalyvfm_dinov2,mvtec,hazelnut,cut,17,1.0,1.0,1.0
+anomalyvfm_dinov2,mvtec,hazelnut,hole,18,0.9875,0.95833,1.0
+anomalyvfm_dinov2,mvtec,hazelnut,print,17,0.98088,0.94849,1.0
+anomalyvfm_dinov2,mvtec,leather,color,19,1.0,1.0,1.0
+anomalyvfm_dinov2,mvtec,leather,cut,19,0.99342,0.97533,1.0
+anomalyvfm_dinov2,mvtec,leather,fold,17,0.97243,0.92279,1.0
+anomalyvfm_dinov2,mvtec,leather,glue,19,0.97697,0.93252,1.0
+anomalyvfm_dinov2,mvtec,leather,poke,18,0.97396,0.92188,1.0
+anomalyvfm_dinov2,mvtec,metal_nut,bent,25,0.95455,0.88909,0.99636
+anomalyvfm_dinov2,mvtec,metal_nut,color,22,1.0,1.0,1.0
+anomalyvfm_dinov2,mvtec,metal_nut,flip,23,0.01383,0.0,0.04743
+anomalyvfm_dinov2,mvtec,metal_nut,scratch,23,0.98419,0.95257,1.0
+anomalyvfm_dinov2,mvtec,pill,color,25,0.8,0.66458,0.90927
+anomalyvfm_dinov2,mvtec,pill,combined,17,0.98869,0.95928,1.0
+anomalyvfm_dinov2,mvtec,pill,contamination,21,0.96337,0.90288,1.0
+anomalyvfm_dinov2,mvtec,pill,crack,26,0.83802,0.72114,0.93787
+anomalyvfm_dinov2,mvtec,pill,faulty_imprint,19,0.99798,0.98785,1.0
+anomalyvfm_dinov2,mvtec,pill,pill_type,9,0.61966,0.41442,0.82479
+anomalyvfm_dinov2,mvtec,pill,scratch,24,0.94391,0.87336,0.99199
+anomalyvfm_dinov2,mvtec,screw,manipulated_front,24,0.88262,0.79624,0.95733
+anomalyvfm_dinov2,mvtec,screw,scratch_head,24,0.72561,0.59348,0.85165
+anomalyvfm_dinov2,mvtec,screw,scratch_neck,25,0.90683,0.82772,0.96978
+anomalyvfm_dinov2,mvtec,screw,thread_side,23,0.93796,0.86957,0.98727
+anomalyvfm_dinov2,mvtec,screw,thread_top,23,0.94698,0.85893,1.0
+anomalyvfm_dinov2,mvtec,tile,crack,17,0.99109,0.96435,1.0
+anomalyvfm_dinov2,mvtec,tile,glue_strip,18,1.0,1.0,1.0
+anomalyvfm_dinov2,mvtec,tile,gray_stroke,16,0.99242,0.97159,1.0
+anomalyvfm_dinov2,mvtec,tile,oil,18,0.98653,0.95286,1.0
+anomalyvfm_dinov2,mvtec,tile,rough,15,0.9697,0.92323,0.99798
+anomalyvfm_dinov2,mvtec,toothbrush,defective,30,0.42778,0.24167,0.60278
+anomalyvfm_dinov2,mvtec,transistor,bent_lead,10,0.69167,0.50665,0.86083
+anomalyvfm_dinov2,mvtec,transistor,cut_lead,10,0.86667,0.75496,0.965
+anomalyvfm_dinov2,mvtec,transistor,damaged_case,10,1.0,1.0,1.0
+anomalyvfm_dinov2,mvtec,transistor,misplaced,10,0.24333,0.07492,0.44687
+anomalyvfm_dinov2,mvtec,wood,color,8,1.0,1.0,1.0
+anomalyvfm_dinov2,mvtec,wood,combined,11,1.0,1.0,1.0
+anomalyvfm_dinov2,mvtec,wood,hole,10,1.0,1.0,1.0
+anomalyvfm_dinov2,mvtec,wood,liquid,10,1.0,1.0,1.0
+anomalyvfm_dinov2,mvtec,wood,scratch,21,1.0,1.0,1.0
+anomalyvfm_dinov2,mvtec,zipper,broken_teeth,19,0.98684,0.95884,1.0
+anomalyvfm_dinov2,mvtec,zipper,combined,16,0.98047,0.94141,1.0
+anomalyvfm_dinov2,mvtec,zipper,fabric_border,17,0.99449,0.97794,1.0
+anomalyvfm_dinov2,mvtec,zipper,fabric_interior,16,0.93848,0.85737,0.99219
+anomalyvfm_dinov2,mvtec,zipper,rough,17,0.99632,0.98529,1.0
+anomalyvfm_dinov2,mvtec,zipper,split_teeth,18,0.94792,0.88194,1.0
+anomalyvfm_dinov2,mvtec,zipper,squeezed_teeth,16,0.76953,0.61519,0.89458
+anomalyvfm_dinov2,visa,candle,chunk of wax missing,12,0.955,0.86917,1.0
+anomalyvfm_dinov2,visa,candle,"chunk of wax missing,damaged corner of packaging,different colour spot",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,candle,"chunk of wax missing,different colour spot",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,candle,"chunk of wax missing,foreign particals on candle",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,candle,damaged corner of packaging,18,0.99417,0.98333,1.0
+anomalyvfm_dinov2,visa,candle,"damaged corner of packaging,different colour spot",1,0.67,0.58,0.75
+anomalyvfm_dinov2,visa,candle,"damaged corner of packaging,different colour spot,other",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,candle,"damaged corner of packaging,extra wax in candle",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,candle,"damaged corner of packaging,foreign particals on candle",2,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,candle,"damaged corner of packaging,weird candle wick",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,candle,different colour spot,15,0.83867,0.74666,0.91802
+anomalyvfm_dinov2,visa,candle,"different colour spot,foreign particals on candle",1,0.87,0.80988,0.93
+anomalyvfm_dinov2,visa,candle,"different colour spot,wax melded out of the candle",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,candle,extra wax in candle,9,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,candle,foreign particals on candle,12,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,candle,"foreign particals on candle,wax melded out of the candle",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,candle,wax melded out of the candle,12,0.98083,0.94498,1.0
+anomalyvfm_dinov2,visa,candle,weird candle wick,9,0.84111,0.65883,0.985
+anomalyvfm_dinov2,visa,candle,"weird candle wick,different colour spot",1,0.715,0.62488,0.805
+anomalyvfm_dinov2,visa,capsules,bubble,30,0.95,0.89886,0.98778
+anomalyvfm_dinov2,visa,capsules,"bubble,discolor",15,0.92889,0.85111,0.98889
+anomalyvfm_dinov2,visa,capsules,"bubble,discolor,scratch",15,0.95667,0.90331,0.99111
+anomalyvfm_dinov2,visa,capsules,"bubble,discolor,scratch,leak",12,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,capsules,"bubble,discolor,scratch,leak,misshape",28,0.97708,0.94522,0.99643
+anomalyvfm_dinov2,visa,cashew,burnt,10,0.827,0.66795,0.95205
+anomalyvfm_dinov2,visa,cashew,"burnt,corner or edge breakage",2,0.98,0.94,1.0
+anomalyvfm_dinov2,visa,cashew,"burnt,different colour spot",1,0.92,0.84,0.98
+anomalyvfm_dinov2,visa,cashew,"burnt,same colour spot",1,0.72,0.6,0.84
+anomalyvfm_dinov2,visa,cashew,corner or edge breakage,14,0.965,0.91355,1.0
+anomalyvfm_dinov2,visa,cashew,"corner or edge breakage,small scratches",1,0.94,0.86,1.0
+anomalyvfm_dinov2,visa,cashew,different colour spot,9,0.96222,0.90661,1.0
+anomalyvfm_dinov2,visa,cashew,"different colour spot,same colour spot",2,0.93,0.82,1.0
+anomalyvfm_dinov2,visa,cashew,"different colour spot,small holes",1,0.52,0.38,0.66
+anomalyvfm_dinov2,visa,cashew,middle breakage,6,0.99667,0.98,1.0
+anomalyvfm_dinov2,visa,cashew,"middle breakage,same colour spot",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,cashew,"middle breakage,small holes",1,0.98,0.94,1.0
+anomalyvfm_dinov2,visa,cashew,same colour spot,10,0.88,0.73,0.988
+anomalyvfm_dinov2,visa,cashew,small holes,20,0.876,0.78998,0.95002
+anomalyvfm_dinov2,visa,cashew,small scratches,15,0.72533,0.58667,0.84488
+anomalyvfm_dinov2,visa,cashew,stuck together,6,0.77333,0.5465,0.95667
+anomalyvfm_dinov2,visa,chewinggum,chunk of gum missing,16,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,chewinggum,"chunk of gum missing,corner missing",7,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,chewinggum,"chunk of gum missing,corner missing,small cracks",6,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,chewinggum,"chunk of gum missing,scratches",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,chewinggum,"chunk of gum missing,scratches,small cracks",2,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,chewinggum,"chunk of gum missing,small cracks",15,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,chewinggum,corner missing,13,0.96,0.89535,0.99692
+anomalyvfm_dinov2,visa,chewinggum,"corner missing,scratches",2,0.97,0.9,1.0
+anomalyvfm_dinov2,visa,chewinggum,"corner missing,similar colour spot",3,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,chewinggum,"corner missing,similar colour spot,small cracks",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,chewinggum,"corner missing,small cracks",4,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,chewinggum,scratches,9,0.97333,0.92444,1.0
+anomalyvfm_dinov2,visa,chewinggum,"scratches,similar colour spot",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,chewinggum,"scratches,similar colour spot,small cracks",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,chewinggum,similar colour spot,19,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,fryum,burnt,9,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,fryum,corner or edge breakage,8,0.945,0.835,1.0
+anomalyvfm_dinov2,visa,fryum,"corner or edge breakage,small scratches",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,fryum,different colour spot,14,0.92429,0.84139,0.98571
+anomalyvfm_dinov2,visa,fryum,"different colour spot,similar colour spot",4,0.98,0.93488,1.0
+anomalyvfm_dinov2,visa,fryum,fryum stuck together,20,0.998,0.991,1.0
+anomalyvfm_dinov2,visa,fryum,middle breakage,18,0.99889,0.99333,1.0
+anomalyvfm_dinov2,visa,fryum,"middle breakage,similar colour spot",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,fryum,"middle breakage,small scratches",2,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,fryum,similar colour spot,12,0.98333,0.95325,1.0
+anomalyvfm_dinov2,visa,fryum,"similar colour spot,other",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,fryum,"similar colour spot,small scratches",4,0.775,0.37,1.0
+anomalyvfm_dinov2,visa,fryum,small scratches,6,0.70167,0.41821,0.96
+anomalyvfm_dinov2,visa,macaroni1,chip around edge and corner,17,0.94176,0.88057,0.99059
+anomalyvfm_dinov2,visa,macaroni1,"chip around edge and corner,small cracks",2,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,macaroni1,"chip around edge and corner,small scratches",6,0.94833,0.89165,0.99083
+anomalyvfm_dinov2,visa,macaroni1,different colour spot,15,0.997,0.98733,1.0
+anomalyvfm_dinov2,visa,macaroni1,"different colour spot,similar colour spot",1,0.81,0.73,0.89
+anomalyvfm_dinov2,visa,macaroni1,"middle breakage,small scratches",10,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,macaroni1,similar colour spot,21,0.93048,0.87475,0.97596
+anomalyvfm_dinov2,visa,macaroni1,small cracks,11,0.98182,0.95,1.0
+anomalyvfm_dinov2,visa,macaroni1,"small cracks,small scratches",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,macaroni1,small scratches,16,0.6425,0.49028,0.77001
+anomalyvfm_dinov2,visa,macaroni2,breakage down the middle,1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge",1,0.91,0.85,0.96
+anomalyvfm_dinov2,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge,small cracks",1,0.935,0.885,0.98
+anomalyvfm_dinov2,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge,small cracks,small scratches",2,0.89,0.78,0.98
+anomalyvfm_dinov2,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge,small cracks,small scratches,other",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,macaroni2,"breakage down the middle,small scratches",9,0.97667,0.92442,1.0
+anomalyvfm_dinov2,visa,macaroni2,color spot similar to the object,23,0.85022,0.76174,0.92805
+anomalyvfm_dinov2,visa,macaroni2,different color spot,12,0.92208,0.85333,0.97667
+anomalyvfm_dinov2,visa,macaroni2,small chip around edge,19,0.72868,0.59699,0.84263
+anomalyvfm_dinov2,visa,macaroni2,"small chip around edge,small scratches",6,0.85167,0.70829,0.95833
+anomalyvfm_dinov2,visa,macaroni2,small cracks,7,0.73714,0.6057,0.84645
+anomalyvfm_dinov2,visa,macaroni2,"small cracks,small scratches",2,0.895,0.78,0.98
+anomalyvfm_dinov2,visa,macaroni2,small scratches,16,0.82781,0.71124,0.92656
+anomalyvfm_dinov2,visa,pcb1,bent,14,0.36821,0.20211,0.52146
+anomalyvfm_dinov2,visa,pcb1,"bent,melt",1,0.38,0.29,0.48
+anomalyvfm_dinov2,visa,pcb1,melt,46,0.83272,0.76151,0.90044
+anomalyvfm_dinov2,visa,pcb1,"melt,missing",1,0.335,0.25,0.435
+anomalyvfm_dinov2,visa,pcb1,"melt,scratch",5,0.982,0.95195,1.0
+anomalyvfm_dinov2,visa,pcb1,"melt,scratch,missing",1,0.95,0.91,0.99
+anomalyvfm_dinov2,visa,pcb1,missing,17,0.54941,0.39,0.69765
+anomalyvfm_dinov2,visa,pcb1,scratch,14,0.87214,0.75857,0.96144
+anomalyvfm_dinov2,visa,pcb1,"scratch,missing",1,0.525,0.425,0.625
+anomalyvfm_dinov2,visa,pcb2,bent,12,0.68542,0.54073,0.82211
+anomalyvfm_dinov2,visa,pcb2,"bent,melt",3,0.87167,0.79333,0.94167
+anomalyvfm_dinov2,visa,pcb2,melt,48,0.92854,0.8803,0.96855
+anomalyvfm_dinov2,visa,pcb2,"melt,scratch",4,0.995,0.98,1.0
+anomalyvfm_dinov2,visa,pcb2,missing,17,0.62912,0.44341,0.79853
+anomalyvfm_dinov2,visa,pcb2,scratch,14,0.93607,0.87429,0.98502
+anomalyvfm_dinov2,visa,pcb2,"scratch,missing",2,0.965,0.9,1.0
+anomalyvfm_dinov2,visa,pcb3,bent,19,0.47551,0.31369,0.62458
+anomalyvfm_dinov2,visa,pcb3,"bent,melt",1,0.16337,0.08911,0.23762
+anomalyvfm_dinov2,visa,pcb3,melt,38,0.87441,0.79348,0.93527
+anomalyvfm_dinov2,visa,pcb3,"melt,missing",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,pcb3,"melt,scratch",2,0.70792,0.58416,0.82178
+anomalyvfm_dinov2,visa,pcb3,"melt,scratch,missing",1,0.89109,0.82673,0.9505
+anomalyvfm_dinov2,visa,pcb3,missing,16,0.53651,0.36693,0.70762
+anomalyvfm_dinov2,visa,pcb3,scratch,20,0.88317,0.75642,0.97723
+anomalyvfm_dinov2,visa,pcb3,"scratch,missing",2,0.49257,0.02946,0.96535
+anomalyvfm_dinov2,visa,pcb4,burnt,2,0.9901,0.9604,1.0
+anomalyvfm_dinov2,visa,pcb4,"burnt,dirt",4,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,pcb4,"burnt,extra",1,0.9802,0.9505,1.0
+anomalyvfm_dinov2,visa,pcb4,"burnt,scratch,dirt",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,pcb4,damage,7,0.96818,0.91644,1.0
+anomalyvfm_dinov2,visa,pcb4,"damage,dirt",6,0.99092,0.9703,1.0
+anomalyvfm_dinov2,visa,pcb4,"damage,extra",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,pcb4,extra,12,0.99546,0.98431,1.0
+anomalyvfm_dinov2,visa,pcb4,"extra,dirt",10,0.98218,0.9574,0.99901
+anomalyvfm_dinov2,visa,pcb4,missing,19,0.9346,0.88481,0.97394
+anomalyvfm_dinov2,visa,pcb4,"missing,damage",3,0.93564,0.84158,1.0
+anomalyvfm_dinov2,visa,pcb4,"missing,damage,extra",1,0.9703,0.93069,1.0
+anomalyvfm_dinov2,visa,pcb4,"missing,dirt",5,0.91089,0.79406,0.98812
+anomalyvfm_dinov2,visa,pcb4,"missing,wrong place",1,0.92079,0.86139,0.9703
+anomalyvfm_dinov2,visa,pcb4,scratch,2,0.9802,0.93069,1.0
+anomalyvfm_dinov2,visa,pcb4,"scratch,damage",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,pcb4,"scratch,damage,dirt",1,0.9703,0.93069,1.0
+anomalyvfm_dinov2,visa,pcb4,"scratch,damage,extra",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,pcb4,"scratch,dirt",3,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,pcb4,"scratch,extra",2,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,pcb4,"scratch,extra,dirt",1,0.9802,0.9505,1.0
+anomalyvfm_dinov2,visa,pcb4,"scratch,extra,wrong place",1,0.9802,0.9505,1.0
+anomalyvfm_dinov2,visa,pcb4,"scratch,missing",2,0.97525,0.94059,1.0
+anomalyvfm_dinov2,visa,pcb4,"scratch,missing,dirt",2,0.69554,0.36634,0.9901
+anomalyvfm_dinov2,visa,pcb4,wrong place,2,0.98515,0.9505,1.0
+anomalyvfm_dinov2,visa,pcb4,"wrong place,dirt",9,0.98185,0.956,0.99783
+anomalyvfm_dinov2,visa,pipe_fryum,burnt,15,0.996,0.984,1.0
+anomalyvfm_dinov2,visa,pipe_fryum,"burnt,small scratches",1,0.94,0.86,1.0
+anomalyvfm_dinov2,visa,pipe_fryum,corner and edge breakage,15,0.988,0.964,1.0
+anomalyvfm_dinov2,visa,pipe_fryum,different colour spot,10,0.965,0.912,0.996
+anomalyvfm_dinov2,visa,pipe_fryum,"middle breakage,small cracks",6,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,pipe_fryum,"middle breakage,small scratches,small cracks",4,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,pipe_fryum,similar colour spot,20,0.957,0.907,0.992
+anomalyvfm_dinov2,visa,pipe_fryum,"similar colour spot,small scratches",1,1.0,1.0,1.0
+anomalyvfm_dinov2,visa,pipe_fryum,small scratches,18,0.97,0.93111,0.99667
+anomalyvfm_dinov2,visa,pipe_fryum,stuck together,10,0.913,0.81298,0.984
+anomalyvfm_dinov2,mpdd,bracket_black,hole,12,0.88542,0.68737,0.99746
+anomalyvfm_dinov2,mpdd,bracket_black,scratches,35,0.83661,0.74285,0.91788
+anomalyvfm_dinov2,mpdd,bracket_brown,bend_and_parts_mismatch,17,0.60633,0.41391,0.79417
+anomalyvfm_dinov2,mpdd,bracket_brown,parts_mismatch,34,0.47115,0.32124,0.63467
+anomalyvfm_dinov2,mpdd,bracket_white,defective_painting,13,0.91282,0.81026,0.99494
+anomalyvfm_dinov2,mpdd,bracket_white,scratches,17,0.98431,0.94897,1.0
+anomalyvfm_dinov2,mpdd,connector,parts_mismatch,14,0.81667,0.65467,0.9417
+anomalyvfm_dinov2,mpdd,metal_plate,major_rust,14,0.9533,0.8818,1.0
+anomalyvfm_dinov2,mpdd,metal_plate,scratches,34,0.99887,0.99321,1.0
+anomalyvfm_dinov2,mpdd,metal_plate,total_rust,23,0.90385,0.81438,0.97492
+anomalyvfm_dinov2,mpdd,tubes,anomalous,69,0.90987,0.84964,0.95879
+anomalyvfm_radio,mvtec,bottle,broken_large,20,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,bottle,broken_small,22,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,bottle,contamination,21,0.95119,0.86786,1.0
+anomalyvfm_radio,mvtec,cable,bent_wire,13,0.96552,0.90774,0.99867
+anomalyvfm_radio,mvtec,cable,cable_swap,12,0.76652,0.61061,0.90375
+anomalyvfm_radio,mvtec,cable,combined,11,0.97806,0.94044,1.0
+anomalyvfm_radio,mvtec,cable,cut_inner_insulation,14,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,cable,cut_outer_insulation,10,0.91897,0.83448,0.98276
+anomalyvfm_radio,mvtec,cable,missing_cable,12,0.84914,0.66519,0.99569
+anomalyvfm_radio,mvtec,cable,missing_wire,10,0.93879,0.84823,1.0
+anomalyvfm_radio,mvtec,cable,poke_insulation,10,0.93103,0.85343,0.98017
+anomalyvfm_radio,mvtec,capsule,crack,23,0.97543,0.92817,1.0
+anomalyvfm_radio,mvtec,capsule,faulty_imprint,22,0.93874,0.8419,1.0
+anomalyvfm_radio,mvtec,capsule,poke,21,0.98654,0.95031,1.0
+anomalyvfm_radio,mvtec,capsule,scratch,23,0.96219,0.90548,1.0
+anomalyvfm_radio,mvtec,capsule,squeeze,20,0.96196,0.89671,1.0
+anomalyvfm_radio,mvtec,carpet,color,19,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,carpet,cut,17,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,carpet,hole,17,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,carpet,metal_contamination,17,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,carpet,thread,19,0.99248,0.97368,1.0
+anomalyvfm_radio,mvtec,grid,bent,12,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,grid,broken,12,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,grid,glue,11,0.99567,0.97403,1.0
+anomalyvfm_radio,mvtec,grid,metal_contamination,11,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,grid,thread,11,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,hazelnut,crack,18,0.99861,0.99167,1.0
+anomalyvfm_radio,mvtec,hazelnut,cut,17,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,hazelnut,hole,18,0.99861,0.99306,1.0
+anomalyvfm_radio,mvtec,hazelnut,print,17,0.96912,0.92353,0.99706
+anomalyvfm_radio,mvtec,leather,color,19,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,leather,cut,19,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,leather,fold,17,0.99816,0.98897,1.0
+anomalyvfm_radio,mvtec,leather,glue,19,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,leather,poke,18,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,metal_nut,bent,25,0.99636,0.98182,1.0
+anomalyvfm_radio,mvtec,metal_nut,color,22,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,metal_nut,flip,23,0.92589,0.83004,0.98814
+anomalyvfm_radio,mvtec,metal_nut,scratch,23,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,pill,color,25,0.93077,0.85073,0.98308
+anomalyvfm_radio,mvtec,pill,combined,17,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,pill,contamination,21,0.98718,0.95604,1.0
+anomalyvfm_radio,mvtec,pill,crack,26,0.91124,0.82249,0.96893
+anomalyvfm_radio,mvtec,pill,faulty_imprint,19,0.98785,0.95142,1.0
+anomalyvfm_radio,mvtec,pill,pill_type,9,0.85256,0.71368,0.95726
+anomalyvfm_radio,mvtec,pill,scratch,24,0.97596,0.93586,1.0
+anomalyvfm_radio,mvtec,screw,manipulated_front,24,0.96951,0.92988,0.99593
+anomalyvfm_radio,mvtec,screw,scratch_head,24,0.97459,0.93697,0.99797
+anomalyvfm_radio,mvtec,screw,scratch_neck,25,0.98341,0.95415,1.0
+anomalyvfm_radio,mvtec,screw,thread_side,23,0.97879,0.94486,1.0
+anomalyvfm_radio,mvtec,screw,thread_top,23,0.99576,0.98409,1.0
+anomalyvfm_radio,mvtec,tile,crack,17,0.99643,0.98396,1.0
+anomalyvfm_radio,mvtec,tile,glue_strip,18,0.99579,0.98148,1.0
+anomalyvfm_radio,mvtec,tile,gray_stroke,16,0.99621,0.98295,1.0
+anomalyvfm_radio,mvtec,tile,oil,18,0.99832,0.9899,1.0
+anomalyvfm_radio,mvtec,tile,rough,15,0.98182,0.94545,1.0
+anomalyvfm_radio,mvtec,toothbrush,defective,30,0.91944,0.82208,0.99722
+anomalyvfm_radio,mvtec,transistor,bent_lead,10,0.87833,0.77829,0.96833
+anomalyvfm_radio,mvtec,transistor,cut_lead,10,0.935,0.84333,0.99667
+anomalyvfm_radio,mvtec,transistor,damaged_case,10,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,transistor,misplaced,10,0.355,0.15,0.56671
+anomalyvfm_radio,mvtec,wood,color,8,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,wood,combined,11,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,wood,hole,10,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,wood,liquid,10,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,wood,scratch,21,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,zipper,broken_teeth,19,0.99671,0.98355,1.0
+anomalyvfm_radio,mvtec,zipper,combined,16,0.99609,0.98037,1.0
+anomalyvfm_radio,mvtec,zipper,fabric_border,17,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,zipper,fabric_interior,16,0.99512,0.97949,1.0
+anomalyvfm_radio,mvtec,zipper,rough,17,1.0,1.0,1.0
+anomalyvfm_radio,mvtec,zipper,split_teeth,18,0.99132,0.96875,1.0
+anomalyvfm_radio,mvtec,zipper,squeezed_teeth,16,0.93555,0.85938,0.98828
+anomalyvfm_radio,visa,candle,chunk of wax missing,12,0.99167,0.97248,1.0
+anomalyvfm_radio,visa,candle,"chunk of wax missing,damaged corner of packaging,different colour spot",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,candle,"chunk of wax missing,different colour spot",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,candle,"chunk of wax missing,foreign particals on candle",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,candle,damaged corner of packaging,18,1.0,1.0,1.0
+anomalyvfm_radio,visa,candle,"damaged corner of packaging,different colour spot",1,0.9,0.84,0.96
+anomalyvfm_radio,visa,candle,"damaged corner of packaging,different colour spot,other",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,candle,"damaged corner of packaging,extra wax in candle",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,candle,"damaged corner of packaging,foreign particals on candle",2,1.0,1.0,1.0
+anomalyvfm_radio,visa,candle,"damaged corner of packaging,weird candle wick",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,candle,different colour spot,15,0.98,0.95467,0.99667
+anomalyvfm_radio,visa,candle,"different colour spot,foreign particals on candle",1,0.97,0.93,1.0
+anomalyvfm_radio,visa,candle,"different colour spot,wax melded out of the candle",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,candle,extra wax in candle,9,1.0,1.0,1.0
+anomalyvfm_radio,visa,candle,foreign particals on candle,12,1.0,1.0,1.0
+anomalyvfm_radio,visa,candle,"foreign particals on candle,wax melded out of the candle",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,candle,wax melded out of the candle,12,1.0,1.0,1.0
+anomalyvfm_radio,visa,candle,weird candle wick,9,0.90167,0.80889,0.98113
+anomalyvfm_radio,visa,candle,"weird candle wick,different colour spot",1,0.96,0.92,0.99
+anomalyvfm_radio,visa,capsules,bubble,30,0.99028,0.96667,1.0
+anomalyvfm_radio,visa,capsules,"bubble,discolor",15,0.95833,0.89831,0.99778
+anomalyvfm_radio,visa,capsules,"bubble,discolor,scratch",15,0.87944,0.77658,0.95724
+anomalyvfm_radio,visa,capsules,"bubble,discolor,scratch,leak",12,1.0,1.0,1.0
+anomalyvfm_radio,visa,capsules,"bubble,discolor,scratch,leak,misshape",28,0.97381,0.93065,0.99762
+anomalyvfm_radio,visa,cashew,burnt,10,1.0,1.0,1.0
+anomalyvfm_radio,visa,cashew,"burnt,corner or edge breakage",2,1.0,1.0,1.0
+anomalyvfm_radio,visa,cashew,"burnt,different colour spot",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,cashew,"burnt,same colour spot",1,0.9,0.82,0.98
+anomalyvfm_radio,visa,cashew,corner or edge breakage,14,1.0,1.0,1.0
+anomalyvfm_radio,visa,cashew,"corner or edge breakage,small scratches",1,0.68,0.54,0.8
+anomalyvfm_radio,visa,cashew,different colour spot,9,1.0,1.0,1.0
+anomalyvfm_radio,visa,cashew,"different colour spot,same colour spot",2,0.97,0.9,1.0
+anomalyvfm_radio,visa,cashew,"different colour spot,small holes",1,0.9,0.8,0.98
+anomalyvfm_radio,visa,cashew,middle breakage,6,1.0,1.0,1.0
+anomalyvfm_radio,visa,cashew,"middle breakage,same colour spot",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,cashew,"middle breakage,small holes",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,cashew,same colour spot,10,0.783,0.59,0.95
+anomalyvfm_radio,visa,cashew,small holes,20,0.989,0.969,1.0
+anomalyvfm_radio,visa,cashew,small scratches,15,0.65467,0.51065,0.79268
+anomalyvfm_radio,visa,cashew,stuck together,6,0.90833,0.74992,0.99675
+anomalyvfm_radio,visa,chewinggum,chunk of gum missing,16,1.0,1.0,1.0
+anomalyvfm_radio,visa,chewinggum,"chunk of gum missing,corner missing",7,1.0,1.0,1.0
+anomalyvfm_radio,visa,chewinggum,"chunk of gum missing,corner missing,small cracks",6,1.0,1.0,1.0
+anomalyvfm_radio,visa,chewinggum,"chunk of gum missing,scratches",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,chewinggum,"chunk of gum missing,scratches,small cracks",2,1.0,1.0,1.0
+anomalyvfm_radio,visa,chewinggum,"chunk of gum missing,small cracks",15,1.0,1.0,1.0
+anomalyvfm_radio,visa,chewinggum,corner missing,13,0.92308,0.79685,1.0
+anomalyvfm_radio,visa,chewinggum,"corner missing,scratches",2,0.915,0.75975,1.0
+anomalyvfm_radio,visa,chewinggum,"corner missing,similar colour spot",3,1.0,1.0,1.0
+anomalyvfm_radio,visa,chewinggum,"corner missing,similar colour spot,small cracks",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,chewinggum,"corner missing,small cracks",4,1.0,1.0,1.0
+anomalyvfm_radio,visa,chewinggum,scratches,9,1.0,1.0,1.0
+anomalyvfm_radio,visa,chewinggum,"scratches,similar colour spot",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,chewinggum,"scratches,similar colour spot,small cracks",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,chewinggum,similar colour spot,19,1.0,1.0,1.0
+anomalyvfm_radio,visa,fryum,burnt,9,1.0,1.0,1.0
+anomalyvfm_radio,visa,fryum,corner or edge breakage,8,0.8975,0.69244,1.0
+anomalyvfm_radio,visa,fryum,"corner or edge breakage,small scratches",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,fryum,different colour spot,14,0.98286,0.95429,1.0
+anomalyvfm_radio,visa,fryum,"different colour spot,similar colour spot",4,1.0,1.0,1.0
+anomalyvfm_radio,visa,fryum,fryum stuck together,20,0.999,0.994,1.0
+anomalyvfm_radio,visa,fryum,middle breakage,18,1.0,1.0,1.0
+anomalyvfm_radio,visa,fryum,"middle breakage,similar colour spot",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,fryum,"middle breakage,small scratches",2,1.0,1.0,1.0
+anomalyvfm_radio,visa,fryum,similar colour spot,12,0.94,0.86158,0.99004
+anomalyvfm_radio,visa,fryum,"similar colour spot,other",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,fryum,"similar colour spot,small scratches",4,0.755,0.355,1.0
+anomalyvfm_radio,visa,fryum,small scratches,6,0.55833,0.25,0.86667
+anomalyvfm_radio,visa,macaroni1,chip around edge and corner,17,0.96853,0.91235,1.0
+anomalyvfm_radio,visa,macaroni1,"chip around edge and corner,small cracks",2,1.0,1.0,1.0
+anomalyvfm_radio,visa,macaroni1,"chip around edge and corner,small scratches",6,0.99667,0.985,1.0
+anomalyvfm_radio,visa,macaroni1,different colour spot,15,1.0,1.0,1.0
+anomalyvfm_radio,visa,macaroni1,"different colour spot,similar colour spot",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,macaroni1,"middle breakage,small scratches",10,1.0,1.0,1.0
+anomalyvfm_radio,visa,macaroni1,similar colour spot,21,1.0,1.0,1.0
+anomalyvfm_radio,visa,macaroni1,small cracks,11,0.97773,0.9427,1.0
+anomalyvfm_radio,visa,macaroni1,"small cracks,small scratches",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,macaroni1,small scratches,16,0.78938,0.68997,0.87031
+anomalyvfm_radio,visa,macaroni2,breakage down the middle,1,1.0,1.0,1.0
+anomalyvfm_radio,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge",1,0.45,0.355,0.545
+anomalyvfm_radio,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge,small cracks",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge,small cracks,small scratches",2,0.51,0.18,0.84
+anomalyvfm_radio,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge,small cracks,small scratches,other",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,macaroni2,"breakage down the middle,small scratches",9,0.99167,0.97,1.0
+anomalyvfm_radio,visa,macaroni2,color spot similar to the object,23,0.80283,0.68691,0.91416
+anomalyvfm_radio,visa,macaroni2,different color spot,12,0.99,0.96374,1.0
+anomalyvfm_radio,visa,macaroni2,small chip around edge,19,0.88632,0.79892,0.95922
+anomalyvfm_radio,visa,macaroni2,"small chip around edge,small scratches",6,0.84333,0.70417,0.95
+anomalyvfm_radio,visa,macaroni2,small cracks,7,0.74429,0.5807,0.88859
+anomalyvfm_radio,visa,macaroni2,"small cracks,small scratches",2,0.7225,0.46,0.95
+anomalyvfm_radio,visa,macaroni2,small scratches,16,0.85375,0.7528,0.93625
+anomalyvfm_radio,visa,pcb1,bent,14,0.76286,0.61496,0.87501
+anomalyvfm_radio,visa,pcb1,"bent,melt",1,0.395,0.3,0.49
+anomalyvfm_radio,visa,pcb1,melt,46,0.92337,0.86325,0.9775
+anomalyvfm_radio,visa,pcb1,"melt,missing",1,0.745,0.66,0.825
+anomalyvfm_radio,visa,pcb1,"melt,scratch",5,0.974,0.91,1.0
+anomalyvfm_radio,visa,pcb1,"melt,scratch,missing",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb1,missing,17,0.63412,0.42818,0.81506
+anomalyvfm_radio,visa,pcb1,scratch,14,0.96786,0.92821,0.99322
+anomalyvfm_radio,visa,pcb1,"scratch,missing",1,0.97,0.93,1.0
+anomalyvfm_radio,visa,pcb2,bent,12,0.68667,0.54417,0.81921
+anomalyvfm_radio,visa,pcb2,"bent,melt",3,0.83333,0.71983,0.95
+anomalyvfm_radio,visa,pcb2,melt,48,0.95333,0.91541,0.98406
+anomalyvfm_radio,visa,pcb2,"melt,scratch",4,0.9,0.725,1.0
+anomalyvfm_radio,visa,pcb2,missing,17,0.57235,0.43027,0.70973
+anomalyvfm_radio,visa,pcb2,scratch,14,0.87893,0.7707,0.9643
+anomalyvfm_radio,visa,pcb2,"scratch,missing",2,0.575,0.24,0.89
+anomalyvfm_radio,visa,pcb3,bent,19,0.80589,0.65102,0.93359
+anomalyvfm_radio,visa,pcb3,"bent,melt",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb3,melt,38,0.95701,0.91935,0.99023
+anomalyvfm_radio,visa,pcb3,"melt,missing",1,0.9505,0.90099,0.9901
+anomalyvfm_radio,visa,pcb3,"melt,scratch",2,0.93069,0.81683,1.0
+anomalyvfm_radio,visa,pcb3,"melt,scratch,missing",1,0.9505,0.91089,0.9901
+anomalyvfm_radio,visa,pcb3,missing,16,0.70111,0.53232,0.85737
+anomalyvfm_radio,visa,pcb3,scratch,20,0.90569,0.81361,0.98069
+anomalyvfm_radio,visa,pcb3,"scratch,missing",2,0.7302,0.40087,1.0
+anomalyvfm_radio,visa,pcb4,burnt,2,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,"burnt,dirt",4,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,"burnt,extra",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,"burnt,scratch,dirt",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,damage,7,0.99293,0.97454,1.0
+anomalyvfm_radio,visa,pcb4,"damage,dirt",6,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,"damage,extra",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,extra,12,0.92244,0.76733,1.0
+anomalyvfm_radio,visa,pcb4,"extra,dirt",10,0.99554,0.98416,1.0
+anomalyvfm_radio,visa,pcb4,missing,19,0.97082,0.93459,0.99583
+anomalyvfm_radio,visa,pcb4,"missing,damage",3,0.99505,0.9769,1.0
+anomalyvfm_radio,visa,pcb4,"missing,damage,extra",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,"missing,dirt",5,0.99802,0.98812,1.0
+anomalyvfm_radio,visa,pcb4,"missing,wrong place",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,scratch,2,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,"scratch,damage",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,"scratch,damage,dirt",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,"scratch,damage,extra",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,"scratch,dirt",3,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,"scratch,extra",2,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,"scratch,extra,dirt",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,"scratch,extra,wrong place",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,"scratch,missing",2,1.0,1.0,1.0
+anomalyvfm_radio,visa,pcb4,"scratch,missing,dirt",2,0.99505,0.9802,1.0
+anomalyvfm_radio,visa,pcb4,wrong place,2,0.85891,0.65842,1.0
+anomalyvfm_radio,visa,pcb4,"wrong place,dirt",9,0.99285,0.9769,1.0
+anomalyvfm_radio,visa,pipe_fryum,burnt,15,1.0,1.0,1.0
+anomalyvfm_radio,visa,pipe_fryum,"burnt,small scratches",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,pipe_fryum,corner and edge breakage,15,1.0,1.0,1.0
+anomalyvfm_radio,visa,pipe_fryum,different colour spot,10,1.0,1.0,1.0
+anomalyvfm_radio,visa,pipe_fryum,"middle breakage,small cracks",6,1.0,1.0,1.0
+anomalyvfm_radio,visa,pipe_fryum,"middle breakage,small scratches,small cracks",4,1.0,1.0,1.0
+anomalyvfm_radio,visa,pipe_fryum,similar colour spot,20,1.0,1.0,1.0
+anomalyvfm_radio,visa,pipe_fryum,"similar colour spot,small scratches",1,1.0,1.0,1.0
+anomalyvfm_radio,visa,pipe_fryum,small scratches,18,0.99889,0.99333,1.0
+anomalyvfm_radio,visa,pipe_fryum,stuck together,10,0.892,0.7279,0.994
+anomalyvfm_radio,mpdd,bracket_black,hole,12,0.93099,0.83721,0.9974
+anomalyvfm_radio,mpdd,bracket_black,scratches,35,0.85804,0.75532,0.94196
+anomalyvfm_radio,mpdd,bracket_brown,bend_and_parts_mismatch,17,0.60294,0.41403,0.76256
+anomalyvfm_radio,mpdd,bracket_brown,parts_mismatch,34,0.44287,0.2884,0.58597
+anomalyvfm_radio,mpdd,bracket_white,defective_painting,13,0.73205,0.56667,0.87692
+anomalyvfm_radio,mpdd,bracket_white,scratches,17,0.99216,0.96863,1.0
+anomalyvfm_radio,mpdd,connector,parts_mismatch,14,0.96667,0.9119,1.0
+anomalyvfm_radio,mpdd,metal_plate,major_rust,14,0.80632,0.65385,0.93132
+anomalyvfm_radio,mpdd,metal_plate,scratches,34,1.0,1.0,1.0
+anomalyvfm_radio,mpdd,metal_plate,total_rust,23,0.88545,0.78591,0.96908
+anomalyvfm_radio,mpdd,tubes,anomalous,69,1.0,1.0,1.0
+clip_prompt,mvtec,bottle,broken_large,20,0.9975,0.985,1.0
+clip_prompt,mvtec,bottle,broken_small,22,0.99773,0.98636,1.0
+clip_prompt,mvtec,bottle,contamination,21,0.67381,0.50232,0.82869
+clip_prompt,mvtec,cable,bent_wire,13,0.67639,0.47477,0.85282
+clip_prompt,mvtec,cable,cable_swap,12,0.78161,0.63502,0.90233
+clip_prompt,mvtec,cable,combined,11,0.74922,0.5815,0.88879
+clip_prompt,mvtec,cable,cut_inner_insulation,14,0.70567,0.54169,0.85594
+clip_prompt,mvtec,cable,cut_outer_insulation,10,0.78448,0.62414,0.91207
+clip_prompt,mvtec,cable,missing_cable,12,0.51437,0.3218,0.7227
+clip_prompt,mvtec,cable,missing_wire,10,0.61379,0.41888,0.79483
+clip_prompt,mvtec,cable,poke_insulation,10,0.67586,0.48621,0.85522
+clip_prompt,mvtec,capsule,crack,23,0.89792,0.79201,0.97732
+clip_prompt,mvtec,capsule,faulty_imprint,22,0.68577,0.52169,0.84387
+clip_prompt,mvtec,capsule,poke,21,0.97308,0.93168,1.0
+clip_prompt,mvtec,capsule,scratch,23,0.6465,0.47065,0.79962
+clip_prompt,mvtec,capsule,squeeze,20,0.81304,0.65652,0.94571
+clip_prompt,mvtec,carpet,color,19,0.99436,0.97744,1.0
+clip_prompt,mvtec,carpet,cut,17,1.0,1.0,1.0
+clip_prompt,mvtec,carpet,hole,17,0.9916,0.97059,1.0
+clip_prompt,mvtec,carpet,metal_contamination,17,0.90966,0.80882,0.98529
+clip_prompt,mvtec,carpet,thread,19,0.99248,0.96617,1.0
+clip_prompt,mvtec,grid,bent,12,0.85317,0.71022,0.96032
+clip_prompt,mvtec,grid,broken,12,0.99206,0.96429,1.0
+clip_prompt,mvtec,grid,glue,11,0.86147,0.68398,0.99134
+clip_prompt,mvtec,grid,metal_contamination,11,0.70563,0.50649,0.87013
+clip_prompt,mvtec,grid,thread,11,0.90043,0.74892,1.0
+clip_prompt,mvtec,hazelnut,crack,18,0.97639,0.93333,1.0
+clip_prompt,mvtec,hazelnut,cut,17,0.85735,0.74254,0.94412
+clip_prompt,mvtec,hazelnut,hole,18,0.92778,0.83889,0.99028
+clip_prompt,mvtec,hazelnut,print,17,0.275,0.1411,0.42213
+clip_prompt,mvtec,leather,color,19,1.0,1.0,1.0
+clip_prompt,mvtec,leather,cut,19,1.0,1.0,1.0
+clip_prompt,mvtec,leather,fold,17,0.99081,0.96324,1.0
+clip_prompt,mvtec,leather,glue,19,0.9852,0.95888,1.0
+clip_prompt,mvtec,leather,poke,18,1.0,1.0,1.0
+clip_prompt,mvtec,metal_nut,bent,25,0.94182,0.86364,0.99636
+clip_prompt,mvtec,metal_nut,color,22,0.88636,0.77273,0.97314
+clip_prompt,mvtec,metal_nut,flip,23,0.8004,0.66403,0.91897
+clip_prompt,mvtec,metal_nut,scratch,23,0.97431,0.92688,1.0
+clip_prompt,mvtec,pill,color,25,0.68615,0.5215,0.82158
+clip_prompt,mvtec,pill,combined,17,0.76018,0.57687,0.9095
+clip_prompt,mvtec,pill,contamination,21,0.85531,0.72894,0.95604
+clip_prompt,mvtec,pill,crack,26,0.72485,0.57837,0.85799
+clip_prompt,mvtec,pill,faulty_imprint,19,0.96559,0.90688,1.0
+clip_prompt,mvtec,pill,pill_type,9,0.78205,0.58547,0.95737
+clip_prompt,mvtec,pill,scratch,24,0.80128,0.66663,0.91667
+clip_prompt,mvtec,screw,manipulated_front,24,0.97459,0.94004,0.99593
+clip_prompt,mvtec,screw,scratch_head,24,0.88211,0.77741,0.96443
+clip_prompt,mvtec,screw,scratch_neck,25,0.89366,0.80976,0.96195
+clip_prompt,mvtec,screw,thread_side,23,0.95864,0.9109,0.99152
+clip_prompt,mvtec,screw,thread_top,23,0.96448,0.91406,0.99682
+clip_prompt,mvtec,tile,crack,17,1.0,1.0,1.0
+clip_prompt,mvtec,tile,glue_strip,18,1.0,1.0,1.0
+clip_prompt,mvtec,tile,gray_stroke,16,0.98864,0.95455,1.0
+clip_prompt,mvtec,tile,oil,18,0.90909,0.81633,0.97811
+clip_prompt,mvtec,tile,rough,15,0.97172,0.91308,1.0
+clip_prompt,mvtec,toothbrush,defective,30,0.81389,0.67771,0.93618
+clip_prompt,mvtec,transistor,bent_lead,10,0.73667,0.58496,0.86333
+clip_prompt,mvtec,transistor,cut_lead,10,0.83667,0.70329,0.955
+clip_prompt,mvtec,transistor,damaged_case,10,0.92,0.82829,0.98
+clip_prompt,mvtec,transistor,misplaced,10,0.74,0.55654,0.90338
+clip_prompt,mvtec,wood,color,8,1.0,1.0,1.0
+clip_prompt,mvtec,wood,combined,11,0.95215,0.87081,1.0
+clip_prompt,mvtec,wood,hole,10,0.98947,0.95263,1.0
+clip_prompt,mvtec,wood,liquid,10,0.94211,0.84211,1.0
+clip_prompt,mvtec,wood,scratch,21,0.98997,0.96241,1.0
+clip_prompt,mvtec,zipper,broken_teeth,19,0.77632,0.60522,0.92105
+clip_prompt,mvtec,zipper,combined,16,0.875,0.75781,0.96289
+clip_prompt,mvtec,zipper,fabric_border,17,0.97978,0.92826,1.0
+clip_prompt,mvtec,zipper,fabric_interior,16,0.94336,0.86523,0.99419
+clip_prompt,mvtec,zipper,rough,17,0.94669,0.87684,0.99085
+clip_prompt,mvtec,zipper,split_teeth,18,0.57118,0.39058,0.75174
+clip_prompt,mvtec,zipper,squeezed_teeth,16,0.58984,0.42178,0.75391
+clip_prompt,visa,candle,chunk of wax missing,12,0.97417,0.92415,1.0
+clip_prompt,visa,candle,"chunk of wax missing,damaged corner of packaging,different colour spot",1,1.0,1.0,1.0
+clip_prompt,visa,candle,"chunk of wax missing,different colour spot",1,1.0,1.0,1.0
+clip_prompt,visa,candle,"chunk of wax missing,foreign particals on candle",1,1.0,1.0,1.0
+clip_prompt,visa,candle,damaged corner of packaging,18,0.95056,0.8961,0.99335
+clip_prompt,visa,candle,"damaged corner of packaging,different colour spot",1,0.97,0.93,1.0
+clip_prompt,visa,candle,"damaged corner of packaging,different colour spot,other",1,0.98,0.95,1.0
+clip_prompt,visa,candle,"damaged corner of packaging,extra wax in candle",1,0.98,0.95,1.0
+clip_prompt,visa,candle,"damaged corner of packaging,foreign particals on candle",2,1.0,1.0,1.0
+clip_prompt,visa,candle,"damaged corner of packaging,weird candle wick",1,0.98,0.95,1.0
+clip_prompt,visa,candle,different colour spot,15,0.92933,0.85797,0.98337
+clip_prompt,visa,candle,"different colour spot,foreign particals on candle",1,0.99,0.97,1.0
+clip_prompt,visa,candle,"different colour spot,wax melded out of the candle",1,0.99,0.97,1.0
+clip_prompt,visa,candle,extra wax in candle,9,0.96,0.87442,1.0
+clip_prompt,visa,candle,foreign particals on candle,12,1.0,1.0,1.0
+clip_prompt,visa,candle,"foreign particals on candle,wax melded out of the candle",1,1.0,1.0,1.0
+clip_prompt,visa,candle,wax melded out of the candle,12,0.97917,0.94667,1.0
+clip_prompt,visa,candle,weird candle wick,9,0.92556,0.80217,0.99444
+clip_prompt,visa,candle,"weird candle wick,different colour spot",1,0.72,0.63975,0.81
+clip_prompt,visa,capsules,bubble,30,0.74889,0.63331,0.86114
+clip_prompt,visa,capsules,"bubble,discolor",15,0.67889,0.51439,0.83672
+clip_prompt,visa,capsules,"bubble,discolor,scratch",15,0.70556,0.56217,0.84003
+clip_prompt,visa,capsules,"bubble,discolor,scratch,leak",12,0.80556,0.66802,0.91944
+clip_prompt,visa,capsules,"bubble,discolor,scratch,leak,misshape",28,0.83214,0.74286,0.91251
+clip_prompt,visa,cashew,burnt,10,0.924,0.82395,0.99
+clip_prompt,visa,cashew,"burnt,corner or edge breakage",2,0.84,0.6,1.0
+clip_prompt,visa,cashew,"burnt,different colour spot",1,0.76,0.64,0.88
+clip_prompt,visa,cashew,"burnt,same colour spot",1,0.48,0.34,0.6205
+clip_prompt,visa,cashew,corner or edge breakage,14,0.95857,0.89,1.0
+clip_prompt,visa,cashew,"corner or edge breakage,small scratches",1,0.66,0.52,0.78
+clip_prompt,visa,cashew,different colour spot,9,0.92222,0.80439,0.99778
+clip_prompt,visa,cashew,"different colour spot,same colour spot",2,0.86,0.76,0.94
+clip_prompt,visa,cashew,"different colour spot,small holes",1,0.16,0.06,0.28
+clip_prompt,visa,cashew,middle breakage,6,1.0,1.0,1.0
+clip_prompt,visa,cashew,"middle breakage,same colour spot",1,1.0,1.0,1.0
+clip_prompt,visa,cashew,"middle breakage,small holes",1,1.0,1.0,1.0
+clip_prompt,visa,cashew,same colour spot,10,0.376,0.1798,0.59205
+clip_prompt,visa,cashew,small holes,20,0.889,0.80198,0.955
+clip_prompt,visa,cashew,small scratches,15,0.56933,0.3919,0.72937
+clip_prompt,visa,cashew,stuck together,6,0.91333,0.71,1.0
+clip_prompt,visa,chewinggum,chunk of gum missing,16,0.99875,0.9925,1.0
+clip_prompt,visa,chewinggum,"chunk of gum missing,corner missing",7,1.0,1.0,1.0
+clip_prompt,visa,chewinggum,"chunk of gum missing,corner missing,small cracks",6,0.87667,0.62,1.0
+clip_prompt,visa,chewinggum,"chunk of gum missing,scratches",1,1.0,1.0,1.0
+clip_prompt,visa,chewinggum,"chunk of gum missing,scratches,small cracks",2,1.0,1.0,1.0
+clip_prompt,visa,chewinggum,"chunk of gum missing,small cracks",15,1.0,1.0,1.0
+clip_prompt,visa,chewinggum,corner missing,13,0.80462,0.67538,0.92769
+clip_prompt,visa,chewinggum,"corner missing,scratches",2,0.89,0.72,1.0
+clip_prompt,visa,chewinggum,"corner missing,similar colour spot",3,0.81333,0.53983,1.0
+clip_prompt,visa,chewinggum,"corner missing,similar colour spot,small cracks",1,1.0,1.0,1.0
+clip_prompt,visa,chewinggum,"corner missing,small cracks",4,1.0,1.0,1.0
+clip_prompt,visa,chewinggum,scratches,9,0.88,0.67772,1.0
+clip_prompt,visa,chewinggum,"scratches,similar colour spot",1,1.0,1.0,1.0
+clip_prompt,visa,chewinggum,"scratches,similar colour spot,small cracks",1,1.0,1.0,1.0
+clip_prompt,visa,chewinggum,similar colour spot,19,0.99158,0.97261,1.0
+clip_prompt,visa,fryum,burnt,9,1.0,1.0,1.0
+clip_prompt,visa,fryum,corner or edge breakage,8,0.935,0.85,0.9975
+clip_prompt,visa,fryum,"corner or edge breakage,small scratches",1,1.0,1.0,1.0
+clip_prompt,visa,fryum,different colour spot,14,0.91857,0.83282,0.98429
+clip_prompt,visa,fryum,"different colour spot,similar colour spot",4,0.945,0.855,1.0
+clip_prompt,visa,fryum,fryum stuck together,20,0.973,0.91897,1.0
+clip_prompt,visa,fryum,middle breakage,18,0.92556,0.83889,0.99444
+clip_prompt,visa,fryum,"middle breakage,similar colour spot",1,1.0,1.0,1.0
+clip_prompt,visa,fryum,"middle breakage,small scratches",2,1.0,1.0,1.0
+clip_prompt,visa,fryum,similar colour spot,12,0.825,0.69333,0.93837
+clip_prompt,visa,fryum,"similar colour spot,other",1,0.9,0.82,0.98
+clip_prompt,visa,fryum,"similar colour spot,small scratches",4,0.93,0.83,1.0
+clip_prompt,visa,fryum,small scratches,6,0.82667,0.67,0.94342
+clip_prompt,visa,macaroni1,chip around edge and corner,17,0.71471,0.54882,0.85353
+clip_prompt,visa,macaroni1,"chip around edge and corner,small cracks",2,0.875,0.76,0.97
+clip_prompt,visa,macaroni1,"chip around edge and corner,small scratches",6,0.60667,0.36825,0.86333
+clip_prompt,visa,macaroni1,different colour spot,15,0.75267,0.59865,0.87602
+clip_prompt,visa,macaroni1,"different colour spot,similar colour spot",1,0.74,0.65,0.82025
+clip_prompt,visa,macaroni1,"middle breakage,small scratches",10,0.985,0.957,1.0
+clip_prompt,visa,macaroni1,similar colour spot,21,0.75857,0.64286,0.86335
+clip_prompt,visa,macaroni1,small cracks,11,0.49545,0.32716,0.65464
+clip_prompt,visa,macaroni1,"small cracks,small scratches",1,0.88,0.81975,0.94
+clip_prompt,visa,macaroni1,small scratches,16,0.4025,0.25748,0.54752
+clip_prompt,visa,macaroni2,breakage down the middle,1,0.73,0.64,0.82
+clip_prompt,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge",1,0.43,0.34,0.52
+clip_prompt,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge,small cracks",1,0.99,0.97,1.0
+clip_prompt,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge,small cracks,small scratches",2,0.595,0.43,0.76
+clip_prompt,visa,macaroni2,"breakage down the middle,color spot similar to the object,different color spot,small chip around edge,small cracks,small scratches,other",1,0.82,0.74,0.89
+clip_prompt,visa,macaroni2,"breakage down the middle,small scratches",9,0.80667,0.67439,0.91225
+clip_prompt,visa,macaroni2,color spot similar to the object,23,0.68783,0.56291,0.81698
+clip_prompt,visa,macaroni2,different color spot,12,0.825,0.7,0.92087
+clip_prompt,visa,macaroni2,small chip around edge,19,0.60632,0.48262,0.73263
+clip_prompt,visa,macaroni2,"small chip around edge,small scratches",6,0.695,0.54,0.84167
+clip_prompt,visa,macaroni2,small cracks,7,0.50857,0.29136,0.74429
+clip_prompt,visa,macaroni2,"small cracks,small scratches",2,0.34,0.16,0.54
+clip_prompt,visa,macaroni2,small scratches,16,0.73313,0.61061,0.8475
+clip_prompt,visa,pcb1,bent,14,0.79357,0.64777,0.91002
+clip_prompt,visa,pcb1,"bent,melt",1,0.16,0.09,0.24
+clip_prompt,visa,pcb1,melt,46,0.90457,0.85215,0.94978
+clip_prompt,visa,pcb1,"melt,missing",1,0.92,0.86975,0.97
+clip_prompt,visa,pcb1,"melt,scratch",5,0.824,0.628,0.97405
+clip_prompt,visa,pcb1,"melt,scratch,missing",1,0.99,0.97,1.0
+clip_prompt,visa,pcb1,missing,17,0.86647,0.76294,0.94647
+clip_prompt,visa,pcb1,scratch,14,0.83429,0.715,0.92502
+clip_prompt,visa,pcb1,"scratch,missing",1,0.99,0.97,1.0
+clip_prompt,visa,pcb2,bent,12,0.5575,0.3925,0.72087
+clip_prompt,visa,pcb2,"bent,melt",3,0.82667,0.61,0.97
+clip_prompt,visa,pcb2,melt,48,0.75,0.65977,0.83939
+clip_prompt,visa,pcb2,"melt,scratch",4,0.9625,0.90494,1.0
+clip_prompt,visa,pcb2,missing,17,0.59588,0.42999,0.75412
+clip_prompt,visa,pcb2,scratch,14,0.65929,0.495,0.79716
+clip_prompt,visa,pcb2,"scratch,missing",2,0.155,0.0,0.36
+clip_prompt,visa,pcb3,bent,19,0.59197,0.43197,0.74267
+clip_prompt,visa,pcb3,"bent,melt",1,1.0,1.0,1.0
+clip_prompt,visa,pcb3,melt,38,0.61047,0.49994,0.71236
+clip_prompt,visa,pcb3,"melt,missing",1,0.79208,0.71287,0.86139
+clip_prompt,visa,pcb3,"melt,scratch",2,0.38119,0.0495,0.73267
+clip_prompt,visa,pcb3,"melt,scratch,missing",1,0.39604,0.29703,0.48515
+clip_prompt,visa,pcb3,missing,16,0.33045,0.1955,0.46473
+clip_prompt,visa,pcb3,scratch,20,0.60891,0.47078,0.74505
+clip_prompt,visa,pcb3,"scratch,missing",2,0.75743,0.64356,0.86139
+clip_prompt,visa,pcb4,burnt,2,0.66832,0.56436,0.76733
+clip_prompt,visa,pcb4,"burnt,dirt",4,0.63366,0.5297,0.73515
+clip_prompt,visa,pcb4,"burnt,extra",1,0.75248,0.66337,0.83168
+clip_prompt,visa,pcb4,"burnt,scratch,dirt",1,0.77228,0.69307,0.85149
+clip_prompt,visa,pcb4,damage,7,0.32956,0.13144,0.55873
+clip_prompt,visa,pcb4,"damage,dirt",6,0.83828,0.67987,0.96044
+clip_prompt,visa,pcb4,"damage,extra",1,0.58416,0.49505,0.68317
+clip_prompt,visa,pcb4,extra,12,0.51733,0.35635,0.68406
+clip_prompt,visa,pcb4,"extra,dirt",10,0.7,0.59802,0.79606
+clip_prompt,visa,pcb4,missing,19,0.20896,0.10784,0.32105
+clip_prompt,visa,pcb4,"missing,damage",3,0.64356,0.53787,0.74926
+clip_prompt,visa,pcb4,"missing,damage,extra",1,0.18812,0.10891,0.26733
+clip_prompt,visa,pcb4,"missing,dirt",5,0.5703,0.35243,0.8297
+clip_prompt,visa,pcb4,"missing,wrong place",1,0.37624,0.28713,0.46559
+clip_prompt,visa,pcb4,scratch,2,0.28713,0.05941,0.5448
+clip_prompt,visa,pcb4,"scratch,damage",1,0.9901,0.9703,1.0
+clip_prompt,visa,pcb4,"scratch,damage,dirt",1,1.0,1.0,1.0
+clip_prompt,visa,pcb4,"scratch,damage,extra",1,0.11881,0.05941,0.18812
+clip_prompt,visa,pcb4,"scratch,dirt",3,0.56106,0.17822,0.83168
+clip_prompt,visa,pcb4,"scratch,extra",2,0.62376,0.49505,0.74257
+clip_prompt,visa,pcb4,"scratch,extra,dirt",1,0.89109,0.83168,0.94084
+clip_prompt,visa,pcb4,"scratch,extra,wrong place",1,0.22772,0.14851,0.31683
+clip_prompt,visa,pcb4,"scratch,missing",2,0.39109,0.05941,0.74257
+clip_prompt,visa,pcb4,"scratch,missing,dirt",2,0.55941,0.46535,0.65347
+clip_prompt,visa,pcb4,wrong place,2,0.55446,0.46535,0.65347
+clip_prompt,visa,pcb4,"wrong place,dirt",9,0.66447,0.47525,0.83168
+clip_prompt,visa,pipe_fryum,burnt,15,0.952,0.87197,1.0
+clip_prompt,visa,pipe_fryum,"burnt,small scratches",1,0.78,0.6795,0.9
+clip_prompt,visa,pipe_fryum,corner and edge breakage,15,0.94267,0.8173,1.0
+clip_prompt,visa,pipe_fryum,different colour spot,10,0.956,0.888,1.0
+clip_prompt,visa,pipe_fryum,"middle breakage,small cracks",6,0.98333,0.94,1.0
+clip_prompt,visa,pipe_fryum,"middle breakage,small scratches,small cracks",4,1.0,1.0,1.0
+clip_prompt,visa,pipe_fryum,similar colour spot,20,0.665,0.505,0.81002
+clip_prompt,visa,pipe_fryum,"similar colour spot,small scratches",1,0.96,0.9,1.0
+clip_prompt,visa,pipe_fryum,small scratches,18,0.85778,0.75,0.93667
+clip_prompt,visa,pipe_fryum,stuck together,10,0.748,0.526,0.948
+clip_prompt,mpdd,bracket_black,hole,12,0.78906,0.63021,0.91667
+clip_prompt,mpdd,bracket_black,scratches,35,0.675,0.53116,0.79737
+clip_prompt,mpdd,bracket_brown,bend_and_parts_mismatch,17,0.80543,0.67421,0.91855
+clip_prompt,mpdd,bracket_brown,parts_mismatch,34,0.63801,0.5,0.78057
+clip_prompt,mpdd,bracket_white,defective_painting,13,0.69231,0.50769,0.8616
+clip_prompt,mpdd,bracket_white,scratches,17,0.55882,0.3823,0.72353
+clip_prompt,mpdd,connector,parts_mismatch,14,0.89762,0.78565,0.97857
+clip_prompt,mpdd,metal_plate,major_rust,14,0.35714,0.18956,0.52479
+clip_prompt,mpdd,metal_plate,scratches,34,0.7681,0.64021,0.87675
+clip_prompt,mpdd,metal_plate,total_rust,23,0.51839,0.34783,0.66898
+clip_prompt,mpdd,tubes,anomalous,69,0.72871,0.62636,0.82157

@@ -5,9 +5,12 @@ tables to analysis/results/. All CIs are 95% percentile bootstrap, 1,000 resampl
 each category and label (same scheme as eval/bootstrap.py).
 
 Definitions
-- Operating point "5% FPR": per method and category, the image-score threshold exceeded by 5% of the
-  category's normal images. An anomalous image is *missed* if its score is not above that threshold.
-  Thresholds are re-estimated inside every bootstrap resample, so the CIs include threshold uncertainty.
+- Operating point "5% FPR": per method and category, the highest image-score threshold that at most 5% of
+  the category's normal images exceed (an actual normal score, no interpolation; see fpr_threshold).
+  An anomalous image is *missed* if its score is not above that threshold.
+  Thresholds are set once on the full data and held fixed in the bootstrap: a 5% threshold on 20-60
+  normal images is an extreme order statistic, and re-estimating it on resamples (with repeated images)
+  biases it upwards. So the CIs cover image sampling, conditional on the thresholds.
 - Oracle (upper bound, uses labels): an anomalous image counts as caught if at least one method catches
   it at its own 5% FPR. Not achievable: OR-ing several detectors also OR-s their false alarms
   (`fpr:any_at_5pct` reports how many normal images at least one method flags).
@@ -70,6 +73,15 @@ def aligned(runs: dict, methods: list[str], dataset: str):
     return keys, cats, labels, types, scores
 
 
+def fpr_threshold(values: np.ndarray, fpr: float, axis: int | None = None) -> np.ndarray:
+    """A normal score such that at most `fpr` of `values` lie strictly above it.
+
+    Uses an actual data value (no interpolation), so the rule "flag if score > threshold" never exceeds the
+    target FPR. With few normal images per category (MVTec has 20-60) the realised FPR is at most 5%, and
+    duplicated images in a bootstrap resample are treated the same way as in the full data."""
+    return np.quantile(values, 1 - fpr, axis=axis, method="inverted_cdf")
+
+
 def caught(scores: np.ndarray, cats: np.ndarray, labels: np.ndarray, weights: np.ndarray, fpr: float = FPR):
     """(M, N) bool: image detected at `fpr`, with thresholds from the (weighted) normal images of each category."""
     out = np.zeros(scores.shape, dtype=bool)
@@ -77,7 +89,7 @@ def caught(scores: np.ndarray, cats: np.ndarray, labels: np.ndarray, weights: np
         normal = (cats == c) & (labels == 0)
         for m in range(len(scores)):
             vals = np.repeat(scores[m, normal], weights[normal])
-            t = np.quantile(vals, 1 - fpr)
+            t = fpr_threshold(vals, fpr)
             out[m, cats == c] = scores[m, cats == c] > t
     return out
 
@@ -94,11 +106,11 @@ def or_rule(
         lo, hi = 0.0, fpr
         for _ in range(iters):
             mid = (lo + hi) / 2
-            if (nv > np.quantile(nv, 1 - mid, axis=1)[:, None]).any(0).mean() > fpr:
+            if (nv > fpr_threshold(nv, mid, axis=1)[:, None]).any(0).mean() > fpr:
                 hi = mid
             else:
                 lo = mid
-        out[idx] = (scores[:, idx] > np.quantile(nv, 1 - lo, axis=1)[:, None]).any(0)
+        out[idx] = (scores[:, idx] > fpr_threshold(nv, lo, axis=1)[:, None]).any(0)
     return out
 
 
@@ -107,21 +119,25 @@ def complementarity(runs: dict, methods: list[str], dataset: str, seed: int = 0)
     _, cats, labels, _, scores = aligned(runs, methods, dataset)
     anom = labels == 1
 
+    ones = np.ones(len(labels), dtype=int)
+    hit = caught(scores, cats, labels, ones)  # thresholds fixed on the full data (see module docstring)
+    or_hit = or_rule(scores, cats, labels, ones)
+
     def stats(w: np.ndarray) -> dict[str, float]:
-        hit = caught(scores, cats, labels, w)
         wa = w[anom].astype(float)
         miss = ~hit[:, anom]
         res = {f"miss:{m}": float(wa @ miss[i] / wa.sum()) for i, m in enumerate(methods)}
         res["miss:oracle_upper_bound"] = float(wa @ miss.all(0) / wa.sum())
         wn = w[~anom].astype(float)
         res["fpr:any_at_5pct"] = float(wn @ hit[:, ~anom].any(0) / wn.sum())
-        res["miss:or_rule_5pct_total"] = float(wa @ ~or_rule(scores, cats, labels, w)[anom] / wa.sum())
+        res["fpr:or_rule"] = float(wn @ or_hit[~anom] / wn.sum())
+        res["miss:or_rule_5pct_total"] = float(wa @ ~or_hit[anom] / wa.sum())
         for (i, a), (j, b) in combinations(enumerate(methods), 2):
             both, either = miss[i] & miss[j], miss[i] | miss[j]
             res[f"jaccard:{a}|{b}"] = float(wa @ both / max(wa @ either, 1e-12))
         return res
 
-    point = stats(np.ones(len(labels), dtype=int))
+    point = stats(ones)
     rng = np.random.default_rng(seed)
     reps = {k: [] for k in point}
     for _ in range(N_RESAMPLES):
