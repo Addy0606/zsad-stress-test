@@ -21,6 +21,8 @@ STEPS = (  # (script, what it writes)
     ("analysis/image_level.py", "analysis/results/*.csv: complementarity, defect types, domain drops"),
     ("analysis/region_level.py", "analysis/results/*.csv: peak-in-mask, regions found by size / contrast"),
     ("analysis/figures.py", "analysis/figures/*.png: failure-analysis figures"),
+    ("analysis/gallery_summary.py", "analysis/results/gallery_summary.csv: what fills the failure galleries"),
+    ("analysis/rank_correlation.py", "analysis/results/rank_correlation.csv + figure: detectors' score agreement"),
     ("fusion/image_fusion.py", "results/fusion_image.csv: image-level fusion heads, leave-one-dataset-out"),
     ("fusion/report.py", "results/fusion*.{csv,md}: pixel-level fusion and the ablation tables"),
     ("app/build_reference.py", "app/score_reference.json: the demo's normal-image reference scores"),

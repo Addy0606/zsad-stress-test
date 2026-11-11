@@ -1,0 +1,5 @@
+dataset,worst_miss_entries,logical_share_of_worst_misses,anomalous_test_images,logical_share_of_all_anomalous,distinct_images_in_worst_miss_lists,images_in_2plus_lists
+mvtec,40,0.7,1258,0.0525,33,7
+visa,40,0.45,1200,0.0675,32,5
+mpdd,40,0.775,282,0.2305,32,7
+all industrial,120,0.6417,2740,0.0774,97,19
