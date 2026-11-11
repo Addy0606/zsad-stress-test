@@ -368,3 +368,42 @@ RADIO 0.216 s, 1.9 GB · B1 0.147 s, 1.7 GB · B2 0.107 s (+ per-category refere
   a 5% false-alarm operating point. Industrial thresholds (176 MPDD normals, 4.5% above each): AnomalyCLIP 0.9651,
   VisualAD 0.6782, DINOv2 0.4839, RADIO 0.5327, fused 0.9828, B1 0.8765. Chipped mug: flagged by all six;
   intact mug: by none.
+
+## Phase 8: Write-up and packaging (2026-11-11)
+
+### Done
+- **README** rewritten: motivation, demo GIF (live Space output on an MVTec AD test image), answers to the four
+  research questions with CIs, pipeline figure, method table, main tables (image AUROC, AUPRO, cost), fusion figure
+  and table, reproduction steps, layout, limitations, credits and licences. Its tables are pasted in by
+  `report/readme_tables.py` from the generated result files (markers in the README), never typed by hand.
+- **Report** `report/report.pdf` (3 pages): introduction, related work, setup, results, failure analysis, fusion,
+  demo, limitations, references. Source `report/report_src.html`; `report/build_report.py` fills its tables from the
+  result files and prints it with headless Chrome/Edge (no LaTeX on this machine).
+- **Cached outputs published** (Addy's approval): https://huggingface.co/datasets/addy0606/zsad-stress-test-cache,
+  314 files, 128 MB, CC BY-NC-SA 4.0 (strictest source licence). Per-image scores, metrics, configs and pixel
+  histograms from the 10 Kaggle jobs the tables read; no images, maps, weights or logs. `scripts/publish_cache.py`
+  and `scripts/fetch_cache.py`.
+- **One command** `scripts/reproduce.py` rebuilds every table and figure from the cache (8 scripts, plus the README
+  tables). Needs only `requirements-reproduce.txt` (numpy, scipy, scikit-learn, matplotlib, omegaconf,
+  huggingface_hub): no PyTorch, GPU or datasets.
+- `report/figures.py`: pipeline overview and fusion-gain figures. `report/demo_gif.py`: demo GIF from the Space.
+- `docs/pitch.md`: resume bullets and a 2-minute demo script, every number traced to its file.
+
+### Checks
+- Local rebuild from the cache (65 min on the laptop CPU): `git status` clean, so every committed CSV, Markdown table
+  and figure was reproduced byte for byte.
+- Related work re-checked before writing (as promised in Phase 0): found a Jan 2026 study comparing WinCLIP and
+  AnomalyCLIP (arXiv 2601.13440, CLIP-only, no fusion) and FB-CLIP (CVPR 2026, a method paper); added to the report.
+  Still no cross-family benchmark with failure breakdowns and leave-one-dataset-out fusion found.
+- Claims in README/report checked against the tables; corrected while writing: RADIO's Head CT lead and VisualAD's
+  Brain MRI AUPRO lead are within the runner-up's CI (now stated); missing-parts "at chance" is limited to missing and
+  mismatched parts (AnomalyCLIP detects MVTec transistor "misplaced" at 90.5); the B2 footnote in the overview figure.
+- **Fresh-clone acceptance test** (2026-11-11): `git clone -b phase-8` from GitHub into an empty folder, new venv with
+  only `requirements-reproduce.txt` (33 packages, no PyTorch), `python scripts/fetch_cache.py` (129 MB from Hugging
+  Face), `python scripts/reproduce.py` (all 9 steps; 83.7 min including a laptop sleep), then `git status`: **empty**.
+  Every committed table, CSV, figure and README table was regenerated identically.
+
+### Phase 8 acceptance
+- A fresh clone reproduces the main table from cached outputs with the documented commands: **yes** (above).
+- README (motivation, overview figure, main table, findings, demo GIF, reproduction steps): **yes**.
+- report/report.pdf, 2–4 pages: **yes** (3 pages). Resume bullets and 2-minute demo script: **yes** (docs/pitch.md).
