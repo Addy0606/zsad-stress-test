@@ -1,0 +1,8 @@
+# Enough to rebuild every table and figure from the cached outputs (scripts/fetch_cache.py, scripts/reproduce.py).
+# No PyTorch, no datasets, no GPU. Versions as tested together (Python 3.12, 2026-11-11).
+numpy==2.5.4
+scipy==1.18.1
+scikit-learn==1.9.1
+matplotlib==3.11.2
+omegaconf==2.4.0
+huggingface_hub==0.36.2

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Zero-Shot Anomaly Detection Stress Test</title>
+<style>
+  @page { size: A4; margin: 14mm 15mm 14mm 15mm; }
+  :root { --ink: #0b0b0b; --muted: #52514e; --rule: #d9d8d4; }
+  body { font-family: "Georgia", "Times New Roman", serif; font-size: 9.6pt; line-height: 1.38; color: var(--ink);
+         background: #fff; margin: 0; }
+  h1 { font-size: 17pt; margin: 0 0 2pt; line-height: 1.2; }
+  .byline { color: var(--muted); font-size: 9.5pt; margin-bottom: 8pt; }
+  h2 { font-size: 11pt; margin: 10pt 0 3pt; }
+  p { margin: 0 0 5pt; text-align: justify; hyphens: auto; }
+  .abstract { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 6pt 0; margin-bottom: 4pt; }
+  table { border-collapse: collapse; width: 100%; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 7.4pt;
+          margin: 3pt 0 2pt; }
+  th, td { padding: 1.6pt 4pt; text-align: left; border-bottom: 1px solid var(--rule); }
+  th { border-bottom: 1.2px solid var(--ink); font-weight: 600; }
+  .cap { font-size: 8.2pt; color: var(--muted); margin: 2pt 0 7pt; text-align: left; }
+  figure { margin: 4pt 0 6pt; break-inside: avoid; }
+  figure img { width: 100%; }
+  figure.narrow img { width: 72%; display: block; margin: 0 auto; }
+  ul { margin: 0 0 5pt 14pt; padding: 0; } li { margin-bottom: 2pt; }
+  .refs { font-size: 8pt; } .refs li { margin-bottom: 1pt; }
+  .keep { break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<h1>Zero-Shot Anomaly Detection Stress Test: where three detector families fail, and whether combining them helps</h1>
+<div class="byline">Aadhitya Ayyappan · November 2026 · code, cached results and demo: github.com/Addy0606/zsad-stress-test</div>
+
+<div class="abstract"><p><b>Abstract.</b> Zero-shot anomaly detectors are usually reported one method at a time, as dataset averages.
+I evaluate one detector from each of three families (CLIP-based AnomalyCLIP, language-free VisualAD, and the vision-foundation-model
+detector AnomalyVFM with DINOv2 and RADIO backbones) plus two baselines under a single harness on five datasets: MVTec AD, VisA,
+MPDD, BMAD Brain MRI and Head CT. Every dataset-level number carries a 95% bootstrap confidence interval. AnomalyVFM-RADIO is the
+strongest image-level detector everywhere, but its anomaly map often peaks away from the defect it detected. The families miss
+different images and fail on different defect types; tiny defects and missing parts are blind spots. A fusion head trained
+leave-one-dataset-out does <i>not</i> beat the best single image score on industrial data, while a plain average of normalised
+anomaly maps improves localisation (AUPRO) on all four held-out datasets with masks, by 1.1 to 2.3 points.</p></div>
+
+<h2>1. Introduction</h2>
+<p>A zero-shot anomaly detector should flag defects on objects it has never seen. Method papers compare dataset averages, each with
+its own protocol details, so it is hard to tell <i>which</i> defects a method misses, whether methods from different families fail on
+the same images, and whether their image scores and anomaly maps agree. I ask four questions: (1) which defect types and sizes each
+family misses; (2) how much performance drops from the standard industrial benchmarks to a harder industrial set and to medical
+images; (3) whether the families fail on different images and, if so, whether a learned fusion beats the best single method on
+held-out datasets; and (4) whether methods sometimes flag the right image for the wrong region.</p>
+
+<h2>2. Related work</h2>
+<p>Method papers such as AnomalyCLIP [1], AdaCLIP [2], FB-CLIP [3], VisualAD [4] and AnomalyVFM [5] evaluate on 9 to 18 industrial
+and medical datasets but report dataset averages, without breakdowns by defect attribute, cross-family complementarity or score-map
+consistency. BMAD [6] benchmarks medical anomaly detection with methods trained on normal images. Marzullo and Ranzini [7] test
+CLIP-based zero-shot detectors on brain MRI only; a 2026 study [8] compares WinCLIP and AnomalyCLIP, both CLIP-based. RobustAD [9]
+studies robustness of industrial detectors under shift. I found no work that runs detectors from three families under one harness,
+breaks failures down by defect attributes, measures complementarity and tests leave-one-dataset-out fusion.</p>
+
+<h2>3. Setup</h2>
+<p><b>Methods.</b> AnomalyCLIP [1] learns object-agnostic text prompts on an auxiliary dataset (MVTec AD; VisA when testing on
+MVTec AD). VisualAD [4] uses the same frozen CLIP ViT-L/14 encoder with learned visual tokens and no text (VisA-trained; for VisA
+itself I trained the MVTec AD checkpoint, which is not released). AnomalyVFM [5] trains a decoder on synthetic anomalies only, on
+DINOv2 [10] or RADIO [11] features. Baselines: B1 scores CLIP prompts ("flawless" vs "damaged" object); B2 scores DINOv2 patches by
+mutual nearest neighbours among the <i>other unlabelled test images</i>, which is transductive, so it is reported separately.
+<b>Data.</b> MVTec AD [12] (1,725 test images), VisA [13] (2,162), MPDD [14] (458 metal parts under varied lighting and pose, used for
+testing only), BMAD Brain MRI [6] (3,715 BraTS 2021 slices) and Head CT [15] (200, image labels only).
+<b>Protocol.</b> No method or fusion head sees an image of the dataset it is scored on. Metrics: image AUROC, pixel AUROC, AUPRO up
+to 30% FPR [16] and F1-max, averaged over categories; every map is compared at 256×256. CIs are 95% percentile bootstrap intervals
+(1,000 resamples of images, stratified by category and label); pixel-metric CIs use per-image histograms.</p>
+
+<h2>4. Results</h2>
+<div class="keep">
+<!-- table: results/benchmark.md#Image AUROC -->
+<!-- /table -->
+<div class="cap">Table 1. Image AUROC (%), mean over categories, with 95% bootstrap CIs. B2 is transductive.</div>
+</div>
+<div class="keep">
+<!-- table: results/benchmark.md#AUPRO (FPR ≤ 0.3) -->
+<!-- /table -->
+<div class="cap">Table 2. AUPRO up to 30% FPR (%). Head CT has no pixel masks.</div>
+</div>
+<p>AnomalyVFM-RADIO has the highest image AUROC on every dataset (on Head CT within AnomalyCLIP's CI), although it was
+never trained on a real benchmark image. Localisation tells a different story: VisualAD has the highest AUPRO among single-image
+methods on all four datasets with masks (on Brain MRI within AnomalyCLIP's CI), and the transductive B2 baseline is strongest on
+MVTec AD. B1 detects images reasonably but its maps are uninformative (AUPRO 8 to 17). On a T4, the methods need 0.11 to 0.55 s
+per image and at most 2.6 GB of GPU memory. My reproductions of the published MVTec AD and VisA
+numbers, with every gap above 2 points explained, are in the repository's log.</p>
+
+<h2>5. Failure analysis</h2>
+<ul>
+<li><b>Right image, wrong place.</b> Among anomalies RADIO correctly flags at a 5% image false-positive rate, its map's peak lies more
+than 4 px from every defect pixel in 36.0% (MVTec AD) to 53.7% (VisA) of images; for VisualAD 10.7% to 17.3% (Figure 1).</li>
+<li><b>Maps can beat image scores.</b> AnomalyCLIP's image score is near chance on brain MRI (60.7), but scoring the same images from
+the top 1% of its own map gives 85.1 (paired difference +24.4 [+22.2, +26.6]). For AnomalyVFM the reverse holds.</li>
+<li><b>Blind spots.</b> AnomalyVFM-DINOv2 finds 19.2% [12.2, 26.2] of tiny (&lt;100 px) MPDD defect regions, against 60.9 to 66.2%
+for the CLIP-backbone methods. Missing components (VisA pcb2) and mismatched parts (MPDD brackets) are at chance for every method.</li>
+<li><b>Domain shift is family-specific.</b> VisualAD loses 16.1 [11.4, 21.0] image-AUROC points from the standard benchmarks to MPDD
+but only 2.0 [−0.7, 4.7] to medical images; AnomalyCLIP loses 9.8 [7.2, 12.7] on medical images.</li>
+<li><b>Complementarity.</b> The methods miss different images: an oracle that picks the right method per image would cut MVTec AD
+misses at 5% false alarms from 10.5% to 5.5%. A label-free OR rule held at 5% total false alarms only helps on MPDD.</li>
+</ul>
+<figure class="narrow"><img src="../analysis/figures/wrong_place.png" alt="Share of correctly flagged anomalies whose map peak is off the defect, per method and dataset">
+<div class="cap">Figure 1. Share of correctly flagged anomalous images whose map peak is off the defect (95% CIs).</div></figure>
+
+<h2>6. Fusion</h2>
+<p>Heads are trained leave-one-dataset-out over MVTec AD, VisA and BMAD Brain MRI, with hyperparameters from an inner
+leave-one-dataset-out on the training datasets; MPDD and Head CT are never used for training. Features are put on a common scale by
+a quantile transform fitted on training data only. <b>Image level</b> (16 features: each detector's own score and three scores read
+off its map): logistic regression is worse than RADIO alone on MVTec AD (−1.9 [−2.8, −1.1]) and VisA (−4.0 [−5.0, −2.9]),
+not significantly different on MPDD and Brain MRI, and better only on Head CT (+2.8 [+0.5, +5.7]); boosted trees are worse still.
+<b>Pixel level</b>: the mean of the four normalised maps beats the best single map on every held-out dataset with masks (Figure 2);
+logistic regression learns near-equal weights and matches it, so the gain comes from averaging rather than learning.</p>
+<figure><img src="figures/fusion.png" alt="Fusion gain over the best single method per held-out dataset, pixel level and image level">
+<div class="cap">Figure 2. Paired difference to the best single method on held-out datasets, with 95% bootstrap CIs.</div></figure>
+<div class="keep">
+<!-- table: results/fusion.md#AUPRO (FPR ≤ 0.3) (pixel-level fusion) -->
+<!-- /table -->
+<div class="cap">Table 3. Pixel-level fusion, AUPRO (%). Brackets after a fused head: paired difference to the best single map.</div>
+</div>
+
+<h2>7. Demo</h2>
+<p>A Gradio app on Hugging Face Spaces (ZeroGPU) runs all four detectors on an uploaded photo and shows their maps, the fused map
+and a per-method verdict against thresholds set at 5% false alarms on normal MPDD images. A request takes 9.5 to 18.5 s end to end,
+of which 0.6 to 1.3 s is model time.</p>
+
+<h2>8. Limitations</h2>
+<p>Each method was run once, so CIs cover image sampling but not training randomness. Fusion has only three training datasets, so
+hyperparameters are chosen on one-versus-one splits. Medical coverage is thin: two datasets, one with masks, and Head CT has
+200 images. The demo's verdicts are calibrated on metal parts; for very different objects the maps are more informative.</p>
+
+<h2>References</h2>
+<ol class="refs">
+<li>Q. Zhou et al. AnomalyCLIP: Object-agnostic prompt learning for zero-shot anomaly detection. ICLR 2024.</li>
+<li>Y. Cao et al. AdaCLIP: Adapting CLIP with hybrid learnable prompts for zero-shot anomaly detection. ECCV 2024.</li>
+<li>FB-CLIP: Fine-grained zero-shot anomaly detection with foreground-background disentanglement. CVPR 2026 (arXiv 2603.19608).</li>
+<li>Hou et al. VisualAD: Language-free zero-shot anomaly detection via vision transformer. CVPR 2026 (arXiv 2603.07952).</li>
+<li>M. Fučka et al. AnomalyVFM. CVPR 2026.</li>
+<li>J. Bao et al. BMAD: Benchmarks for medical anomaly detection. CVPR Workshops 2024.</li>
+<li>A. Marzullo, M. Ranzini. Exploring zero-shot anomaly detection with CLIP in medical imaging: are we there yet? arXiv 2411.09310, 2024.</li>
+<li>Analyzing VLM-based approaches for anomaly classification and segmentation. arXiv 2601.13440, 2026.</li>
+<li>RobustAD. CVPR Workshops 2025.</li>
+<li>M. Oquab et al. DINOv2: Learning robust visual features without supervision. TMLR 2024.</li>
+<li>M. Ranzinger et al. AM-RADIO: Agglomerative vision foundation model. CVPR 2024.</li>
+<li>P. Bergmann et al. MVTec AD: a comprehensive real-world dataset for unsupervised anomaly detection. CVPR 2019.</li>
+<li>Y. Zou et al. SPot-the-difference self-supervised pre-training for anomaly detection and segmentation (VisA). ECCV 2022.</li>
+<li>S. Jezek et al. Deep learning-based defect detection of metal parts: evaluating current methods in complex conditions (MPDD). ICUMT 2021.</li>
+<li>F. Kitamura. Head CT hemorrhage dataset. Kaggle (felipekitamura/head-ct-hemorrhage).</li>
+<li>P. Bergmann et al. The MVTec anomaly detection dataset: a comprehensive real-world dataset for unsupervised anomaly detection. IJCV 2021.</li>
+</ol>
+</body>
+</html>
