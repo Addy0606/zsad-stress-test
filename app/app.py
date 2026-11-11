@@ -29,6 +29,18 @@ import sys
 import time
 from pathlib import Path
 
+try:  # Hugging Face ZeroGPU: a GPU is attached only while a @spaces.GPU function runs
+    import spaces
+
+    on_gpu = spaces.GPU(duration=120)
+    ZERO_GPU = True
+except ImportError:  # anywhere else: run as is
+    ZERO_GPU = False
+
+    def on_gpu(fn):
+        return fn
+
+
 import gradio as gr
 import numpy as np
 import torch
@@ -54,7 +66,7 @@ DETECTORS = {  # same order as the fusion normaliser's columns
 B1 = "clip_prompt"
 EVAL_SIZE = 256
 MAX_SIDE = 1024  # phone photos are shrunk first; every method resizes internally anyway
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+DEVICE = "cuda" if ZERO_GPU or torch.cuda.is_available() else "cpu"  # ZeroGPU: models go to "cuda" at startup
 VISUALAD_TOPK = {"industrial": 0.01, "medical": 0.05}  # configs/methods/visualad.yaml, params_by_domain
 
 # blue -> cyan -> yellow -> red, for values in [0, 1]
@@ -113,6 +125,7 @@ def percentile(score: float, domain: str, key: str) -> float:
     return 100.0 * np.searchsorted(ref, score, side="left") / len(ref)
 
 
+@on_gpu
 @torch.inference_mode()
 def analyse(photo: Image.Image | None, category: str, domain: str, run_b1: bool):
     if photo is None:
@@ -170,10 +183,11 @@ Upload a photo of an object (or a medical scan). Four zero-shot detectors from t
 they think a defect is. None of them has seen your object before. The **fused map** averages their normalised
 maps: in this project's held-out tests it localised defects better than any single detector
 (AUPRO +1.1 to +2.3 points on four held-out datasets). For the image-level "is it defective?" call,
-AnomalyVFM RADIO's own score was the best single signal, and fusing image scores did not beat it.
+AnomalyVFM RADIO's own score was the best single signal, and fusing image scores did not beat it on the
+industrial datasets.
 
-**Runs on a free CPU, all four detectors: expect about a minute per photo.** The first request after the Space
-wakes up also waits for the models to download.
+Runs all four detectors on a shared free GPU (Hugging Face ZeroGPU); the time each one took is shown with the
+scores. If the Space was asleep, the first request also waits for it to start and download the models.
 
 Colours: blue = ordinary for that detector, red = higher than almost all of its values on pixels of the three
 training datasets (MVTec AD, VisA, BMAD Brain MRI). The four detectors don't read the category name; it is only

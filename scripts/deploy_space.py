@@ -5,7 +5,7 @@ normaliser, the third-party setup script and the two small data files in app/. N
 datasets: the app downloads those from the original authors when it starts.
 
     python scripts/deploy_space.py                      # build outputs/space/ only, to inspect or run locally
-    python scripts/deploy_space.py --upload --user addy0606   # needs `huggingface-cli login` first
+    python scripts/deploy_space.py --upload --user addy0606   # needs `huggingface-cli login` and the Space
 """
 
 from __future__ import annotations
@@ -16,7 +16,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 STAGE = REPO / "outputs" / "space"
-SPACE_NAME = "zsad-stress-test"
+SPACE_NAME = "zsad"  # created by Addy on the website with ZeroGPU hardware
 FILES = {  # Space path: repo path
     "app.py": "app/app.py",
     "requirements.txt": "app/requirements.txt",
@@ -43,7 +43,7 @@ pinned: false
 
 Demo for [zsad-stress-test](https://github.com/Addy0606/zsad-stress-test): four zero-shot anomaly detectors
 (AnomalyCLIP, VisualAD, AnomalyVFM with DINOv2 and RADIO backbones) and their fused anomaly map on your own photo.
-Runs on a free CPU, so one photo takes about a minute. Third-party code and weights are downloaded from the
+Runs on ZeroGPU. Third-party code and weights are downloaded from the
 original authors at startup; see the credits in the app.
 """
 
@@ -68,7 +68,8 @@ def upload(user: str) -> None:
 
     api = HfApi()
     repo_id = f"{user}/{SPACE_NAME}"
-    api.create_repo(repo_id, repo_type="space", space_sdk="gradio", exist_ok=True)
+    if not api.repo_exists(repo_id, repo_type="space"):  # create it on the website first to pick ZeroGPU hardware
+        raise SystemExit(f"{repo_id} does not exist: create it at huggingface.co/new-space (Gradio, ZeroGPU)")
     api.upload_folder(folder_path=str(STAGE), repo_id=repo_id, repo_type="space", commit_message="Update demo")
     print(f"uploaded: https://huggingface.co/spaces/{repo_id}")
 

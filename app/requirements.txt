@@ -1,6 +1,5 @@
-# Hugging Face Space requirements (CPU). Tested together in a clean Python 3.12 venv, 2026-11-11.
-# CPU-only PyTorch wheels (the default Linux wheels pull in ~3 GB of CUDA libraries the Space can't use).
---extra-index-url https://download.pytorch.org/whl/cpu
+# Hugging Face Space requirements (ZeroGPU). Tested together in a clean Python 3.12 venv, 2026-11-11.
+# standard (CUDA) wheels on Linux; ZeroGPU attaches the GPU at request time
 torch==2.8.0
 torchvision==0.23.0
 numpy==2.5.4
