@@ -79,6 +79,34 @@ Pixel AUROC, F1-max and per-category numbers: [`results/benchmark.md`](results/b
 | B2 DINOv2 mutual NN | 8260 | 0.107 | 2573 | Tesla T4 |
 <!-- /table -->
 
+### Do my numbers match the papers?
+
+Before trusting the harness, each method was run in its paper's own setting on MVTec AD and VisA and compared with
+the published numbers. Image AUROC / pixel AUROC / AUPRO, in %:
+
+| Method | Dataset | This repo | Published | Image AUROC difference |
+|---|---|---|---|---|
+| AnomalyCLIP (layer 24, official setting) | MVTec AD | 91.6 / 91.1 / 85.1 | 91.5 / 91.1 / 81.4 | +0.1 |
+| AnomalyCLIP (layer 24, official setting) | VisA | 82.0 / 95.5 / 86.9 | 82.1 / 95.5 / 87.0 | −0.1 |
+| AnomalyVFM (DINOv2) | MVTec AD | 87.4 / 91.4 / 85.3 | 87.4 / 91.6 / 84.5 | 0.0 |
+| AnomalyVFM (DINOv2) | VisA | 89.3 / 94.2 / 82.8 | 89.3 / 94.5 / 84.5 | 0.0 |
+| AnomalyVFM (RADIO) | MVTec AD | 96.4 / 91.3 / 87.2 | 96.4 / 92.0 / 87.6 | 0.0 |
+| AnomalyVFM (RADIO) | VisA | 92.9 / 94.9 / 88.3 | 92.9 / 95.8 / 90.5 | 0.0 |
+| VisualAD (authors' VisA-trained checkpoint) | MVTec AD | 92.2 / 90.8 / 87.7 | 92.2 / 90.8 / 87.5 | 0.0 |
+| VisualAD (my MVTec AD-trained checkpoint) | VisA | 83.1 / 95.3 / 89.8 | 84.7 / 95.8 / 91.0 | −1.6 |
+
+Every image AUROC is within 2 points of the paper. The three larger pixel-level gaps:
+
+- **AnomalyCLIP AUPRO on MVTec AD (+3.7):** the paper's AUPRO function (200 fixed thresholds, then a rescaled FPR
+  axis) gives 81.2 on *my* maps, matching its published 81.4; the exact AUPRO used here gives 85.1. So the gap is
+  the metric implementation, not the model, and published AUPRO values from different papers aren't directly
+  comparable. AnomalyCLIP also matches only when run with layer 24 alone, as in the authors' test script (the code's
+  default of four layers gives lower pixel scores).
+- **AnomalyVFM AUPRO on VisA (−1.7 DINOv2, −2.2 RADIO):** probably the same kind of cause (the paper uses a
+  different, binned metric library), but not verified.
+- **VisualAD on VisA (−1.6 image AUROC):** the MVTec AD-trained checkpoint isn't released, so I trained it with the
+  authors' script at batch size 4 instead of 8, which ran out of memory on a 16 GB GPU.
+
 ## Failure analysis
 
 Five findings, each backed by a figure with 95% bootstrap CIs. Tables and exact numbers:
