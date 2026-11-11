@@ -16,7 +16,7 @@ and see all four detectors' anomaly maps, their fused map, and a per-method verd
 
 | Question | Answer (95% bootstrap CIs; details in [`analysis/FINDINGS.md`](analysis/FINDINGS.md) and [`results/fusion.md`](results/fusion.md)) |
 |---|---|
-| Which defects does each family miss? | **Tiny defects** split the families: AnomalyVFM DINOv2 finds 19.2% [12.2, 26.2] of tiny MPDD defect regions, the two CLIP-backbone methods 60.9–66.2%. **Missing and mismatched parts** (VisA pcb2, MPDD brackets) are at chance for every method. |
+| Which defects does each family miss? | **Tiny defects** split the families: AnomalyVFM DINOv2 finds 19.2% [12.2, 26.2] of tiny MPDD defect regions, the two CLIP-backbone methods 60.9–66.2%. **Missing and mismatched parts** (VisA pcb2, MPDD brackets) are at chance for every method, and such logical anomalies make up 64% of the detectors' 10 worst misses on industrial data (8% of anomalous images). |
 | How much does performance drop off the standard benchmarks? | It depends on the family. VisualAD loses 16.1 [11.4, 21.0] image-AUROC points on MPDD but only 2.0 [−0.7, 4.7] on medical images; AnomalyCLIP loses 9.8 [7.2, 12.7] on medical images. |
 | Do they fail on different images, and does fusion help? | They miss different images: an oracle that picks the right method per image would roughly halve the misses on industrial data (MVTec AD: 10.5% → 5.5% at 5% false alarms). But no fused **image score** beats the best single detector (AnomalyVFM RADIO) on the industrial datasets. Fusing the **anomaly maps** does help: the plain average of the four normalised maps beats the best single map on all four held-out datasets (AUPRO +1.1 to +2.3 points). |
 | Do image scores and maps agree? | Not always. Among anomalies AnomalyVFM RADIO correctly flags, its map's peak lies off the defect for 36.0–53.7% of industrial images (VisualAD: 10.7–17.3%). The reverse also happens: AnomalyCLIP's image score is near chance on brain MRI (60.7), but scoring the same images from its own map gives 85.1. |
@@ -109,7 +109,7 @@ Every image AUROC is within 2 points of the paper. The three larger pixel-level 
 
 ## Failure analysis
 
-Five findings, each backed by a figure with 95% bootstrap CIs. Tables and exact numbers:
+Six findings, each backed by a figure or gallery. Tables, exact numbers and CIs:
 [`analysis/FINDINGS.md`](analysis/FINDINGS.md).
 
 **1. Right image, wrong place.** Among anomalous images a method correctly flags (at 5% false alarms), how often
@@ -131,6 +131,12 @@ the oracle is large, but the label-free OR rule only closes it on MPDD.
 
 ![Anomalous images missed at 5% false-positive rate per method, for the OR rule and for the oracle](analysis/figures/complementarity.png)
 
+The scores show the same thing: the rank correlation between two detectors' image scores is 0.54–0.80 on MVTec AD
+and VisA but drops to 0.29–0.65 on MPDD and brain MRI. The harder the dataset, the more the detectors disagree
+about which images look anomalous.
+
+![Spearman rank correlation of image scores between each pair of detectors, per dataset](analysis/figures/rank_correlation.png)
+
 **4. Tiny defects are a blind spot, unequally.** Share of ground-truth defect regions found (at least half their
 pixels above the method's 1%-false-alarm pixel threshold), by region size. AnomalyVFM DINOv2 finds only 19% of tiny
 MPDD defects. Large regions score lower partly because of the half-of-the-region rule.
@@ -142,6 +148,14 @@ to MPDD and to the medical datasets. VisualAD drops 16 points on MPDD but about 
 drops about 10 on medical images.
 
 ![Image AUROC drop from MVTec AD and VisA to MPDD and to medical images, per method](analysis/figures/domain_drop.png)
+
+**6. The hardest misses are logical anomalies.** For each detector and dataset, a gallery shows its 10 worst missed
+anomalies and 10 worst false alarms (all 20 galleries: [`analysis/galleries/`](analysis/galleries)). On the industrial
+datasets, 64% of the worst misses are logical anomalies (a part missing, misplaced, flipped, swapped or mismatched),
+although these are only 8% of the anomalous test images. Each surface looks fine but the object is wrong, which a
+detector that scores unusual-looking patches can't see. False alarms come mostly from textures and circuit boards.
+
+![AnomalyVFM RADIO on MVTec AD: its 10 worst missed anomalies (mostly a missing transistor, a missing or swapped cable) and its 10 worst false alarms (mostly textures), each with the photo and the detector's map](analysis/galleries/anomalyvfm_radio/mvtec.jpg)
 
 ## Fusion
 
@@ -198,10 +212,12 @@ python scripts/reproduce.py                           # rebuild every table and 
 git status                                            # nothing changed: the rebuilt files match the committed ones
 ```
 
-`scripts/reproduce.py` runs, in order: `eval/make_tables.py` (main tables), `analysis/image_level.py`,
-`analysis/region_level.py` and `analysis/figures.py` (failure analysis), `fusion/image_fusion.py` and
-`fusion/report.py` (fusion), `app/build_reference.py` (the demo's reference scores), then `report/figures.py` and
-`report/readme_tables.py` (this README's figures and tables). Each can also be run on its own.
+`scripts/reproduce.py` runs, in order: `eval/make_tables.py` (main tables); `analysis/image_level.py`,
+`analysis/region_level.py`, `analysis/figures.py`, `analysis/gallery_summary.py` and `analysis/rank_correlation.py`
+(failure analysis); `fusion/image_fusion.py` and `fusion/report.py` (fusion); `app/build_reference.py` (the demo's
+reference scores); then `report/figures.py` and `report/readme_tables.py` (this README's figures and tables). Each
+can also be run on its own. The one exception is the failure galleries: they show photos and anomaly maps, which
+are not in the cache, so they come from a Kaggle job over the full outputs (`analysis/galleries.py`).
 
 **Running the detectors from scratch.** This is the expensive part: 3.7 hours of model time on a T4 for all six
 methods on all 8,260 test images (from the cost table), run as Kaggle jobs.

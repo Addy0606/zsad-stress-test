@@ -1,6 +1,6 @@
 # Phase 5 findings: where zero-shot anomaly detectors fail
 
-Five findings from the 30 benchmark runs (4 single-image detectors + 2 baselines × 5 datasets).
+Six findings from the 30 benchmark runs (4 single-image detectors + 2 baselines × 5 datasets).
 Every number below is copied from a CSV in `analysis/results/`, produced by the scripts named in each section.
 Brackets are 95% percentile-bootstrap CIs (1,000 resamples of images, stratified by category and label).
 All rates use the common 256×256 evaluation maps.
@@ -9,7 +9,8 @@ Methods: **AnomalyCLIP** (CLIP + learned text prompts), **VisualAD** (same froze
 tokens instead of text), **AnomalyVFM DINOv2 / RADIO** (vision foundation model + a decoder trained on synthetic
 anomalies). Baselines B1 (plain CLIP prompts) and B2 (transductive DINOv2 nearest neighbour) are shown only where useful.
 
-Reproduce: `python analysis/image_level.py`, `python analysis/region_level.py`, `python analysis/figures.py`
+Reproduce: `python analysis/image_level.py`, `python analysis/region_level.py`, `python analysis/figures.py`,
+`python analysis/rank_correlation.py`, `python analysis/gallery_summary.py`
 (the per-region and map-score tables come from the Kaggle CPU jobs `analysis/regions.py` and `analysis/map_scores.py`).
 
 ---
@@ -86,6 +87,14 @@ lowered together until only 5% of normal images are flagged in total (no labels;
 - Misses overlap only partly: the pairwise Jaccard overlap of two methods' miss sets is 23–38% on MVTec AD and
   34–53% on VisA (e.g. AnomalyCLIP vs RADIO on MVTec: 22.7 [18.7, 26.4]). The oracle roughly halves the misses
   of the best method on MVTec AD and MPDD, cuts them by two-thirds on Head CT, by 40% on VisA and by a fifth on Brain MRI.
+- The disagreement is also visible in the scores themselves. Spearman's rho between two detectors' image scores
+  (within each category, averaged; `rank_correlation.csv`) is 0.54–0.80 on MVTec AD and VisA but 0.29–0.65 on MPDD
+  and Brain MRI: the harder the dataset, the more differently the detectors order the images. The most different
+  pair on industrial data is AnomalyCLIP vs AnomalyVFM DINOv2 (0.56, 0.54 and 0.35 on MVTec AD, VisA and MPDD); on
+  Brain MRI it is AnomalyCLIP vs RADIO (0.29 [0.26, 0.32]). Even the two AnomalyVFM backbones, with the same decoder
+  and training data, agree less on MPDD (0.58) and Brain MRI (0.52) than on MVTec AD and VisA (0.78, 0.79).
+
+  ![rank correlation](figures/rank_correlation.png)
 - That headroom is optimistic: running all four methods at their own 5% FPR flags 11–15% of normal images.
   Held to 5% in total, the OR rule only helps on MPDD (−15 points), ties on MVTec AD and VisA, and hurts on
   Brain MRI and Head CT, where one method dominates and lowering its threshold to make room for the others costs more.
@@ -95,7 +104,7 @@ lowered together until only 5% of normal images are flagged in total (no labels;
   on 20–60 resampled normal images is biased). With so few normals per MVTec/MPDD category, the OR rule ends up
   far below 5% FPR (0.4% and 0.0%), so it is conservative there.
 
-Source: `complementarity.csv` (`analysis/image_level.py`).
+Source: `complementarity.csv` (`analysis/image_level.py`), `rank_correlation.csv` (`analysis/rank_correlation.py`).
 
 ## 4. Tiny defects and missing parts are the blind spots (RQ1)
 
@@ -159,6 +168,37 @@ Image AUROC drop from the standard benchmarks (mean of MVTec AD and VisA) to MPD
   (Head CT, 200 images, wide CIs).
 
 Source: `domain_drops.csv` (`analysis/image_level.py`).
+
+## 6. The hardest misses are logical anomalies (RQ1)
+
+For each detector and dataset, a gallery shows its 10 worst missed anomalies and 10 worst false alarms, each with the
+photo (ground truth outlined) and the detector's map (`galleries/<method>/<dataset>.jpg`; every image listed with
+its score in `galleries/galleries.csv`). "Worst" is measured within the image's category: how far its score lies
+from the category's normal images, in standard deviations.
+
+| Dataset | Worst-miss entries (4 detectors × 10) | Logical anomalies among them | Logical anomalies among all anomalous test images |
+|---|---|---|---|
+| MVTec AD | 40 | 70.0% | 5.3% (of 1,258) |
+| VisA | 40 | 45.0% | 6.8% (of 1,200) |
+| MPDD | 40 | 77.5% | 23.0% (of 282) |
+| All industrial | 120 | **64.2%** | **7.7%** (of 2,740) |
+
+*Logical* = a part missing, extra, misplaced, flipped, swapped, of the wrong type, or mismatched (MVTec AD
+`misplaced`, `flip`, `pill_type`, `missing_cable`, `cable_swap`; VisA `missing`, `extra`; MPDD `parts_mismatch`,
+`bend_and_parts_mismatch`). Each surface looks fine, but the object is wrong.
+
+- The detectors' worst failures are not faint scratches but objects assembled wrongly. A likely reason: all four
+  score how unusual each *patch* looks, and a correct-looking part in the wrong place or a missing part leaves no
+  unusual patch. This extends finding 4 (missing and mismatched parts at chance) from averages to the worst cases.
+- The lists differ between detectors: across the 12 industrial lists, 97 different images appear and only 19 appear
+  in more than one list (none in all four on MVTec AD or MPDD).
+- False alarms on industrial data come mostly from textures (MVTec AD carpet, leather, tile) and printed circuit
+  boards (VisA pcb1–pcb4). Seen by eye in the galleries: AnomalyCLIP's worst false alarms on brain MRI are all slices
+  from the top or bottom of the brain, with small, irregular cross-sections; its map lights up the whole brain, so
+  an unusual shape looks anomalous.
+- Caveat: 10 images per list is small, and the "logical" grouping uses the datasets' defect-type folder names.
+
+Source: `gallery_summary.csv` (`analysis/gallery_summary.py`); galleries from the Kaggle CPU job `analysis/galleries.py`.
 
 ---
 
