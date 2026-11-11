@@ -125,6 +125,12 @@ def percentile(score: float, domain: str, key: str) -> float:
     return 100.0 * np.searchsorted(ref, score, side="left") / len(ref)
 
 
+def threshold(domain: str, key: str, fpr: float = 0.05) -> float:
+    """Score above which an image is flagged: at most `fpr` of normal reference images lie above it.
+    Same rule as analysis/image_level.py (fpr_threshold) in the failure analysis."""
+    return float(np.quantile(REFERENCE[domain][key], 1 - fpr, method="inverted_cdf"))
+
+
 @on_gpu
 @torch.inference_mode()
 def analyse(photo: Image.Image | None, category: str, domain: str, run_b1: bool):
@@ -142,7 +148,7 @@ def analyse(photo: Image.Image | None, category: str, domain: str, run_b1: bool)
         score, amap = MODELS[name].predict(x, category)
         seconds = time.perf_counter() - t0
         maps.append(resize_map(amap, (EVAL_SIZE, EVAL_SIZE)))
-        rows.append((label, score, percentile(score, domain, name), seconds))
+        rows.append((label, name, score, seconds))
     normalised = NORM.transform(np.stack(maps).reshape(len(DETECTORS), -1).T)  # (256*256, 4), each in [0, 1]
     for i, (label, *_rest) in enumerate(rows):
         gallery.append((overlay(shown, normalised[:, i].reshape(EVAL_SIZE, EVAL_SIZE)), label))
@@ -152,8 +158,8 @@ def analyse(photo: Image.Image | None, category: str, domain: str, run_b1: bool)
     rows.append(
         (
             "Fused map, mean of its top 1% (for locating defects; a weak image score in Phase 6)",
+            "fused",
             fused_score,
-            percentile(fused_score, domain, "fused"),
             0.0,
         )
     )
@@ -165,21 +171,31 @@ def analyse(photo: Image.Image | None, category: str, domain: str, run_b1: bool)
         a = resize_map(amap, (EVAL_SIZE, EVAL_SIZE))
         a = (a - a.min()) / (a.max() - a.min() + 1e-12)  # not in the fusion normaliser: own range
         gallery.append((overlay(shown, a), f"B1 CLIP prompt '{category}' (colours: this map's own range)"))
-        rows.append((f"B1 CLIP prompt, category '{category}'", score, percentile(score, domain, B1), seconds))
+        rows.append((f"B1 CLIP prompt, category '{category}'", B1, score, seconds))
     total = time.perf_counter() - t_all
 
     ref = REFERENCE[domain]
     table = [
-        "| Method | Raw score | Higher than this % of normal reference images | Seconds |",
-        "|---|---|---|---|",
+        "| Method | Raw score | Flag threshold | Verdict | Higher than this % of normal reference images | Seconds |",
+        "|---|---|---|---|---|---|",
     ]
-    table += [f"| {m} | {s:.4f} | {p:.0f}% | {t:.1f} |" for m, s, p, t in rows]
+    for label, key, score, seconds in rows:
+        t = threshold(domain, key)
+        verdict = "**defect flagged**" if score > t else "looks normal"
+        table.append(
+            f"| {label} | {score:.4f} | {t:.4f} | {verdict} | {percentile(score, domain, key):.0f}% | {seconds:.1f} |"
+        )
     table += [
         "",
         f"Model time: **{total:.1f} s** on {DEVICE.upper()} (the page also waits for a shared GPU and to send the "
-        "images, usually several seconds). Reference: normal test images of "
+        "images, usually several seconds).",
+        "",
+        "**Flag threshold:** each method's raw score is on its own scale, so each has its own threshold: the score "
+        "that only 5% of normal reference images exceed. A photo scoring above it is flagged, accepting about 5% "
+        "false alarms on normal parts. Reference: normal test images of "
         f"{' + '.join(ref['datasets'])} (fused map: {' + '.join(ref['fused_datasets'])}), scored in this project's "
-        "benchmark with the same checkpoints. Above ~95% means it would be flagged at a 5% false-alarm rate.",
+        "benchmark with the same checkpoints. Thresholds depend on that reference: for objects very unlike it, "
+        "treat the verdict as a hint and look at the maps.",
     ]
     return gallery, "\n".join(table)
 

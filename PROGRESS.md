@@ -363,3 +363,8 @@ RADIO 0.216 s, 1.9 GB · B1 0.147 s, 1.7 GB · B2 0.107 s (+ per-category refere
 - Added "How your photo is processed" to the app, with input sizes read from the loaded models. No method crops:
   each one squashes the whole photo to its own square input (AnomalyCLIP 518, VisualAD 518, AnomalyVFM DINOv2 672,
   RADIO 768, B1 336), after shrinking photos above 1024 px (shape kept). Checked in each repo's transform code.
+- Added a per-method flag threshold and verdict to the score table (Addy's request): the score that at most 5% of
+  the normal reference images exceed (np.quantile, inverted_cdf, as in analysis/image_level.py), so "flagged" means
+  a 5% false-alarm operating point. Industrial thresholds (176 MPDD normals, 4.5% above each): AnomalyCLIP 0.9651,
+  VisualAD 0.6782, DINOv2 0.4839, RADIO 0.5327, fused 0.9828, B1 0.8765. Chipped mug: flagged by all six;
+  intact mug: by none.
