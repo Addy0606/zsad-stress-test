@@ -41,7 +41,8 @@ class AnomalyCLIP(ZeroShotDetector):
         device: str = "cuda",
     ) -> None:
         """features_list: ViT layers whose patch features are scored. The paper and test.py default use
-        6/12/18/24; the repo's test.sh passes only 24. Kept configurable (see PROGRESS.md, Phase 2)."""
+        6/12/18/24; the repo's test.sh passes only 24. Kept configurable; the configs use [24], as in the
+        authors' official test script."""
         super().__init__(device)
         self.checkpoint, self.image_size, self.sigma, self.clip_cache = (
             checkpoint,

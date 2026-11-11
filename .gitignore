@@ -24,3 +24,11 @@ kaggle.json
 
 # Claude Code local settings
 .claude/
+
+# Kept on Addy's machine only, not published
+PROGRESS.md
+docs/pitch.md
+report/report.pdf
+report/report.html
+report/report_src.html
+report/build_report.py

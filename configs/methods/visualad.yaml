@@ -11,5 +11,5 @@ params_by_domain:
   medical:
     topk_ratio: 0.05
 checkpoint_by_target:
-  visa: third_party/VisualAD/weight/train_on_mvtec/CLIP.pth   # trained by us in Phase 2 (see PROGRESS.md)
+  visa: third_party/VisualAD/weight/train_on_mvtec/CLIP.pth   # trained by us with the official script (batch size 4); not released by the authors
   default: third_party/VisualAD/weight/train_on_visa/CLIP.pth

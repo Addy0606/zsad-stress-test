@@ -1,4 +1,4 @@
-"""Figures for the README and the report (Phase 8), drawn from committed result tables only.
+"""Figures for the README (Phase 8), drawn from committed result tables only.
 
     python report/figures.py
 

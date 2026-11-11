@@ -79,7 +79,41 @@ Pixel AUROC, F1-max and per-category numbers: [`results/benchmark.md`](results/b
 | B2 DINOv2 mutual NN | 8260 | 0.107 | 2573 | Tesla T4 |
 <!-- /table -->
 
-My numbers against the papers' (reproduced within 2 points, or the gap explained) are in [`PROGRESS.md`](PROGRESS.md), Phase 2.
+## Failure analysis
+
+Five findings, each backed by a figure with 95% bootstrap CIs. Tables and exact numbers:
+[`analysis/FINDINGS.md`](analysis/FINDINGS.md).
+
+**1. Right image, wrong place.** Among anomalous images a method correctly flags (at 5% false alarms), how often
+its map's highest point lies off the defect. AnomalyVFM RADIO, the best image-level detector, points at the wrong
+spot in 36–54% of industrial images; VisualAD in 11–17%.
+
+![Share of correctly flagged anomalous images whose map peak is off the defect, per method and dataset](analysis/figures/wrong_place.png)
+
+**2. Does the map know more than the image score?** Image AUROC when each image is scored from the top 1% of its
+own map, minus the method's own image score. AnomalyCLIP's map finds brain tumours its image score misses
+(+24.4 points); AnomalyVFM's own score is better than its map (down to about −14 on MPDD).
+
+![Image AUROC of the map's top-1% score minus the method's own score, per method and dataset](analysis/figures/map_vs_own_score.png)
+
+**3. Different methods miss different images.** Anomalous images missed at 5% false alarms by each method, by an
+"OR rule" (flag if any method fires, thresholds lowered so the total false-alarm rate stays at 5%) and by an oracle
+that picks the right method per image (uses labels: an upper bound for fusion). The gap between the best method and
+the oracle is large, but the label-free OR rule only closes it on MPDD.
+
+![Anomalous images missed at 5% false-positive rate per method, for the OR rule and for the oracle](analysis/figures/complementarity.png)
+
+**4. Tiny defects are a blind spot, unequally.** Share of ground-truth defect regions found (at least half their
+pixels above the method's 1%-false-alarm pixel threshold), by region size. AnomalyVFM DINOv2 finds only 19% of tiny
+MPDD defects. Large regions score lower partly because of the half-of-the-region rule.
+
+![Share of defect regions found by size bucket, per method and dataset](analysis/figures/found_by_size.png)
+
+**5. Domain shift hits the families differently.** Image AUROC drop from the standard benchmarks (MVTec AD and VisA)
+to MPDD and to the medical datasets. VisualAD drops 16 points on MPDD but about 2 on medical images; AnomalyCLIP
+drops about 10 on medical images.
+
+![Image AUROC drop from MVTec AD and VisA to MPDD and to medical images, per method](analysis/figures/domain_drop.png)
 
 ## Fusion
 
@@ -106,10 +140,26 @@ ablation, with boosted trees, miss rates at 5% false alarms and the oracle upper
 
 ## Reproduce
 
-Every table and figure in this README is rebuilt from cached per-image outputs (scores, metrics and pixel
-histograms; about 130 MB, public at
-[huggingface.co/datasets/addy0606/zsad-stress-test-cache](https://huggingface.co/datasets/addy0606/zsad-stress-test-cache)).
-No GPU, datasets or Kaggle account needed:
+### What the cache is, and why it exists
+
+Producing the results has two very different halves:
+
+1. **Running the detectors** (expensive): each method processes every test image on a GPU and writes down, per
+   image, its anomaly score and anomaly map. This took about 3.7 hours of GPU model time on Kaggle, needs the datasets (several GB) and
+   each method's weights.
+2. **Turning those outputs into results** (cheap): AUROC, AUPRO, bootstrap confidence intervals, the failure analysis,
+   the fusion experiments, every table and figure. This needs only the per-image numbers from step 1.
+
+The **cache** is the saved output of step 1: per-image scores, metric files, each run's settings, and compact
+per-image summaries of the anomaly maps (pixel-score histograms, enough to compute the pixel metrics and their
+CIs). It contains no images, no anomaly maps and no model weights. It is about 130 MB, published at
+[huggingface.co/datasets/addy0606/zsad-stress-test-cache](https://huggingface.co/datasets/addy0606/zsad-stress-test-cache).
+
+With it, anyone can redo step 2 and check every number in this README without a GPU, without downloading the
+datasets, and without a Kaggle account. Because the bootstrap uses fixed seeds, the rebuilt files are identical to
+the committed ones, which `git status` confirms. This was tested from a fresh clone.
+
+### Commands
 
 ```bash
 git clone https://github.com/Addy0606/zsad-stress-test && cd zsad-stress-test
@@ -150,7 +200,7 @@ its resolved config and git commit.
 | `analysis/` | failure analysis: findings, figures and their CSVs |
 | `fusion/` | leave-one-dataset-out splits, train-only normaliser, image- and pixel-level fusion |
 | `app/` | the Gradio demo (`scripts/deploy_space.py` publishes it) |
-| `report/` | the report, the README figures and the demo GIF |
+| `report/` | the README's figures and demo GIF, and the scripts that make them |
 | `configs/` | one YAML per dataset and method; `bench_sources.yaml` maps every result to its run |
 
 ## Limitations
@@ -179,5 +229,4 @@ time and never redistributed.
 | BMAD Brain MRI (Bao et al.; BraTS 2021 slices) | 3,715 | yes | CC BY-NC-SA 4.0 (BMAD); BraTS terms |
 | Head CT hemorrhage (Kitamura, Kaggle) | 200 | no | CC0 |
 
-The cached outputs are published under CC BY-NC-SA 4.0, following the strictest source licence. The 2–4 page
-report is [`report/report.pdf`](report/report.pdf).
+The cached outputs are published under CC BY-NC-SA 4.0, following the strictest source licence.
