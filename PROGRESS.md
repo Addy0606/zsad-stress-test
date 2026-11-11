@@ -337,5 +337,24 @@ RADIO 0.216 s, 1.9 GB · B1 0.147 s, 1.7 GB · B2 0.107 s (+ per-category refere
   percentile of normal MPDD images while every detector puts it at or above the 95th.
 
 ### Phase 7 acceptance
-- Public Spaces link that processes a new photo in under 30 s: **yes on benchmark images (9.5–18.5 s)**; a photo
-  from outside the datasets still to be tried by Addy.
+- Public Spaces link that processes a new photo in under 30 s: **yes**. Benchmark images 9.5–18.5 s wall clock;
+  a fresh phone photo (below) also completed, model time 1.3 s.
+
+### Fresh photo: Addy's mug (chipped rim, brown stain on the side; handheld, cluttered kitchen background)
+- Every method scores it as anomalous relative to normal MPDD images: AnomalyCLIP 98th percentile, every other
+  method (and the fused map) 100th. Caveat: the reference is metal parts, so an undamaged mug might score high too;
+  not tested.
+- Maps (judged by eye, no mask): AnomalyVFM RADIO puts its hottest spot on the chip and its other strong patch on
+  the stain, background mostly cool. DINOv2 and the fused map mark chip and stain but also the background.
+  VisualAD marks the stain most strongly, the chip only weakly. AnomalyCLIP marks blobs all over the mug body. B1
+  marks nothing useful (consistent with its 8–17 AUPRO).
+- The stain counts as a defect from a quality-control standpoint, matching MVTec AD's contamination/oil/color
+  classes, where RADIO's image AUROC is 0.93–1.00 (analysis/results/defect_type_auroc.csv).
+- Lesson: a cluttered background lights up the DINOv2, AnomalyCLIP and fused maps (the training images have clean
+  backgrounds). Added to the app as a tip.
+
+### After the first feedback
+- The gallery cropped portrait photos to square thumbnails: now shows whole images.
+- Added "How your photo is processed" to the app, with input sizes read from the loaded models. No method crops:
+  each one squashes the whole photo to its own square input (AnomalyCLIP 518, VisualAD 518, AnomalyVFM DINOv2 672,
+  RADIO 768, B1 336), after shrinking photos above 1024 px (shape kept). Checked in each repo's transform code.

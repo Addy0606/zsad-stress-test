@@ -210,6 +210,24 @@ file: their code and weights are downloaded from the authors when the app starts
 Reference scores come from MPDD (Jezek et al.), BMAD Brain MRI (Bao et al., BraTS 2021) and Head CT (Kitamura).
 """
 
+
+def processing_note() -> str:
+    """How the photo is resized, with each method's input size read from the loaded models."""
+    names = {**DETECTORS, B1: "B1 CLIP prompt"}
+    sizes = "; ".join(f"{names[n].split(' (')[0]}: {m.image_size}x{m.image_size}" for n, m in MODELS.items())
+    return f"""
+**How your photo is processed: nothing is cropped.**
+1. If its longest side is over {MAX_SIDE} px, the photo is shrunk to {MAX_SIDE} px, keeping its shape.
+2. Each method stretches the *whole* photo to its own square input ({sizes}). A tall or wide photo is
+   squashed, not cut, so every part of it is analysed.
+3. Each map is stretched back to the photo's shape for display. For the fused map and the colours, the maps are
+   compared at {EVAL_SIZE}x{EVAL_SIZE}, as in the benchmark.
+
+Tip: a roughly square photo with the object filling most of it squashes least, and a plain background avoids false
+alarms (the detectors only know "unusual compared with their training images", and those have clean backgrounds).
+"""
+
+
 with gr.Blocks(title="Zero-shot anomaly detection stress test") as demo:
     gr.Markdown(INTRO)
     with gr.Row():
@@ -220,9 +238,11 @@ with gr.Blocks(title="Zero-shot anomaly detection stress test") as demo:
             run_b1 = gr.Checkbox(value=False, label="Also run baseline B1 (plain CLIP prompt, adds a few seconds)")
             button = gr.Button("Analyse", variant="primary")
         with gr.Column(scale=2):
-            gallery = gr.Gallery(label="Anomaly maps", columns=3, height="auto")
+            gallery = gr.Gallery(label="Anomaly maps", columns=3, height="auto", object_fit="contain")
             scores = gr.Markdown()
     button.click(analyse, [photo, category, domain, run_b1], [gallery, scores])
+    with gr.Accordion("How your photo is processed (nothing is cropped)", open=False):
+        gr.Markdown(processing_note())
     gr.Markdown(CREDITS)
 
 if __name__ == "__main__":
