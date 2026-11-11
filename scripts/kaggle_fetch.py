@@ -49,7 +49,7 @@ def main() -> None:
     for m in sorted(dest.rglob("metrics.json")):
         r = json.loads(m.read_text(encoding="utf-8"))
         mean = {k: round(100 * v, 1) for k, v in r["mean"].items()}
-        print(f"{m.parent.relative_to(dest)}: {mean}  complete={r['complete']}")
+        print(f"{m.parent.relative_to(dest)}: {mean}  complete={r.get('complete', '-')}")
 
 
 if __name__ == "__main__":

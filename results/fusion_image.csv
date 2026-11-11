@@ -1,0 +1,31 @@
+test,train,head,chosen,image_auroc,ci_low,ci_high,diff_vs_best_single,diff_ci_low,diff_ci_high,miss_at_5pct_fpr,miss_ci_low,miss_ci_high
+mvtec,visa+bmad_brain,best_single,anomalyvfm_radio,0.96442,0.95378,0.97503,0.0,0.0,0.0,0.10493,0.08903,0.12003
+mvtec,visa+bmad_brain,mean_own,None,0.95414,0.94405,0.96379,-0.01028,-0.01832,-0.00154,0.13593,0.11842,0.15342
+mvtec,visa+bmad_brain,mean_all,None,0.94798,0.93675,0.95876,-0.01644,-0.02467,-0.00885,0.15421,0.13593,0.17329
+mvtec,visa+bmad_brain,logreg,0.01,0.94517,0.93392,0.95647,-0.01925,-0.0278,-0.01147,0.15342,0.13593,0.1717
+mvtec,visa+bmad_brain,gbt,"(2, 50)",0.92199,0.90674,0.93683,-0.04243,-0.05398,-0.03181,0.19793,0.17965,0.21701
+mvtec,visa+bmad_brain,oracle_select,anomalyvfm_radio,0.96442,0.95378,0.97503,0.0,0.0,0.0,0.10493,0.08903,0.12003
+visa,mvtec+bmad_brain,best_single,anomalyvfm_radio,0.92874,0.91729,0.93958,0.0,0.0,0.0,0.20833,0.18667,0.23083
+visa,mvtec+bmad_brain,mean_own,None,0.90229,0.88899,0.91473,-0.02645,-0.03704,-0.01557,0.27833,0.25665,0.30333
+visa,mvtec+bmad_brain,mean_all,None,0.8891,0.87477,0.90191,-0.03965,-0.05104,-0.02851,0.29917,0.27667,0.3225
+visa,mvtec+bmad_brain,logreg,1.0,0.88914,0.87453,0.90224,-0.0396,-0.05048,-0.0288,0.29583,0.27333,0.32
+visa,mvtec+bmad_brain,gbt,"(2, 50)",0.87126,0.85665,0.8845,-0.05748,-0.06913,-0.04613,0.32583,0.30333,0.35002
+visa,mvtec+bmad_brain,oracle_select,anomalyvfm_radio,0.92874,0.91729,0.93958,0.0,0.0,0.0,0.20833,0.18667,0.23083
+bmad_brain,mvtec+visa,best_single,anomalyvfm_radio,0.87253,0.85725,0.8871,0.0,0.0,0.0,0.55967,0.54146,0.57756
+bmad_brain,mvtec+visa,mean_own,None,0.81402,0.7944,0.83437,-0.05851,-0.07303,-0.04357,0.78016,0.7652,0.79447
+bmad_brain,mvtec+visa,mean_all,None,0.87488,0.86062,0.88942,0.00235,-0.00794,0.01257,0.50374,0.48649,0.52098
+bmad_brain,mvtec+visa,logreg,10.0,0.87588,0.8619,0.88981,0.00335,-0.00649,0.01337,0.47935,0.46178,0.49691
+bmad_brain,mvtec+visa,gbt,"(3, 50)",0.8222,0.80509,0.83767,-0.05032,-0.06087,-0.0397,0.59187,0.57366,0.60814
+bmad_brain,mvtec+visa,oracle_select,anomalyvfm_radio,0.87253,0.85725,0.8871,0.0,0.0,0.0,0.55967,0.54146,0.57756
+mpdd,mvtec+visa+bmad_brain,best_single,anomalyvfm_radio,0.85728,0.8253,0.88626,0.0,0.0,0.0,0.41489,0.3758,0.45399
+mpdd,mvtec+visa+bmad_brain,mean_own,None,0.85886,0.82544,0.89038,0.00157,-0.03695,0.04086,0.37234,0.32979,0.41489
+mpdd,mvtec+visa+bmad_brain,mean_all,None,0.82301,0.7839,0.85822,-0.03427,-0.07394,0.00374,0.41844,0.37234,0.46463
+mpdd,mvtec+visa+bmad_brain,logreg,10.0,0.83,0.79233,0.86425,-0.02728,-0.06501,0.00877,0.44681,0.39716,0.49291
+mpdd,mvtec+visa+bmad_brain,gbt,"(2, 50)",0.82049,0.78198,0.85985,-0.03679,-0.07581,0.0037,0.43262,0.38644,0.47872
+mpdd,mvtec+visa+bmad_brain,oracle_select,anomalyvfm_radio,0.85728,0.8253,0.88626,0.0,0.0,0.0,0.41489,0.3758,0.45399
+headct,mvtec+visa+bmad_brain,best_single,anomalyvfm_radio,0.9405,0.9043,0.97071,0.0,0.0,0.0,0.28,0.2,0.37
+headct,mvtec+visa+bmad_brain,mean_own,None,0.9617,0.93458,0.9843,0.0212,-0.0014,0.0483,0.13,0.07,0.2
+headct,mvtec+visa+bmad_brain,mean_all,None,0.9672,0.9403,0.9892,0.0267,0.00405,0.0547,0.09,0.04,0.15
+headct,mvtec+visa+bmad_brain,logreg,10.0,0.9689,0.94228,0.9907,0.0284,0.0054,0.05666,0.09,0.04,0.15
+headct,mvtec+visa+bmad_brain,gbt,"(2, 50)",0.9658,0.9417,0.98571,0.0253,0.00525,0.04976,0.14,0.08,0.21
+headct,mvtec+visa+bmad_brain,oracle_select,anomalyvfm_radio,0.9405,0.9043,0.97071,0.0,0.0,0.0,0.28,0.2,0.37
