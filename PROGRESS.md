@@ -342,8 +342,13 @@ RADIO 0.216 s, 1.9 GB · B1 0.147 s, 1.7 GB · B2 0.107 s (+ per-category refere
 
 ### Fresh photo: Addy's mug (chipped rim, brown stain on the side; handheld, cluttered kitchen background)
 - Every method scores it as anomalous relative to normal MPDD images: AnomalyCLIP 98th percentile, every other
-  method (and the fused map) 100th. Caveat: the reference is metal parts, so an undamaged mug might score high too;
-  not tested.
+  method (and the fused map) 100th.
+- Control: an intact mug (a different one, white with a painted ghost face), same kitchen, held the same way.
+  Percentiles: AnomalyCLIP 0, VisualAD 56, DINOv2 2, RADIO 81, fused 0, B1 38: none at the ~95 flag line.
+  So the chipped mug's high scores come from the damage, not from "handheld mug in a kitchen".
+  The maps still mark the painted eyes and mouth (AnomalyCLIP, VisualAD, RADIO): a zero-shot method cannot tell an
+  intended design from a mark. RADIO's map shows a warm frame along the image border (edge effect).
+  Two photos are an illustration, not a measurement.
 - Maps (judged by eye, no mask): AnomalyVFM RADIO puts its hottest spot on the chip and its other strong patch on
   the stain, background mostly cool. DINOv2 and the fused map mark chip and stain but also the background.
   VisualAD marks the stain most strongly, the chip only weakly. AnomalyCLIP marks blobs all over the mug body. B1
