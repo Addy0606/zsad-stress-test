@@ -8,7 +8,7 @@
 2. **Domain shift.** How much does performance drop from the standard industrial benchmarks
    (MVTec AD, VisA) to (a) harder industrial images (MPDD) and (b) medical images
    (brain MRI, head CT)?
-   *Changed from the spec, which used self-collected photos for (a). See PROGRESS.md, deviation D1.*
+   *Changed from the spec, which used self-collected photos for (a). Decided 2026-11-09: no custom photo set; MPDD takes its place.*
 3. **Complementarity and fusion.** Do the families fail on different images? If so, does a small
    fusion head trained on their outputs beat the best single method on held-out datasets?
 4. **Score–map consistency.** How often does a method flag the right image for the wrong reason,
