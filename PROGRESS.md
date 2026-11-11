@@ -299,3 +299,72 @@ RADIO 0.216 s, 1.9 GB · B1 0.147 s, 1.7 GB · B2 0.107 s (+ per-category refere
 ### Phase 6 acceptance
 - Fusion evaluated on held-out datasets only, against the best single method and the oracle: **yes**.
 - Split leakage test: **yes** (79 tests pass, ruff clean).
+
+## Phase 7: Demo app (2026-11-11)
+
+### Done
+- **Live demo: https://huggingface.co/spaces/addy0606/zsad** (Gradio 5.50, ZeroGPU, public).
+- `app/app.py`: upload a photo, pick industrial/medical; shows the fused map and all four detectors' maps over
+  the photo, coloured on one common scale (each map through the Phase 6 training-data normaliser), plus each
+  method's raw image score, its percentile among normal reference images, and the time it took.
+  Optional B1 baseline, the only method that reads the category name (the four detectors ignore it by design).
+- `fusion/export_normalizer.py` (Kaggle CPU job `zsad-p7-normalizer`): re-creates the normaliser Phase 6 used for
+  MPDD/Head CT (fitted on MVTec AD + VisA + BMAD Brain) and checks it: re-fused scores of 40 MPDD images differ
+  from the stored Phase 6 scores by 0.0. Saved as `app/fusion_normalizer.npz` (32 KB).
+- `app/build_reference.py`: normal-image reference scores (`app/score_reference.json`): MPDD normals for industrial,
+  Brain MRI + Head CT normals for medical; same checkpoints as the demo.
+- `scripts/deploy_space.py`: builds the Space from repo files only and uploads it. Third-party code and weights are
+  downloaded from the authors at startup (Phase 0 licence decision).
+
+### Checks
+- Same screw image (MVTec, scratch_head/003) locally and on the Space: AnomalyCLIP 0.986 / 0.9856,
+  VisualAD 0.637 / 0.6370, AnomalyVFM DINOv2 0.500 / 0.5000, RADIO 0.554 / 0.5532, B1 0.899 / 0.8992.
+- Time per photo through the public API (from this laptop, Space awake): 18.5, 12.2, 13.6 and 9.5 s wall clock;
+  model compute 0.6–1.3 s, the rest is ZeroGPU attaching a GPU and image transfer. Under the 30 s target.
+- On CPU (2 threads, local) the four detectors took ~45 s together, so CPU hosting would have missed the target.
+
+### Deviations and notes
+- Hosting is ZeroGPU, not CPU: Hugging Face refuses Gradio Spaces on the free CPU tier without PRO; a ZeroGPU Space
+  created on the website is free (Addy's account).
+- Gradio pinned to 5.50: Gradio 6 needs huggingface_hub >= 1.16, which breaks AnomalyVFM's loader (needs 0.36.2).
+- A clean environment exposed seven packages the third-party repos import without declaring
+  (setuptools for pkg_resources, thop, tabulate, scikit-learn, scikit-image, opencv, matplotlib/seaborn); pinned in
+  `app/requirements.txt`.
+- Locally on Windows with the CPU-only PyTorch build, AnomalyVFM DINOv2 crashed while loading its weights (access
+  violation; ~4.8 GB RAM free). It loads fine on the Space (Linux). Not investigated further.
+- Cold start: after 48 h without visitors the Space sleeps; the first visitor then waits ~2–4 min for it to start.
+- The fused map's top-1% image score is shown but labelled as weak (Phase 6); the screw example sits at the 38th
+  percentile of normal MPDD images while every detector puts it at or above the 95th.
+
+### Phase 7 acceptance
+- Public Spaces link that processes a new photo in under 30 s: **yes**. Benchmark images 9.5–18.5 s wall clock;
+  a fresh phone photo (below) also completed, model time 1.3 s.
+
+### Fresh photo: Addy's mug (chipped rim, brown stain on the side; handheld, cluttered kitchen background)
+- Every method scores it as anomalous relative to normal MPDD images: AnomalyCLIP 98th percentile, every other
+  method (and the fused map) 100th.
+- Control: an intact mug (a different one, white with a painted ghost face), same kitchen, held the same way.
+  Percentiles: AnomalyCLIP 0, VisualAD 56, DINOv2 2, RADIO 81, fused 0, B1 38: none at the ~95 flag line.
+  So the chipped mug's high scores come from the damage, not from "handheld mug in a kitchen".
+  The maps still mark the painted eyes and mouth (AnomalyCLIP, VisualAD, RADIO): a zero-shot method cannot tell an
+  intended design from a mark. RADIO's map shows a warm frame along the image border (edge effect).
+  Two photos are an illustration, not a measurement.
+- Maps (judged by eye, no mask): AnomalyVFM RADIO puts its hottest spot on the chip and its other strong patch on
+  the stain, background mostly cool. DINOv2 and the fused map mark chip and stain but also the background.
+  VisualAD marks the stain most strongly, the chip only weakly. AnomalyCLIP marks blobs all over the mug body. B1
+  marks nothing useful (consistent with its 8–17 AUPRO).
+- The stain counts as a defect from a quality-control standpoint, matching MVTec AD's contamination/oil/color
+  classes, where RADIO's image AUROC is 0.93–1.00 (analysis/results/defect_type_auroc.csv).
+- Lesson: a cluttered background lights up the DINOv2, AnomalyCLIP and fused maps (the training images have clean
+  backgrounds). Added to the app as a tip.
+
+### After the first feedback
+- The gallery cropped portrait photos to square thumbnails: now shows whole images.
+- Added "How your photo is processed" to the app, with input sizes read from the loaded models. No method crops:
+  each one squashes the whole photo to its own square input (AnomalyCLIP 518, VisualAD 518, AnomalyVFM DINOv2 672,
+  RADIO 768, B1 336), after shrinking photos above 1024 px (shape kept). Checked in each repo's transform code.
+- Added a per-method flag threshold and verdict to the score table (Addy's request): the score that at most 5% of
+  the normal reference images exceed (np.quantile, inverted_cdf, as in analysis/image_level.py), so "flagged" means
+  a 5% false-alarm operating point. Industrial thresholds (176 MPDD normals, 4.5% above each): AnomalyCLIP 0.9651,
+  VisualAD 0.6782, DINOv2 0.4839, RADIO 0.5327, fused 0.9828, B1 0.8765. Chipped mug: flagged by all six;
+  intact mug: by none.
