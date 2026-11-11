@@ -319,7 +319,7 @@ RADIO 0.216 s, 1.9 GB · B1 0.147 s, 1.7 GB · B2 0.107 s (+ per-category refere
 ### Checks
 - Same screw image (MVTec, scratch_head/003) locally and on the Space: AnomalyCLIP 0.986 / 0.9856,
   VisualAD 0.637 / 0.6370, AnomalyVFM DINOv2 0.500 / 0.5000, RADIO 0.554 / 0.5532, B1 0.899 / 0.8992.
-- Time per photo through the public API (from India, Space awake): 18.5, 12.2, 13.6 and 9.5 s wall clock;
+- Time per photo through the public API (from this laptop, Space awake): 18.5, 12.2, 13.6 and 9.5 s wall clock;
   model compute 0.6–1.3 s, the rest is ZeroGPU attaching a GPU and image transfer. Under the 30 s target.
 - On CPU (2 threads, local) the four detectors took ~45 s together, so CPU hosting would have missed the target.
 
