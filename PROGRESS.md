@@ -299,3 +299,43 @@ RADIO 0.216 s, 1.9 GB · B1 0.147 s, 1.7 GB · B2 0.107 s (+ per-category refere
 ### Phase 6 acceptance
 - Fusion evaluated on held-out datasets only, against the best single method and the oracle: **yes**.
 - Split leakage test: **yes** (79 tests pass, ruff clean).
+
+## Phase 7: Demo app (2026-11-11)
+
+### Done
+- **Live demo: https://huggingface.co/spaces/addy0606/zsad** (Gradio 5.50, ZeroGPU, public).
+- `app/app.py`: upload a photo, pick industrial/medical; shows the fused map and all four detectors' maps over
+  the photo, coloured on one common scale (each map through the Phase 6 training-data normaliser), plus each
+  method's raw image score, its percentile among normal reference images, and the time it took.
+  Optional B1 baseline, the only method that reads the category name (the four detectors ignore it by design).
+- `fusion/export_normalizer.py` (Kaggle CPU job `zsad-p7-normalizer`): re-creates the normaliser Phase 6 used for
+  MPDD/Head CT (fitted on MVTec AD + VisA + BMAD Brain) and checks it: re-fused scores of 40 MPDD images differ
+  from the stored Phase 6 scores by 0.0. Saved as `app/fusion_normalizer.npz` (32 KB).
+- `app/build_reference.py`: normal-image reference scores (`app/score_reference.json`): MPDD normals for industrial,
+  Brain MRI + Head CT normals for medical; same checkpoints as the demo.
+- `scripts/deploy_space.py`: builds the Space from repo files only and uploads it. Third-party code and weights are
+  downloaded from the authors at startup (Phase 0 licence decision).
+
+### Checks
+- Same screw image (MVTec, scratch_head/003) locally and on the Space: AnomalyCLIP 0.986 / 0.9856,
+  VisualAD 0.637 / 0.6370, AnomalyVFM DINOv2 0.500 / 0.5000, RADIO 0.554 / 0.5532, B1 0.899 / 0.8992.
+- Time per photo through the public API (from India, Space awake): 18.5, 12.2, 13.6 and 9.5 s wall clock;
+  model compute 0.6–1.3 s, the rest is ZeroGPU attaching a GPU and image transfer. Under the 30 s target.
+- On CPU (2 threads, local) the four detectors took ~45 s together, so CPU hosting would have missed the target.
+
+### Deviations and notes
+- Hosting is ZeroGPU, not CPU: Hugging Face refuses Gradio Spaces on the free CPU tier without PRO; a ZeroGPU Space
+  created on the website is free (Addy's account).
+- Gradio pinned to 5.50: Gradio 6 needs huggingface_hub >= 1.16, which breaks AnomalyVFM's loader (needs 0.36.2).
+- A clean environment exposed seven packages the third-party repos import without declaring
+  (setuptools for pkg_resources, thop, tabulate, scikit-learn, scikit-image, opencv, matplotlib/seaborn); pinned in
+  `app/requirements.txt`.
+- Locally on Windows with the CPU-only PyTorch build, AnomalyVFM DINOv2 crashed while loading its weights (access
+  violation; ~4.8 GB RAM free). It loads fine on the Space (Linux). Not investigated further.
+- Cold start: after 48 h without visitors the Space sleeps; the first visitor then waits ~2–4 min for it to start.
+- The fused map's top-1% image score is shown but labelled as weak (Phase 6); the screw example sits at the 38th
+  percentile of normal MPDD images while every detector puts it at or above the 95th.
+
+### Phase 7 acceptance
+- Public Spaces link that processes a new photo in under 30 s: **yes on benchmark images (9.5–18.5 s)**; a photo
+  from outside the datasets still to be tried by Addy.

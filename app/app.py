@@ -149,7 +149,14 @@ def analyse(photo: Image.Image | None, category: str, domain: str, run_b1: bool)
     fused = normalised.mean(1).reshape(EVAL_SIZE, EVAL_SIZE)
     fused_score = topk_mean(fused, 0.01)
     gallery.insert(0, (overlay(shown, fused), "Fused map: mean of the four normalised maps"))
-    rows.append(("Fused map (mean of top 1% of the map)", fused_score, percentile(fused_score, domain, "fused"), 0.0))
+    rows.append(
+        (
+            "Fused map, mean of its top 1% (for locating defects; a weak image score in Phase 6)",
+            fused_score,
+            percentile(fused_score, domain, "fused"),
+            0.0,
+        )
+    )
 
     if run_b1:
         t0 = time.perf_counter()
@@ -169,7 +176,8 @@ def analyse(photo: Image.Image | None, category: str, domain: str, run_b1: bool)
     table += [f"| {m} | {s:.4f} | {p:.0f}% | {t:.1f} |" for m, s, p, t in rows]
     table += [
         "",
-        f"Total: **{total:.1f} s** on {DEVICE.upper()}. Reference: normal test images of "
+        f"Model time: **{total:.1f} s** on {DEVICE.upper()} (the page also waits for a shared GPU and to send the "
+        "images, usually several seconds). Reference: normal test images of "
         f"{' + '.join(ref['datasets'])} (fused map: {' + '.join(ref['fused_datasets'])}), scored in this project's "
         "benchmark with the same checkpoints. Above ~95% means it would be flagged at a 5% false-alarm rate.",
     ]
